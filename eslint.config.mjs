@@ -2,7 +2,6 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import prettier from 'eslint-config-prettier/flat';
-import eslintPluginJsxA11y from 'eslint-plugin-jsx-a11y';
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -18,9 +17,6 @@ const eslintConfig = defineConfig([
   ]),
   {
     files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}'],
-    plugins: {
-      'jsx-a11y': eslintPluginJsxA11y,
-    },
     languageOptions: {
       parserOptions: {
         ecmaFeatures: {
