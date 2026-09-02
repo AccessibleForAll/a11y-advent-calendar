@@ -1,0 +1,5 @@
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.375rem, 1fr));
+  gap: 0.125;
+}
