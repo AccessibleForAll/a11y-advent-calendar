@@ -1,0 +1,50 @@
+$title-color: #294F30;
+$text-color: #000000;
+
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 0.4 rem;
+    width: 100%;
+    max-width: 25 rem; //check if good
+    margin-bottom: 1 rem;
+}
+.full-width{
+    width: 100%;
+}
+
+.label{
+    font-size: 0.875 rem;
+    font-weight: bold;
+    color: $title-color;
+     font-family: var(--font-nunito), sans-serif;
+}
+
+
+.field{
+    width: 100%;
+    border: 1px solid $title-color;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 0.875 rem;
+    font-weight: bold;
+     font-family: var(--font-nunito), sans-serif;
+    color: $text-color;
+    background-color: #FFFFFF;
+    resize: none;
+    &::placeholder{
+        color: $title-color;
+        opacity: 0.5;
+    }
+    &:focus{
+        outline: none;
+        border-color: $title-color;
+    }
+}
+
+@media (max-width: 480px){
+    .wrapper{
+        max-width: 100%;
+    }
+}
