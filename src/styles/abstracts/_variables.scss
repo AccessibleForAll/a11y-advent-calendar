@@ -1,11 +1,11 @@
 $breakpoints: (
-    small: 480px,
-    medium: 768px,
-    large: 1024px,
-    x-large: 1200px
+    sm: 480px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1200px
 );
 
-$spacing-scales: (
+$spacing-scale: (
     xs: 4px,
     sm: 8px,
     md: 16px,
@@ -13,4 +13,3 @@ $spacing-scales: (
     xl: 32px,
     xxl: 48px
 );
-

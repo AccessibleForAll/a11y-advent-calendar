@@ -2,7 +2,7 @@
 @use 'variables' as *;
 @use 'functions' as *;
 
-@mixin respond($breakpoints) {
+@mixin responsive-breakpoints($breakpoints) {
     @media (min-width: map.get($breakpoints, $breakpoints)) {
         @content;
     }
@@ -14,8 +14,8 @@
     align-items: center;
 }
 
-@mixin grid ($columns, $gap:md) {
+@mixin grid ($columns, $grid-gap:md) {
     display: grid;
     grid-template-columns: repeat($columns, 1fr);
-    gap: space($gap);
+    gap: space($grid-gap);
 }
