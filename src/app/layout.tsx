@@ -1,16 +1,5 @@
 import type { Metadata } from 'next';
-import { Fraunces, Nunito } from 'next/font/google';
 import '@/styles/global.scss';
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-fraunces',
-});
-
-const nunito = Nunito({
-  subsets: ['latin'],
-  variable: '--font-nunito',
-});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -22,7 +11,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${nunito.variable}`}>
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

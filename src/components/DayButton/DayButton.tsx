@@ -4,7 +4,7 @@ import styles from './DayButton.module.scss';
 import { Star, Lock } from 'lucide-react';
 
 type DayButtonProps = {
-  day: number;
+  day: string;
   isLocked: boolean;
   onClick: () => void;
 };
@@ -17,11 +17,11 @@ export default function DayButton({ day, isLocked, onClick }: DayButtonProps) {
       onClick={onClick}
       disabled={isLocked}
     >
-      <h3> Day {day}</h3>
+      <h2> Day {day} </h2>
       {isLocked ? (
-        <Lock className={styles.icon} />
+        <Lock className={styles.icon} aria-label='Locked' />
       ) : (
-        <Star className={styles.icon} />
+        <Star className={styles.icon} aria-label='Available' />
       )}
     </button>
   );

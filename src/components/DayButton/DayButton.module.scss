@@ -4,32 +4,21 @@
   border: 2px solid #294f30;
   border-radius: 16px;
   background: #ffffff;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #294f30;
   gap: 0.5rem;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.dayButton:hover:not(:disabled) {
-  transform: translateY(-0.25rem);
-  box-shadow: 0 0.25rem 0.5rem rgba($color: #000000, $alpha: 0.15);
 }
 
 .dayButton:focus-visible {
-  outline: 0.1875rem solid #294f30;
-  outline-offset: 0.1875rem;
+  outline: 3px solid #294f30;
+  outline-offset: 3px;
 }
 
 .dayButton:disabled {
   cursor: not-allowed;
-  opacity: 0.7;
 }
 
 .icon {
