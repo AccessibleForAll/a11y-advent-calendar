@@ -9,16 +9,17 @@
   align-items: center;
   justify-content: center;
   color: #294f30;
+  font-size: 1.25rem;
   gap: 0.5rem;
-}
 
-.dayButton:focus-visible {
-  outline: 3px solid #294f30;
-  outline-offset: 3px;
-}
+  &:focus-visible {
+    outline: 3px solid #294f30;
+    outline-offset: 3px;
+  }
 
-.dayButton:disabled {
-  cursor: not-allowed;
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .icon {
