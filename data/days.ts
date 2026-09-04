@@ -6,7 +6,7 @@ export interface Day {
   linkText: string;
 }
 
-export const days = [
+export const days: Day[] = [
   {
     day: '1',
     title: 'Start with accessibility',
