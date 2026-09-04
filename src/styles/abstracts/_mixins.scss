@@ -2,20 +2,20 @@
 @use 'variables' as *;
 @use 'functions' as *;
 
-@mixin responsive-breakpoints($breakpoints) {
-    @media (min-width: map.get($breakpoints, $breakpoints)) {
-        @content;
-    }
+@mixin responsive-breakpoints($size) {
+  @media (min-width: map.get($breakpoints, $size)) {
+    @content;
+  }
 }
 
 @mixin flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@mixin grid ($columns, $grid-gap:md) {
-    display: grid;
-    grid-template-columns: repeat($columns, 1fr);
-    gap: space($grid-gap);
+@mixin grid($columns, $grid-gap: md) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: space($grid-gap);
 }

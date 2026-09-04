@@ -1,16 +1,19 @@
-$colors: (
-primary: #294f30
-secondary: #eef7f2
-inactive-text: #417c4f
-off-white: #f8fffc
-white: #ffffff
-black: #000000
-bg-dark: #012514
+$text-colors: (
+  primary: #294f30,
+  inactive: #417c4f,
+);
 
-$borders: (
-    light-border: #294f30
-    light-inactive-border: #417c4f
-    active-border: #f2c451
-    inactive-border: #ae8111
-)
+$bg-colors: (
+  primary: #eef7f2,
+  off-white: #f8fffc,
+  white: #ffffff,
+  black: #000000,
+  dark: #012514,
+);
+
+$border-colors: (
+  primary: #294f30,
+  inactive: #417c4f,
+  active: #f2c451,
+  inactive-dark: #ae8111,
 );

@@ -1,15 +1,21 @@
 $breakpoints: (
-    sm: 480px,
-    md: 768px,
-    lg: 1024px,
-    xl: 1200px
+  md: 768px,
+  lg: 1024px,
 );
 
 $spacing-scale: (
-    xs: 4px,
-    sm: 8px,
-    md: 16px,
-    lg: 24px,
-    xl: 32px,
-    xxl: 48px
+  xs: 4px,
+  sm: 8px,
+  md: 16px,
+  lg: 24px,
+  xl: 32px,
+  xxl: 48px,
+);
+
+$font-sizes: (
+  sm: 0.8rem,
+  md: 1rem,
+  lg: 1.2rem,
+  xl: 1.5rem,
+  xxl: 2rem,
 );

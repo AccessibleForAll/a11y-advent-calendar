@@ -1,6 +1,10 @@
-@use "sass:map";
-@use "variables" as *;
+@use 'sass:map';
+@use 'variables' as *;
 
 @function space($size) {
   @return map.get($spacing-scale, $size);
+}
+
+@function type-size($size) {
+  @return map.get($font-sizes, $size);
 }

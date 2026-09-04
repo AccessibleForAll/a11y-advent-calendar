@@ -1,20 +1,21 @@
 :root {
-    --ff-heading: var(--font-fraunces);
-    --ff-body: var(--font-nunito);
+  --ff-heading: var(--font-fraunces);
+  --ff-body: var(--font-nunito);
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--ff-heading);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--ff-heading);
 }
 
-p, li, a, span {
-    font-family: var(--ff-body);
+p,
+li,
+a,
+span,
+label {
+  font-family: var(--ff-body);
 }
-
-$font-sizes: (
-    sm: 0.8rem,
-    md: 1rem,
-    lg: 1.2rem,
-    xl: 1.5rem,
-    xxl: 2rem
-);
