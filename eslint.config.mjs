@@ -1,4 +1,5 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import prettier from 'eslint-config-prettier/flat';
@@ -25,10 +26,8 @@ const eslintConfig = defineConfig([
       },
     },
     rules: {
-      // ... any rules you want
-      'jsx-a11y/alt-text': 'error',
+      ...jsxA11y.flatConfigs.recommended.rules,
     },
-    // ... others are omitted for brevity
   },
   prettier,
 ]);
