@@ -19,9 +19,9 @@ export default function DayButton({ day, isLocked, onClick }: DayButtonProps) {
     >
       <h2> Day {day} </h2>
       {isLocked ? (
-        <Lock className={styles.icon} />
+        <Lock className={styles.icon} aria-label="Locked" />
       ) : (
-        <Star className={styles.icon} />
+        <Star className={styles.icon} aria-label="Unlocked" />
       )}
     </button>
   );
