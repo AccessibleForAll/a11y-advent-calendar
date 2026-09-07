@@ -1,48 +1,52 @@
-$title-color: #294f30;
-$text-color: #000000;
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+@use '../../styles/abstracts/mixins' as *;
+@use '../../styles/abstracts/variables' as *;
+
+
+$label-color: map.get($text-colors, 'primary');
+$border-color: map.get($border-colors, 'primary');
+$field-bg-color: map.get($bg-colors, 'white');
+$field-text-color: map.get($bg-colors, 'black'); //maybe add a black color in text-colors map and use that instead
 
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.4 rem;
+  gap: space(xs);
   width: 100%;
-  max-width: 25 rem; //check if good
-  margin-bottom: 1 rem;
+  max-width: 100%;
+  margin-bottom: space(md);
+  max-width: 400px;
 }
 .full-width {
   width: 100%;
 }
 
 .label {
-  font-size: 0.875 rem;
+  font-size: type-size(sm);
   font-weight: bold;
-  color: $title-color;
-  font-family: var(--font-nunito), sans-serif;
+  color: $label-color;
+  font-family: var(--ff-body);
 }
 
 .field {
   width: 100%;
-  border: 1px solid $title-color;
+  border: 1px solid $border-color;
   border-radius: 4px;
-  padding: 10px 12px;
-  font-size: 0.875 rem;
+  padding: space(sm) space(md);
+  font-size: type-size(sm);
   font-weight: bold;
-  font-family: var(--font-nunito), sans-serif;
-  color: $text-color;
-  background-color: #ffffff;
-  resize: none;
+  font-family: var(--ff-body);
+  color: $field-text-color;
+  background-color: $field-bg-color;
+  resize: none; //no dragging of text area
   &::placeholder {
-    color: $title-color;
-    opacity: 0.5;
+    color: $border-color;
+    opacity: 0.8;
   }
   &:focus {
     outline: none;
-    border-color: $title-color;
-  }
-}
-
-@media (max-width: 480px) {
-  .wrapper {
-    max-width: 100%;
+    border-color: $border-color;
   }
 }
