@@ -1,0 +1,27 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  padding: space(xl);
+  background: map.get($text-colors, primary);
+  color: map.get($text-colors, primary);
+}
+
+.logo {
+  text-decoration: none;
+  margin-top: space(xs);
+}
+
+.themeButton {
+  border: 2px solid map.get($border-colors, primary);
+  border-radius: 8px;
+  background: map.get($bg-colors, white);
+  color: map.get($text-colors, primary);
+  padding: space(sm) space(md);
+  cursor: pointer;
+}
