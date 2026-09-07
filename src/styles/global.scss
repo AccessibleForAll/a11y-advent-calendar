@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @use './layout/header';
 @use './base/typography';
 @use './base/reset';
@@ -6,25 +5,3 @@
 @use './abstracts/colors';
 @use './abstracts/functions';
 @use './abstracts/mixins';
-=======
-:root {
-  --font-heading: var(--font-fraunces);
-  --font-body: var(--font-nunito);
-}
-
-button,
-input,
-textarea,
-select {
-  font-family: var(--font-body);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
-}
->>>>>>> bf2ff40d5908df5e55719a96b87c716e38d230a7
