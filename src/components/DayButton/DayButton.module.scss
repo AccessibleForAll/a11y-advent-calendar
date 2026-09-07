@@ -1,7 +1,7 @@
 @use 'sass:map';
-@use './styles/abstracts/variables' as *;
-@use './styles/abstracts/colors' as *;
-@use './styles/abstracts/functions' as *;
+@use '../../styles/abstracts/variables' as *;
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
 
 .dayButton {
   width: 9.375rem;
@@ -16,10 +16,6 @@
   color: map.get($text-colors, primary);
   font-size: type-size(lg);
   gap: space(sm);
-
-  h2 {
-    font-size: inherit;
-  }
 
   &:focus-visible {
     outline: 3px solid map.get($border-colors, primary);
