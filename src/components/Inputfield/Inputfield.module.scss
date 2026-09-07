@@ -4,11 +4,13 @@
 @use '../../styles/abstracts/mixins' as *;
 @use '../../styles/abstracts/variables' as *;
 
-
 $label-color: map.get($text-colors, 'primary');
 $border-color: map.get($border-colors, 'primary');
 $field-bg-color: map.get($bg-colors, 'white');
-$field-text-color: map.get($bg-colors, 'black'); //maybe add a black color in text-colors map and use that instead
+$field-text-color: map.get(
+  $bg-colors,
+  'black'
+); //maybe add a black color in text-colors map and use that instead
 
 .wrapper {
   display: flex;
@@ -27,7 +29,6 @@ $field-text-color: map.get($bg-colors, 'black'); //maybe add a black color in te
   font-size: type-size(sm);
   font-weight: bold;
   color: $label-color;
-  font-family: var(--ff-body);
 }
 
 .field {
@@ -37,7 +38,6 @@ $field-text-color: map.get($bg-colors, 'black'); //maybe add a black color in te
   padding: space(sm) space(md);
   font-size: type-size(sm);
   font-weight: bold;
-  font-family: var(--ff-body);
   color: $field-text-color;
   background-color: $field-bg-color;
   resize: none; //no dragging of text area

@@ -16,7 +16,6 @@ type InputFieldProps = {
   fullWidth?: boolean;
 };
 
-
 export default function InputField({
   label,
   value,
@@ -29,12 +28,12 @@ export default function InputField({
 }: InputFieldProps) {
   return (
     <div className={`${styles.wrapper} ${fullWidth ? styles.fullWidth : ''}`}>
-        {/* label text shown above field */}
+      {/* label text shown above field */}
       <label className={styles.label} htmlFor={name}>
         {label}
       </label>
 
-        {/* switch between multiline and singleline input based on type prop.. */}
+      {/* switch between multiline and singleline input based on type prop.. */}
       {type === 'textarea' ? (
         <textarea
           id={name}
