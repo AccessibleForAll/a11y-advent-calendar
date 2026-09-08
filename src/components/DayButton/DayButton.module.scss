@@ -24,10 +24,13 @@
 
   &:disabled {
     cursor: not-allowed;
+    background: map.get($bg-colors, off-white);
+    color: map.get($text-colors, inactive);
+    border: 2px solid map.get($border-colors, inactive);
   }
 }
 
 .icon {
-  width: $icon-size;
-  height: $icon-size;
+  width: type-size(lg);
+  height: type-size(lg);
 }
