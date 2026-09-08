@@ -48,7 +48,7 @@ $field-text-color: map.get(
     opacity: 0.8;
   }
   &:focus {
-    outline: 2px solid $focus-color; 
+    outline: 2px solid $focus-color;
     outline-offset: 2px;
     border-color: $border-color;
   }
