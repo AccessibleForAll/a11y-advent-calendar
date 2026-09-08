@@ -15,37 +15,44 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
 .filled {
   border: none;
 }
+
 .outlined {
   border-width: 1px;
   border-style: solid;
 }
+
 .bg-primary {
   background-color: map.get($bg-colors, primary);
 }
+
 .bg-secondary {
   background-color: map.get($bg-colors, secondary);
 }
+
 .bg-off-white {
   background-color: map.get($bg-colors, off-white);
 }
+
 .text-primary {
   color: map.get($text-colors, primary);
 }
+
 .text-white {
   color: map.get($text-colors, white);
 }
+
 .text-black {
   color: map.get($text-colors, black);
 }
+
 .border-primary {
   border-color: map.get($border-colors, primary);
 }
-.border-inactive {
-  border-color: map.get($border-colors, inactive);
-}
+
 .border-black {
   border-color: map.get($border-colors, black);
 }
@@ -53,6 +60,7 @@
 .font-bold {
   font-weight: bold;
 }
+
 .sharper {
   border-radius: 4px;
 }
@@ -60,4 +68,5 @@
 .icon {
   display: flex;
   align-items: center;
+  color: map.get($text-colors, black);
 }
