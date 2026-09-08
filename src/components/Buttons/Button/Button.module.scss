@@ -1,0 +1,42 @@
+.button {
+    display: inline-flex;
+    font-size: type-size(sm);
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.filled {
+    border: none;
+    background-color: $bg-colors-primary;
+    color: $text-colors-primary;
+}
+.outlined {
+    background-color: $bg-colors-primary;
+    border: 1px solid $border-colors-black;
+}
+.primary {
+    background-color: $bg-colors-primary;
+    color: $text-colors-primary;
+}
+.brand{
+    background-color: $bg-colors-secondary;
+    color: $text-colors-white;
+    font-weight: bold;
+}
+.danger{
+    background-color: $bg-colors-danger;
+    color: $text-colors-primary;
+}
+.neutral{
+    color: $text-colors-primary;
+}
+.sharper {
+    border-radius: 4px;
+}
+.icon {
+    display: flex;
+    align-items: center;
+}
