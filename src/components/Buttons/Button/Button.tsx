@@ -1,31 +1,55 @@
 import style from './Button.module.scss';
-import { type LucideIcon } from 'lucide-react';
+import { Trash2Icon, type LucideIcon } from 'lucide-react';
 import { type ReactNode, type ButtonHTMLAttributes } from 'react';
 
-type ButtonStyle = 'filled' | 'outlined';
-type ButtonTone = 'primary' | 'brand' | 'danger' | 'neutral';
-type ButtonShape = 'default' | 'sharper';
+type ButtonTone = 'primary' | 'brand' | 'danger' | 'neutral' | 'signIn';
 
-type ButtonProps = {
-  buttonStyle: ButtonStyle;
+export type ButtonProps = {
   tone: ButtonTone;
-  shape?: ButtonShape;
   icon?: LucideIcon;
   children: ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
+const toneClasses: Record<ButtonTone, string[]> = {
+  primary: [
+    style.filled,
+    style['bg-secondary'],
+    style['text-white'],
+    style['font-bold'],
+  ],
+  brand: [style.filled, style['bg-primary'], style['text-primary']],
+  danger: [
+    style.outlined,
+    style['bg-primary'],
+    style['text-primary'],
+    style['border-black'],
+  ],
+  neutral: [
+    style.outlined,
+    style['bg-primary'],
+    style['text-primary'],
+    style['border-inactive'],
+  ],
+  signIn: [
+    style.outlined,
+    style['bg-off-white'],
+    style['border-primary'],
+    style['text-black'],
+    style['font-bold'],
+    style.sharper,
+  ],
+};
+
 export default function Button({
-  buttonStyle,
   tone,
-  shape = 'default',
   icon: Icon,
   children,
   ...rest
 }: ButtonProps) {
-  const className = `${style.button} ${style[buttonStyle]} ${style[tone]} ${shape !== 'default' ? style[shape] : ''}`;
+  const className = [style.button, ...toneClasses[tone]].join(' ');
   return (
     <button className={className} {...rest}>
-      {Icon && <Icon size={16} aria-hidden="true" />}
+      {Icon && <Icon size={'1rem'} aria-hidden="true" />}
       {children}
     </button>
   );

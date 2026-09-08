@@ -1,42 +1,63 @@
+@use 'sass:map';
+@use '../../../styles/abstracts/colors' as *;
+@use '../../../styles/abstracts/functions' as *;
+@use '../../../styles/abstracts/mixins' as *;
+@use '../../../styles/abstracts/variables' as *;
+
 .button {
-    display: inline-flex;
-    font-size: type-size(sm);
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
+  display: inline-flex;
+  vertical-align: middle;
+  font-size: type-size(md);
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 .filled {
-    border: none;
-    background-color: $bg-colors-primary;
-    color: $text-colors-primary;
+  border: none;
 }
 .outlined {
-    background-color: $bg-colors-primary;
-    border: 1px solid $border-colors-black;
+  border-width: 1px;
+  border-style: solid;
 }
-.primary {
-    background-color: $bg-colors-primary;
-    color: $text-colors-primary;
+.bg-primary {
+  background-color: map.get($bg-colors, primary);
 }
-.brand{
-    background-color: $bg-colors-secondary;
-    color: $text-colors-white;
-    font-weight: bold;
+.bg-secondary {
+  background-color: map.get($bg-colors, secondary);
 }
-.danger{
-    background-color: $bg-colors-danger;
-    color: $text-colors-primary;
+.bg-off-white {
+  background-color: map.get($bg-colors, off-white);
 }
-.neutral{
-    color: $text-colors-primary;
+.text-primary {
+  color: map.get($text-colors, primary);
+}
+.text-white {
+  color: map.get($text-colors, white);
+}
+.text-black {
+  color: map.get($text-colors, black);
+}
+.border-primary {
+  border-color: map.get($border-colors, primary);
+}
+.border-inactive {
+  border-color: map.get($border-colors, inactive);
+}
+.border-black {
+  border-color: map.get($border-colors, black);
+}
+
+.font-bold {
+  font-weight: bold;
 }
 .sharper {
-    border-radius: 4px;
+  border-radius: 4px;
 }
+
 .icon {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
