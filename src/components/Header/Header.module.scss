@@ -6,8 +6,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
-  padding: space(xl);
+  min-height: 4.25rem;
+  padding: space(sm) space(xl);
   background: map.get($bg-colors, secondary);
   color: map.get($text-colors, primary);
 }
