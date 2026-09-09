@@ -1,28 +1,21 @@
 @use 'sass:map';
 @use '../../../styles/abstracts/colors' as *;
-@use '../../../styles/abstracts/functions' as *;
-@use '../../../styles/abstracts/mixins' as *;
 @use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/functions' as *;
 
 .button {
   display: inline-flex;
   vertical-align: middle;
   font-size: type-size(md);
+  font-family: var(--ff-body);
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.filled {
-  border: none;
-}
-
-.outlined {
+  gap: map.get($spacing-scale, sm);
+  padding: map.get($spacing-scale, sm) map.get($spacing-scale, md);
   border-width: 1px;
   border-style: solid;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .bg-primary {
@@ -33,8 +26,12 @@
   background-color: map.get($bg-colors, secondary);
 }
 
-.bg-off-white {
-  background-color: map.get($bg-colors, off-white);
+.border-primary {
+  border-color: map.get($border-colors, primary);
+}
+
+.border-match-secondary {
+  border-color: map.get($bg-colors, secondary);
 }
 
 .text-primary {
@@ -45,28 +42,11 @@
   color: map.get($text-colors, white);
 }
 
-.text-black {
-  color: map.get($text-colors, black);
-}
-
-.border-primary {
-  border-color: map.get($border-colors, primary);
-}
-
-.border-black {
-  border-color: map.get($border-colors, black);
-}
-
 .font-bold {
   font-weight: bold;
-}
-
-.sharper {
-  border-radius: 4px;
 }
 
 .icon {
   display: flex;
   align-items: center;
-  color: map.get($text-colors, black);
 }
