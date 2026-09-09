@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Header from '@/components/Header/Header';
 import '@/styles/global.scss';
 import { Fraunces, Nunito } from 'next/font/google';
 
@@ -23,6 +24,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${fraunces.variable} ${nunito.variable}`}>
+      <Header />
       <body>{children}</body>
     </html>
   );
