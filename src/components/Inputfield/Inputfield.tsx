@@ -6,12 +6,11 @@ import styles from './Inputfield.module.scss';
 type InputFieldProps = {
   label: string;
   value?: string;
-  placeholder?: string;
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   type?: 'text' | 'textarea'; //Text is single line input and textarea is multi line
-  name?: string;
+  name: string;
   rows?: number; //rows supports textarea height with number of rows.
   fullWidth?: boolean;
 };
@@ -19,7 +18,6 @@ type InputFieldProps = {
 export default function InputField({
   label,
   value,
-  placeholder = '',
   onChange,
   type = 'text',
   name,
@@ -39,7 +37,6 @@ export default function InputField({
           id={name}
           name={name}
           className={styles.field}
-          placeholder={placeholder}
           value={value}
           onChange={onChange}
           rows={rows}
@@ -49,7 +46,6 @@ export default function InputField({
           id={name}
           name={name}
           className={styles.field}
-          placeholder={placeholder}
           value={value}
           onChange={onChange}
           type="text"

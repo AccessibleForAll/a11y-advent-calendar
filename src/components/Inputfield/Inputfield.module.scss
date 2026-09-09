@@ -7,6 +7,7 @@
 $label-color: map.get($text-colors, 'primary');
 $border-color: map.get($border-colors, 'primary');
 $field-bg-color: map.get($bg-colors, 'white');
+$focus-color: map.get($border-colors, 'primary');
 $field-text-color: map.get(
   $bg-colors,
   'black'
@@ -21,12 +22,13 @@ $field-text-color: map.get(
   margin-bottom: space(md);
   max-width: 400px;
 }
+
 .full-width {
   width: 100%;
 }
 
 .label {
-  font-size: type-size(sm);
+  font-size: type-size(md);
   font-weight: bold;
   color: $label-color;
 }
@@ -36,8 +38,8 @@ $field-text-color: map.get(
   border: 1px solid $border-color;
   border-radius: 4px;
   padding: space(sm) space(md);
-  font-size: type-size(sm);
-  font-weight: bold;
+  font-size: type-size(md);
+  font-weight: normal;
   color: $field-text-color;
   background-color: $field-bg-color;
   resize: none; //no dragging of text area
@@ -46,7 +48,8 @@ $field-text-color: map.get(
     opacity: 0.8;
   }
   &:focus {
-    outline: none;
+    outline: 2px solid $focus-color; 
+    outline-offset: 2px;
     border-color: $border-color;
   }
 }
