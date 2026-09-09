@@ -1,4 +1,4 @@
-import style from './Button.module.scss';
+import styles from './Button.module.scss';
 import { type LucideIcon } from 'lucide-react';
 import { type ReactNode, type ButtonHTMLAttributes } from 'react';
 
@@ -12,15 +12,15 @@ export type ButtonProps = {
 
 const variantClasses: Record<ButtonVariant, string[]> = {
   primary: [
-    style['bg-primary'],
-    style['border-primary'],
-    style['text-primary'],
+    styles['bg-primary'],
+    styles['border-primary'],
+    styles['text-primary'],
   ],
   secondary: [
-    style['bg-secondary'],
-    style['border-match-secondary'],
-    style['text-white'],
-    style['font-bold'],
+    styles['bg-secondary'],
+    styles['border-match-secondary'],
+    styles['text-white'],
+    styles['font-bold'],
   ],
 };
 
@@ -28,12 +28,17 @@ export default function Button({
   variant,
   icon: Icon,
   children,
+  className,
   ...rest
 }: ButtonProps) {
-  const className = [style.button, ...variantClasses[variant]].join(' ');
+  const classes = [styles.button, ...variantClasses[variant], className]
+    .filter(Boolean)
+    .join(' ');
   return (
-    <button type="button" className={className} {...rest}>
-      {Icon && <Icon className={style.icon} size={'1rem'} aria-hidden="true" />}
+    <button className={classes} type="button" {...rest}>
+      {Icon && (
+        <Icon className={styles.icon} size={'1rem'} aria-hidden="true" />
+      )}
       {children}
     </button>
   );
