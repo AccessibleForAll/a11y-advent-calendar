@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use '../../styles/abstracts/variables' as *;
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.dayButton {
+  width: 9.375rem;
+  height: 9.375rem;
+  border: 2px solid map.get($border-colors, primary);
+  border-radius: 16px;
+  background: map.get($bg-colors, white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: map.get($text-colors, primary);
+  font-size: type-size(lg);
+  gap: space(sm);
+
+  &:focus-visible {
+    outline: 3px solid map.get($border-colors, primary);
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: map.get($bg-colors, off-white);
+    color: map.get($text-colors, inactive);
+    border: 2px solid map.get($border-colors, inactive);
+  }
+}
+
+.icon {
+  width: type-size(lg);
+  height: type-size(lg);
+}
