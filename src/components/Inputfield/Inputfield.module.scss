@@ -8,10 +8,7 @@ $label-color: map.get($text-colors, 'primary');
 $border-color: map.get($border-colors, 'primary');
 $field-bg-color: map.get($bg-colors, 'white');
 $focus-color: map.get($border-colors, 'primary');
-$field-text-color: map.get(
-  $text-colors,
-  'black'
-);
+$field-text-color: map.get($text-colors, 'black');
 
 .wrapper {
   display: flex;
@@ -42,7 +39,7 @@ $field-text-color: map.get(
   font-weight: normal;
   color: $field-text-color;
   background-color: $field-bg-color;
-  resize: none; 
+  resize: none;
   &:focus {
     outline: 2px solid $focus-color;
     outline-offset: 2px;
