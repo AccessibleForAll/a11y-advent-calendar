@@ -9,9 +9,9 @@ $border-color: map.get($border-colors, 'primary');
 $field-bg-color: map.get($bg-colors, 'white');
 $focus-color: map.get($border-colors, 'primary');
 $field-text-color: map.get(
-  $bg-colors,
+  $text-colors,
   'black'
-); //maybe add a black color in text-colors map and use that instead
+);
 
 .wrapper {
   display: flex;
@@ -42,11 +42,7 @@ $field-text-color: map.get(
   font-weight: normal;
   color: $field-text-color;
   background-color: $field-bg-color;
-  resize: none; //no dragging of text area
-  &::placeholder {
-    color: $border-color;
-    opacity: 0.8;
-  }
+  resize: none; 
   &:focus {
     outline: 2px solid $focus-color;
     outline-offset: 2px;
