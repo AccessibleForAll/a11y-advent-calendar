@@ -3,21 +3,6 @@
 @use '../../../styles/abstracts/variables' as *;
 @use '../../../styles/abstracts/functions' as *;
 
-.button {
-  display: inline-flex;
-  vertical-align: middle;
-  font-size: type-size(md);
-  font-family: var(--ff-body);
-  align-items: center;
-  justify-content: center;
-  gap: map.get($spacing-scale, sm);
-  padding: map.get($spacing-scale, sm) map.get($spacing-scale, md);
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .bg-primary {
   background-color: map.get($bg-colors, primary);
 }
@@ -49,4 +34,33 @@
 .icon {
   display: flex;
   align-items: center;
+}
+
+
+.button {
+  display: inline-flex;
+  vertical-align: middle;
+  font-size: type-size(md);
+  font-family: var(--ff-body);
+  align-items: center;
+  justify-content: center;
+  gap: map.get($spacing-scale, sm);
+  padding: map.get($spacing-scale, sm) map.get($spacing-scale, md);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &.variant-primary {
+@extend .bg-primary;
+@extend .border-primary;
+@extend .text-primary;
+}
+
+&.variant-secondary {
+@extend .bg-secondary;
+@extend .border-match-secondary;
+@extend .text-white;
+@extend .font-bold;
+}
 }

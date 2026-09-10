@@ -10,20 +10,6 @@ export type ButtonProps = {
   children: ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const variantClasses: Record<ButtonVariant, string[]> = {
-  primary: [
-    styles['bg-primary'],
-    styles['border-primary'],
-    styles['text-primary'],
-  ],
-  secondary: [
-    styles['bg-secondary'],
-    styles['border-match-secondary'],
-    styles['text-white'],
-    styles['font-bold'],
-  ],
-};
-
 export default function Button({
   variant,
   icon: Icon,
@@ -31,14 +17,12 @@ export default function Button({
   className,
   ...rest
 }: ButtonProps) {
-  const classes = [styles.button, ...variantClasses[variant], className]
+  const classes = [styles.button, styles[`variant-${variant}`], className]
     .filter(Boolean)
     .join(' ');
   return (
     <button className={classes} type="button" {...rest}>
-      {Icon && (
-        <Icon className={styles.icon} size={'1rem'} aria-hidden="true" />
-      )}
+      {Icon && <Icon className={styles.icon} size={'1em'} aria-hidden="true" />}
       {children}
     </button>
   );
