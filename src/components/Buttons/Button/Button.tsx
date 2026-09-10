@@ -22,7 +22,7 @@ export default function Button({
     .join(' ');
   return (
     <button className={classes} type="button" {...rest}>
-      {Icon && <Icon className={styles.icon} size={'1em'} aria-hidden="true" />}
+      {Icon && <Icon className={styles.icon} aria-hidden="true" />}
       {children}
     </button>
   );
