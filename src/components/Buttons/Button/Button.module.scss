@@ -1,0 +1,68 @@
+@use 'sass:map';
+@use '../../../styles/abstracts/colors' as *;
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/functions' as *;
+
+.bg-primary {
+  background-color: map.get($bg-colors, primary);
+}
+
+.bg-secondary {
+  background-color: map.get($bg-colors, secondary);
+}
+
+.border-primary {
+  border-color: map.get($border-colors, primary);
+}
+
+.border-match-secondary {
+  border-color: map.get($bg-colors, secondary);
+}
+
+.text-primary {
+  color: map.get($text-colors, primary);
+}
+
+.text-white {
+  color: map.get($text-colors, white);
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  width: type-size(md);
+  height: type-size(md);
+}
+
+
+.button {
+  display: inline-flex;
+  vertical-align: middle;
+  font-size: type-size(md);
+  font-family: inherit;
+  align-items: center;
+  justify-content: center;
+  gap: map.get($spacing-scale, sm);
+  padding: map.get($spacing-scale, sm) map.get($spacing-scale, md);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &.variant-primary {
+@extend .bg-primary;
+@extend .border-primary;
+@extend .text-primary;
+}
+
+&.variant-secondary {
+@extend .bg-secondary;
+@extend .border-match-secondary;
+@extend .text-white;
+@extend .font-bold;
+}
+}

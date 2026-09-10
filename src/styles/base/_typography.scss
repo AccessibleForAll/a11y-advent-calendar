@@ -2,6 +2,9 @@
   --ff-heading: var(--font-fraunces);
   --ff-body: var(--font-nunito);
 }
+body {
+    font-family: var(--ff-body);
+}
 
 h1,
 h2,
@@ -18,4 +21,8 @@ a,
 span,
 label {
   font-family: var(--ff-body);
+}
+
+button, input, textarea, select {
+  font: inherit;
 }
