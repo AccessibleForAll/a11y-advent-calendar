@@ -41,7 +41,7 @@
   display: inline-flex;
   vertical-align: middle;
   font-size: type-size(md);
-  font-family: var(--ff-body);
+  font-family: inherit;
   align-items: center;
   justify-content: center;
   gap: map.get($spacing-scale, sm);
