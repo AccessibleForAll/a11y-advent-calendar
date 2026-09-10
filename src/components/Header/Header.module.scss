@@ -17,12 +17,3 @@
   margin-top: space(xs);
   padding-left: space(lg);
 }
-
-.themeButton {
-  border: 2px solid map.get($border-colors, primary);
-  border-radius: 8px;
-  background: map.get($bg-colors, white);
-  color: map.get($text-colors, primary);
-  padding: space(sm) space(md);
-  cursor: pointer;
-}

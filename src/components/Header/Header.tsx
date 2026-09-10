@@ -1,6 +1,7 @@
- import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Header.module.scss';
+import Button from '@/components/Buttons/Button/Button';
 
 export default function Header() {
   return (
@@ -14,9 +15,9 @@ export default function Header() {
         />
       </Link>
 
-      <button type="button" className={styles.themeButton}>
+      <Button variant='primary'>
         Theme
-      </button>
+      </Button>
     </header>
   );
 }
