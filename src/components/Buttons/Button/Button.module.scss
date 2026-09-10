@@ -1,42 +1,52 @@
+@use 'sass:map';
+@use '../../../styles/abstracts/colors' as *;
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/functions' as *;
+
 .button {
-    display: inline-flex;
-    font-size: type-size(sm);
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
+  display: inline-flex;
+  vertical-align: middle;
+  font-size: type-size(md);
+  font-family: var(--ff-body);
+  align-items: center;
+  justify-content: center;
+  gap: map.get($spacing-scale, sm);
+  padding: map.get($spacing-scale, sm) map.get($spacing-scale, md);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  cursor: pointer;
 }
-.filled {
-    border: none;
-    background-color: $bg-colors-primary;
-    color: $text-colors-primary;
+
+.bg-primary {
+  background-color: map.get($bg-colors, primary);
 }
-.outlined {
-    background-color: $bg-colors-primary;
-    border: 1px solid $border-colors-black;
+
+.bg-secondary {
+  background-color: map.get($bg-colors, secondary);
 }
-.primary {
-    background-color: $bg-colors-primary;
-    color: $text-colors-primary;
+
+.border-primary {
+  border-color: map.get($border-colors, primary);
 }
-.brand{
-    background-color: $bg-colors-secondary;
-    color: $text-colors-white;
-    font-weight: bold;
+
+.border-match-secondary {
+  border-color: map.get($bg-colors, secondary);
 }
-.danger{
-    background-color: $bg-colors-danger;
-    color: $text-colors-primary;
+
+.text-primary {
+  color: map.get($text-colors, primary);
 }
-.neutral{
-    color: $text-colors-primary;
+
+.text-white {
+  color: map.get($text-colors, white);
 }
-.sharper {
-    border-radius: 4px;
+
+.font-bold {
+  font-weight: bold;
 }
+
 .icon {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
