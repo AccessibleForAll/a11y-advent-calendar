@@ -1,0 +1,48 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+@use '../../styles/abstracts/mixins' as *;
+@use '../../styles/abstracts/variables' as *;
+
+$label-color: map.get($text-colors, 'primary');
+$border-color: map.get($border-colors, 'primary');
+$field-bg-color: map.get($bg-colors, 'white');
+$focus-color: map.get($border-colors, 'primary');
+$field-text-color: map.get($text-colors, 'black');
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: space(md);
+  max-width: 400px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.label {
+  font-size: type-size(md);
+  font-weight: bold;
+  color: $label-color;
+}
+
+.field {
+  width: 100%;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  padding: space(sm) space(md);
+  font-size: type-size(md);
+  font-weight: normal;
+  color: $field-text-color;
+  background-color: $field-bg-color;
+  resize: none;
+  &:focus {
+    outline: 2px solid $focus-color;
+    outline-offset: 2px;
+    border-color: $border-color;
+  }
+}
