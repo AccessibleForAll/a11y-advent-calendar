@@ -3,7 +3,7 @@
   --ff-body: var(--font-nunito);
 }
 body {
-    font-family: var(--ff-body);
+  font-family: var(--ff-body);
 }
 
 h1,
@@ -23,6 +23,9 @@ label {
   font-family: var(--ff-body);
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font: inherit;
 }
