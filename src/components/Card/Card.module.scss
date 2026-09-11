@@ -1,0 +1,55 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/variables' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: map.get($spacing-scale, sm);
+  background-color: map.get($bg-colors, white);
+  color: map.get($text-colors, primary);
+  font-size: type-size(md);
+  font-family: inherit;
+  padding-block: map.get($spacing-scale, sm);
+  padding-inline: map.get($spacing-scale, md);
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 16px;
+  border-color: map.get($border-colors, primary);
+}
+
+.cardGrid {
+  justify-content: center;
+  list-style: none;
+  padding-block: 0;
+  padding-inline: map.get($spacing-scale, xxl);
+  margin-block-start: map.get($spacing-scale, md);
+  margin-inline: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 35rem), 41rem));
+  gap: map.get($spacing-scale, md);
+}
+
+.manageDaysCard {
+  align-items: flex-start;
+  min-height: 17rem;
+  max-width: 41rem;
+}
+
+.dayLabel {
+  font-weight: bold;
+}
+
+.clampedText {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.manageDaysButton {
+  display: flex;
+  flex-direction: row;
+  gap: map.get($spacing-scale, sm);
+}
