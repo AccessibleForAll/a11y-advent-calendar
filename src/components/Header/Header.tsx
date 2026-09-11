@@ -8,16 +8,14 @@ export default function Header() {
     <header className={styles.header}>
       <Link href="/" className={styles.logo}>
         <Image
-            src="/images/axesslab-logo.png"
-            alt="Axesslab Logo"
-            width={178}
-            height={36}
+          src="/images/axesslab-logo.png"
+          alt="Axesslab Logo"
+          width={178}
+          height={36}
         />
       </Link>
 
-      <Button variant='primary'>
-        Theme
-      </Button>
+      <Button variant="primary">Theme</Button>
     </header>
   );
 }
