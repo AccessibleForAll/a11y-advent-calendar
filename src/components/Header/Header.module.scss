@@ -1,0 +1,19 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4.25rem;
+  padding: space(sm) space(xl);
+  background: map.get($bg-colors, secondary);
+  color: map.get($text-colors, primary);
+}
+
+.logo {
+  text-decoration: none;
+  margin-top: space(xs);
+  padding-left: space(lg);
+}
