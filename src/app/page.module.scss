@@ -4,38 +4,43 @@
 @use '../styles/abstracts/_functions.scss' as *;
 
 $grid-gap: space(xxl);
-$grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});//6 columns with 9,375rem width and 5 gaps
+$grid-max-width: calc(
+  6 * 9.375rem + 5 * #{$grid-gap}
+); //6 columns with 9,375rem width and 5 gaps
 
 .main {
-    background-color: map.get($bg-colors, primary);
-    padding: space(xl);
+  background-color: map.get($bg-colors, primary);
+  padding: space(xl);
 }
 
 .title {
-    color: map.get($text-colors, primary);
-    font-size: type-size(xxxl);
-    margin-bottom: space(xl);
-    max-width: $grid-max-width;
-    margin-inline: auto;
+  color: map.get($text-colors, primary);
+  font-size: type-size(xxxl);
+  margin-bottom: space(xl);
+  max-width: $grid-max-width;
+  margin-inline: auto;
 }
 
 .intro {
-    color: map.get($text-colors, black);
-    font-size: type-size(lg);
-    margin-bottom: space(xxl);
-    max-width: $grid-max-width;
-    margin-inline: auto;
+  color: map.get($text-colors, black);
+  font-size: type-size(lg);
+  margin-bottom: space(xxl);
+  max-width: $grid-max-width;
+  margin-inline: auto;
 
-    p {
-        margin: 0 0 space(sm) 0;
-    }
+  p {
+    margin: 0 0 space(sm) 0;
+  }
 }
 
-.grid{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(9.375rem, calc(50% - #{$grid-gap} / 2)), 1fr)); //fits as many buttons per row as space allows and have at least 2 buttons always. (so max 6 min 2)
-    gap: $grid-gap;
-    max-width: $grid-max-width;
-    margin-inline: auto;
-    margin-bottom: space(xxl);
+.grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(9.375rem, calc(50% - #{$grid-gap} / 2)), 1fr)
+  ); //fits as many buttons per row as space allows and have at least 2 buttons always. (so max 6 min 2)
+  gap: $grid-gap;
+  max-width: $grid-max-width;
+  margin-inline: auto;
+  margin-bottom: space(xxl);
 }

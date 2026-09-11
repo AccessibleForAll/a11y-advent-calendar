@@ -6,9 +6,7 @@ import DayButton from '@/components/DayButton/DayButton';
 const totalDays = 24;
 
 export default function Home() {
-
-    const days = Array.from({ length: totalDays }, (_, i) => i + 1);
-
+  const days = Array.from({ length: totalDays }, (_, i) => i + 1);
 
   return (
     <main className={styles.main}>
@@ -20,16 +18,16 @@ export default function Home() {
         <p>Locked days are still to come.</p>
       </div>
 
-        <div className={styles.grid}>
-          {days.map((day) => (
-            <DayButton
-                key={day}
-                day={day.toString()}
-                isLocked={false}
-                onClick={() => console.log(`Clicked day ${day}`)}
-            />
-          ))}
+      <div className={styles.grid}>
+        {days.map((day) => (
+          <DayButton
+            key={day}
+            day={day.toString()}
+            isLocked={false}
+            onClick={() => console.log(`Clicked day ${day}`)}
+          />
+        ))}
       </div>
     </main>
-    );
+  );
 }
