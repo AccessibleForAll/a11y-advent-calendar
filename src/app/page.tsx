@@ -1,10 +1,19 @@
 import Image from 'next/image';
-import styles from './page.module.css';
+import styles from './page.module.scss';
+
 
 export default function Home() {
+
   return (
-    <>
-      <h1>Accessibility Advent Calendar</h1>
-    </>
+
+    <main className={styles.main}>
+      <h1 className={styles.title}>Accessibility Advent Calendar</h1>
+
+      <div className={styles.intro}>
+        <p>24 bite-sized web accessibility tips, one per door.
+        <br />Click any unlocked door to discover an accessibility tip.
+        <br />Locked days are still to come.</p>
+      </div>
+    </main>
   );
 }
