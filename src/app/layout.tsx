@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/Header/Header';
 import '@/styles/global.scss';
 import { Fraunces, Nunito } from 'next/font/google';
+import Footer from '@/components/Footer/Footer';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
