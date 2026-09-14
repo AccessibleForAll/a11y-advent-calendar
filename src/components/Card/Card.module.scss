@@ -4,7 +4,6 @@
 @use '../../styles/abstracts/functions' as *;
 
 .card {
-  gap: map.get($spacing-scale, sm);
   background-color: map.get($bg-colors, white);
   color: map.get($text-colors, primary);
   font-size: type-size(md);
