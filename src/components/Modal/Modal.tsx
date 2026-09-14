@@ -1,5 +1,12 @@
 'use client';
-import { useEffect, useRef, type ReactNode } from 'react';
+
+import {
+  useEffect,
+  useId,
+  useRef,
+  type ReactNode,
+  type ToggleEvent,
+} from 'react';
 import { X } from 'lucide-react';
 import styles from './Modal.module.scss';
 
@@ -16,57 +23,59 @@ export default function Modal({
   title,
   children,
 }: ModalProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
-    if (!isOpen) {
+    const dialog = dialogRef.current;
+
+    if (!dialog) {
       return;
     }
-    closeButtonRef.current?.focus();
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
 
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, onClose]);
+    if (isOpen && !dialog.matches(':popover-open')) {
+      dialog.showPopover();
 
-  if (!isOpen) {
-    return null;
-  }
+      requestAnimationFrame(() => {
+        closeButtonRef.current?.focus();
+      });
+    }
+
+    if (!isOpen && dialog.matches(':popover-open')) {
+      dialog.hidePopover();
+    }
+  }, [isOpen]);
+
+  const handleToggle = (event: ToggleEvent) => {
+    if (event.newState === 'closed' && isOpen) {
+      onClose();
+    }
+  };
 
   return (
-    <div className={styles.overlay}>
-      <button
-        type="button"
-        className={styles.backdrop}
-        onClick={onClose}
-        aria-label="Close modal"
-      />
-      <div
-        className={styles.modal}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
-      >
-        <div className={styles.header}>
-          <h2 id="modal-title">{title}</h2>
-          <button
-            ref={closeButtonRef}
-            type="button"
-            className={styles.closeButton}
-            onClick={onClose}
-            aria-label="Close modal"
-          >
-            <X aria-hidden="true" />
-          </button>
-        </div>
-        <div className={styles.content}>{children}</div>
+    <dialog
+      ref={dialogRef}
+      className={styles.modal}
+      aria-labelledby={titleId}
+      popover="auto"
+      onToggle={handleToggle}
+    >
+      <div className={styles.header}>
+        <h2 id={titleId}>{title}</h2>
+
+        <button
+          ref={closeButtonRef}
+          type="button"
+          className={styles.closeButton}
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          <X aria-hidden="true" />
+        </button>
       </div>
-    </div>
+
+      <div className={styles.content}>{children}</div>
+    </dialog>
   );
 }
