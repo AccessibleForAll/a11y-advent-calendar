@@ -1,3 +1,4 @@
+'use client';
 import Card from '@/components/Card/Card';
 import cardStyles from '@/components/Card/Card.module.scss';
 import { days } from '../../../../data/days';
@@ -10,17 +11,27 @@ export default function manageDaysPage() {
       <ul className={cardStyles.cardGrid}>
         {days.slice(0, 4).map((d) => (
           <li key={d.day}>
-            <Card className={cardStyles.manageDaysCard}>
-              <p className={cardStyles.dayLabel}>Day {d.day}</p>
-              <h2>{d.title}</h2>
-              <p className={cardStyles.clampedText}>{d.text}</p>
-              <div className={cardStyles.manageDaysButton}>
-                <Button variant="primary" icon={PencilLine}>
-                  edit
-                </Button>
-                <Button variant="primary" icon={Trash2Icon}>
-                  delete
-                </Button>
+            <Card>
+              <div className={cardStyles.manageDaysWrapper}>
+                <p className={cardStyles.dayLabel}>Day {d.day}</p>
+                <h2>{d.title}</h2>
+                <p className={cardStyles.clampedText}>{d.text}</p>
+                <div className={cardStyles.manageDaysButton}>
+                  <Button
+                    variant="primary"
+                    icon={PencilLine}
+                    onClick={() => console.log('Edit pressed', d.day)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="primary"
+                    icon={Trash2Icon}
+                    onClick={() => console.log('Delete pressed', d.day)}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </div>
             </Card>
           </li>
