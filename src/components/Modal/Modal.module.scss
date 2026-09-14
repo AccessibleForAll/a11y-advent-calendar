@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use 'sass:color';
+
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.modal {
+  width: min(100%, 32rem);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  margin: auto;
+  padding: space(lg);
+  border: 0;
+  border-radius: space(sm);
+  background-color: map.get($bg-colors, white);
+  color: map.get($text-colors, primary);
+  &::backdrop {
+    background: rgb(0 0 0 / 50%);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: space(md);
+  h2 {
+    margin: 0;
+  }
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: space(xs);
+  cursor: pointer;
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+.content {
+  margin-top: space(md);
+}
