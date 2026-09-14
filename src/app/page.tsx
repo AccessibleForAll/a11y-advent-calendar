@@ -2,14 +2,12 @@
 
 import styles from './page.module.scss';
 import DayButton from '@/components/DayButton/DayButton';
-
-const totalDays = 24;
+import { days } from '../../data/days';
 
 export default function Home() {
-  const days = Array.from({ length: totalDays }, (_, i) => i + 1);
 
   return (
-    <main className={styles.main}>
+    <>
       <h1 className={styles.title}>Accessibility Advent Calendar</h1>
 
       <div className={styles.intro}>
@@ -19,15 +17,15 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        {days.map((day) => (
+        {days.map((dayItem) => (
           <DayButton
-            key={day}
-            day={day.toString()}
+            key={dayItem.day}
+            day={dayItem.day.toString()}
             isLocked={false}
-            onClick={() => console.log(`Clicked day ${day}`)}
+            onClick={() => console.log(`Clicked day ${dayItem.day}`)}
           />
         ))}
       </div>
-    </main>
+    </>
   );
 }

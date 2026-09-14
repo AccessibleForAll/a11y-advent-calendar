@@ -9,8 +9,11 @@ $grid-max-width: calc(
 ); //6 columns with 9,375rem width and 5 gaps
 
 .main {
-  background-color: map.get($bg-colors, primary);
   padding: space(xl);
+
+  @media (max-width: 25rem) {
+    padding: space(md);
+  }
 }
 
 .title {
@@ -19,6 +22,10 @@ $grid-max-width: calc(
   margin-bottom: space(xl);
   max-width: $grid-max-width;
   margin-inline: auto;
+
+  @media (max-width: 25rem) {
+    font-size: type-size(xxl);
+  }
 }
 
 .intro {

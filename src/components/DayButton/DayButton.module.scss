@@ -17,6 +17,11 @@
   font-size: type-size(lg);
   gap: space(sm);
 
+  @media (max-width: 25rem) {
+    width: 8rem;
+    height: 8rem;
+  }
+
   &:focus-visible {
     outline: 3px solid map.get($border-colors, primary);
     outline-offset: 3px;
