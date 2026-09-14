@@ -34,6 +34,7 @@
   flex-direction: column;
   gap: map.get($spacing-scale, md);
   align-items: flex-start;
+  max-width: 37rem;
 }
 
 .dayLabel {
@@ -51,4 +52,8 @@
   display: flex;
   flex-direction: row;
   gap: map.get($spacing-scale, sm);
+
+  button {
+    padding: map.get($spacing-scale, xs) map.get($spacing-scale, sm);
+  }
 }
