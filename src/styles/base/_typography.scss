@@ -1,9 +1,13 @@
+@use 'sass:map';
+@use '../abstracts/_colors.scss' as *;
+
 :root {
   --ff-heading: var(--font-fraunces);
   --ff-body: var(--font-nunito);
 }
 body {
-    font-family: var(--ff-body);
+  font-family: var(--ff-body);
+  background-color: map.get($bg-colors, primary);
 }
 
 h1,
@@ -23,6 +27,9 @@ label {
   font-family: var(--ff-body);
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font: inherit;
 }

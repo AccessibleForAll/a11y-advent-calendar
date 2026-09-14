@@ -3,6 +3,7 @@ import Header from '@/components/Header/Header';
 import '@/styles/global.scss';
 import { Fraunces, Nunito } from 'next/font/google';
 import Footer from '@/components/Footer/Footer';
+import styles from '@/app/page.module.scss';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -27,7 +28,7 @@ export default function RootLayout({
     <html lang="en" className={`${fraunces.variable} ${nunito.variable}`}>
       <body>
         <Header />
-        {children}
+        <main className={styles.main}>{children}</main>
         <Footer />
       </body>
     </html>
