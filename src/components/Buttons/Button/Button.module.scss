@@ -38,6 +38,7 @@
   height: type-size(md);
 }
 
+
 .button {
   display: inline-flex;
   vertical-align: middle;
@@ -53,15 +54,15 @@
   cursor: pointer;
 
   &.variant-primary {
-    @extend .bg-primary;
-    @extend .border-primary;
-    @extend .text-primary;
-  }
+@extend .bg-primary;
+@extend .border-primary;
+@extend .text-primary;
+}
 
-  &.variant-secondary {
-    @extend .bg-secondary;
-    @extend .border-match-secondary;
-    @extend .text-white;
-    @extend .font-bold;
-  }
+&.variant-secondary {
+@extend .bg-secondary;
+@extend .border-match-secondary;
+@extend .text-white;
+@extend .font-bold;
+}
 }
