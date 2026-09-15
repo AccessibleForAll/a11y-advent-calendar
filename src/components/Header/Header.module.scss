@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: space-between;
   min-height: 4.25rem;
-  padding: space(sm) space(xl);
+  padding: space(sm) space(md);
   background: map.get($bg-colors, secondary);
   color: map.get($text-colors, primary);
 }
