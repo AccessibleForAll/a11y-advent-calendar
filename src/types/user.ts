@@ -2,7 +2,8 @@ import { Types } from 'mongoose';
 // database model
 export interface UserDocument {
   _id: Types.ObjectId;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   mustChangePassword: boolean;
   createdAt: Date;
@@ -12,14 +13,16 @@ export interface UserDocument {
 // frontend model
 export interface User {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   mustChangePassword: boolean;
 }
 
 // create user DTO
 export interface CreateUserInput {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
 }
 
