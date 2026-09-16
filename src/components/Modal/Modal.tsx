@@ -47,6 +47,20 @@ export default function Modal({
     }
   }, [isOpen]);
 
+  //added this to disable scrolling on the background page when modal is oopen.
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
   const handleToggle = (event: ToggleEvent) => {
     if (event.newState === 'closed' && isOpen) {
       onClose();

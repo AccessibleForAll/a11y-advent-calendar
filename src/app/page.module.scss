@@ -51,3 +51,22 @@ $grid-max-width: calc(
   margin-inline: auto;
   margin-bottom: space(xxl);
 }
+
+.modalHeading {
+  color: map.get($text-colors, primary);
+  font-size: type-size(xl);
+  margin: 0 0 space(sm) 0;
+}
+
+.modalText {
+  margin: 0 0 space(sm) 0;
+}
+
+.modalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: space(xs);
+  color: map.get($text-colors, primary);
+  font-weight: bold;
+  text-decoration: underline;
+}

@@ -15,7 +15,10 @@
   background-color: map.get($bg-colors, white);
   color: map.get($text-colors, primary);
   &::backdrop {
-    background: rgb(0 0 0 / 50%);
+    background: color.change(
+      map.get($bg-colors, secondary),
+      $alpha: 0.7
+    ); //changed to more green backdrop color like it is in figma
   }
 }
 
@@ -25,7 +28,11 @@
   justify-content: space-between;
   gap: space(md);
   h2 {
+    //overrides the global header font so it match the figma. Maybe change the day header in modal to a non heading or keep this.
     margin: 0;
+    font-family: var(--ff-body);
+    font-size: type-size(md);
+    font-weight: bold;
   }
 }
 
