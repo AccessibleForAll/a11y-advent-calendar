@@ -1,6 +1,6 @@
 import styles from './Button.module.scss';
 import { type LucideIcon } from 'lucide-react';
-import type { ReactNode, ButtonHTMLAttributes, MouseEventHandler } from 'react';
+import type { ReactNode, ButtonHTMLAttributes } from 'react';
 
 type ButtonVariant = 'primary' | 'secondary';
 
@@ -8,8 +8,8 @@ export type ButtonProps = {
   variant: ButtonVariant;
   icon?: LucideIcon;
   children: ReactNode;
-  onClick: MouseEventHandler<HTMLButtonElement>;
-} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>;
+  onClick: () => void;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({
   variant,
