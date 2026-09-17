@@ -11,20 +11,15 @@ export interface UserDocument {
 }
 
 // frontend model
-export interface User {
+export type User = Omit<UserDocument, '_id' | 'createdAt' | 'updatedAt'> & {
   id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  mustChangePassword: boolean;
-}
+};
 
 // create user DTO
-export interface CreateUserInput {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
+export type CreateUserInput = Pick<
+  UserDocument,
+  'firstName' | 'lastName' | 'email'
+>;
 
 // change password
 export interface ChangePasswordInput {
