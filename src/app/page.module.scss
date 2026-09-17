@@ -7,6 +7,7 @@ $grid-gap: space(xxl);
 $grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});
 
 .main {
+  flex: 1; // This allows the main content to take up the remaining space in the flex container, pushing the footer to the bottom of the page.
   padding: space(xl);
   max-width: $content-max-width;
   margin-inline: auto;
