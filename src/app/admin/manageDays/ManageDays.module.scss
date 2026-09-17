@@ -1,0 +1,55 @@
+@use 'sass:map';
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/functions' as *;
+
+.manageDaysHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: none;
+  margin-bottom: space(xl);
+  margin-inline: auto;
+}
+
+.manageDaysContainer {
+  display: flex;
+  flex-direction: column;
+  gap: map.get($spacing-scale, md);
+  align-items: center;
+}
+
+.manageDaysTitle {
+  max-width: none;
+  margin-inline: 0;
+  margin-bottom: 0;
+}
+
+.manageDaysWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: map.get($spacing-scale, md);
+  align-items: flex-start;
+  max-width: 37rem;
+}
+
+.dayLabel {
+  font-weight: bold;
+}
+
+.clampedText {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.manageDaysButton {
+  display: flex;
+  flex-direction: row;
+  gap: map.get($spacing-scale, sm);
+
+  button {
+    padding: map.get($spacing-scale, xs) map.get($spacing-scale, sm);
+  }
+}

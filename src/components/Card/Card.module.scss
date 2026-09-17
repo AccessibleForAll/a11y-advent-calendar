@@ -19,40 +19,7 @@
 .cardGrid {
   justify-content: center;
   list-style: none;
-  padding-block: 0;
-  padding-inline: map.get($spacing-scale, xxl);
-  margin-block-start: map.get($spacing-scale, md);
-  margin-inline: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 35rem), 37rem));
   gap: map.get($spacing-scale, md);
-}
-
-.manageDaysWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: map.get($spacing-scale, md);
-  align-items: flex-start;
-  max-width: 37rem;
-}
-
-.dayLabel {
-  font-weight: bold;
-}
-
-.clampedText {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.manageDaysButton {
-  display: flex;
-  flex-direction: row;
-  gap: map.get($spacing-scale, sm);
-
-  button {
-    padding: map.get($spacing-scale, xs) map.get($spacing-scale, sm);
-  }
 }
