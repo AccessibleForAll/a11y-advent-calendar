@@ -15,6 +15,7 @@ type ModalProps = {
   onClose: () => void;
   title: string;
   children: ReactNode;
+  smallTitle?: boolean;
 };
 
 export default function Modal({
@@ -22,6 +23,7 @@ export default function Modal({
   onClose,
   title,
   children,
+  smallTitle = false,
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -47,20 +49,6 @@ export default function Modal({
     }
   }, [isOpen]);
 
-  //added this to disable scrolling on the background page when modal is oopen.
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, [isOpen]);
-
   const handleToggle = (event: ToggleEvent) => {
     if (event.newState === 'closed' && isOpen) {
       onClose();
@@ -76,7 +64,12 @@ export default function Modal({
       onToggle={handleToggle}
     >
       <div className={styles.header}>
-        <h2 id={titleId}>{title}</h2>
+        <h2
+          id={titleId}
+          className={smallTitle ? styles.modalTitleSmall : undefined}
+        >
+          {title}
+        </h2>
 
         <button
           ref={closeButtonRef}

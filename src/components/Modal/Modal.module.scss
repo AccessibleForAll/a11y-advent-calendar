@@ -28,12 +28,14 @@
   justify-content: space-between;
   gap: space(md);
   h2 {
-    //overrides the global header font so it match the figma. Maybe change the day header in modal to a non heading or keep this.
     margin: 0;
-    font-family: var(--ff-body);
-    font-size: type-size(md);
-    font-weight: bold;
   }
+}
+
+.modalTitleSmall {
+  font-family: var(--f-body);
+  font-size: type-size(md);
+  font-weight: bold;
 }
 
 .closeButton {

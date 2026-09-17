@@ -45,21 +45,28 @@ export default function Home() {
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        title={`Day ${selectedDay?.day ?? ''}`}
+        title={`Day ${selectedDay?.day}`}
+        smallTitle={true}
       >
         {selectedDay && (
           <>
             <h3 className={styles.modalHeading}>{selectedDay.title}</h3>
             <p className={styles.modalText}>{selectedDay.text}</p>
-            <a
-              href={selectedDay.linkUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.modalLink}
-            >
-              {selectedDay.linkText}
-              <ExternalLink size={16} aria-hidden="true" />
-            </a>
+            {selectedDay.linkText && selectedDay.linkUrl && (
+              <a
+                href={selectedDay.linkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.modalLink}
+              >
+                {selectedDay.linkText}
+                <ExternalLink
+                  className={styles.modalLinkIcon}
+                  aria-label="opens in a new tab"
+                  role="img"
+                />
+              </a>
+            )}
           </>
         )}
       </Modal>
