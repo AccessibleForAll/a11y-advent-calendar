@@ -9,6 +9,7 @@ $grid-max-width: calc(
 ); //6 columns with 9,375rem width and 5 gaps
 
 .main {
+  flex: 1; // This allows the main content to take up the remaining space in the flex container, pushing the footer to the bottom of the page.
   padding: space(xl);
 
   @media (max-width: 25rem) {
