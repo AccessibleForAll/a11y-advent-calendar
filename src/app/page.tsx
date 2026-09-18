@@ -1,10 +1,25 @@
 'use client';
 
+import { useState } from 'react';
+import { ExternalLink } from 'lucide-react';
 import styles from './page.module.scss';
 import DayButton from '@/components/DayButton/DayButton';
+import Modal from '@/components/Modal/Modal';
 import { days } from '../../data/days';
 
 export default function Home() {
+  const [selectedDayId, setSelectedDayId] = useState<string | null>(null);
+
+  const selectedDay = days.find((d) => d.day === selectedDayId) ?? null;
+  const isModalOpen = selectedDay !== null;
+
+  const handleDayClick = (dayId: string) => {
+    setSelectedDayId(dayId);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedDayId(null);
+  };
 
   return (
     <>
@@ -22,10 +37,39 @@ export default function Home() {
             key={dayItem.day}
             day={dayItem.day.toString()}
             isLocked={false}
-            onClick={() => console.log(`Clicked day ${dayItem.day}`)}
+            onClick={() => handleDayClick(dayItem.day)}
           />
         ))}
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title={`Day ${selectedDay?.day}`}
+        smallTitle={true}
+      >
+        {selectedDay && (
+          <>
+            <h3 className={styles.modalHeading}>{selectedDay.title}</h3>
+            <p className={styles.modalText}>{selectedDay.text}</p>
+            {selectedDay.linkText && selectedDay.linkUrl && (
+              <a
+                href={selectedDay.linkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.modalLink}
+              >
+                {selectedDay.linkText}
+                <ExternalLink
+                  className={styles.modalLinkIcon}
+                  aria-label="opens in a new tab"
+                  role="img"
+                />
+              </a>
+            )}
+          </>
+        )}
+      </Modal>
     </>
   );
 }
