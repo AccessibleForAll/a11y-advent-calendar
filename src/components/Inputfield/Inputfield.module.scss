@@ -17,7 +17,6 @@ $field-text-color: map.get($text-colors, 'black');
   width: 100%;
   max-width: 100%;
   margin-bottom: space(md);
-  //max-width: 400px; This is removed to allow the input field to take the full width of its container, which is especially useful for responsive designs where the container width may vary.
 }
 
 .full-width {

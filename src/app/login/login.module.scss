@@ -1,31 +1,36 @@
 @use 'sass:map';
 @use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/variables' as *;
 @use '../../styles/abstracts/mixins' as *;
 @use '../../styles/abstracts/functions' as *;
 
-.container {
+.loginContainer {
   @include flex-center;
   flex-direction: column;
   width: 100%;
 }
 
-.upper {
+.loginHeader {
   @include flex-center;
   flex-direction: column;
   margin: space(md);
 }
 
 .loginCard {
-  width: min(
-    100%,
-    600px
-  ); // This ensures that the login card does not exceed 600px in width, but can shrink to fit smaller screens. according to the design, this should be 635px, but I changed it for a better view.
-  display: flex;
+  width: min(100%, 635px);
+}
+
+.loginContent {
+  @include flex-center;
   flex-direction: column;
-  align-items: center;
-  gap: space(
-    sm
-  ); // This sets some space but also there is a gap in input as well.
+  gap: space(sm);
+  width: 100%;
+}
+
+.subtitle {
+  font-size: type-size(md);
+  font-weight: bold;
+  color: map.get($text-colors, 'primary');
 }
 
 .buttonWrapper {
@@ -34,7 +39,7 @@
   justify-content: flex-end;
 }
 
-.back {
+.backToCalendar {
   @include flex-center;
   margin: space(md);
   a {
