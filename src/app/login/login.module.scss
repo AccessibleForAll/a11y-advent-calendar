@@ -14,6 +14,7 @@
   @include flex-center;
   flex-direction: column;
   margin: space(md);
+  gap: space(md);
 }
 
 .loginCard {
