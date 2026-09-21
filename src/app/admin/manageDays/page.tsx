@@ -11,7 +11,7 @@ import Button from '@/components/Buttons/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import modalStyles from '@/components/Modal/Modal.module.scss';
 
-import manageDaysStyles from './manageDays.module.scss';
+import manageDaysStyles from './ManageDays.module.scss';
 
 export default function ManageDaysPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
