@@ -50,7 +50,7 @@ export default function Home() {
       >
         {selectedDay && (
           <>
-            <h3 className={styles.modalHeading}>{selectedDay.title}</h3>
+            <h2 className={styles.modalHeading}>{selectedDay.title}</h2>
             <p className={styles.modalText}>{selectedDay.text}</p>
             {selectedDay.linkText && selectedDay.linkUrl && (
               <a

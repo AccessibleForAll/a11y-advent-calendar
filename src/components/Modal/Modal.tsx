@@ -64,12 +64,13 @@ export default function Modal({
       onToggle={handleToggle}
     >
       <div className={styles.header}>
-        <h2
-          id={titleId}
-          className={smallTitle ? styles.modalTitleSmall : undefined}
-        >
-          {title}
-        </h2>
+        {smallTitle ? (
+          <p id={titleId} className={styles.modalTitleSmall}>
+            {title}
+          </p>
+        ) : (
+          <h2 id={titleId}>{title}</h2>
+        )}
 
         <button
           ref={closeButtonRef}
