@@ -15,11 +15,3 @@
   border-radius: 16px;
   border-color: map.get($border-colors, primary);
 }
-
-.cardGrid {
-  justify-content: center;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 50rem), 51rem));
-  gap: map.get($spacing-scale, xl);
-}

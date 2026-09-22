@@ -6,7 +6,6 @@ import { days } from '../../../../data/days';
 import pageStyles from '@/app/page.module.scss';
 
 import Card from '@/components/Card/Card';
-import cardStyles from '@/components/Card/Card.module.scss';
 import Button from '@/components/Buttons/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import modalStyles from '@/components/Modal/Modal.module.scss';
@@ -38,7 +37,7 @@ export default function ManageDaysPage() {
           content here.
         </p>
       </Modal>
-      <ul className={cardStyles.cardGrid}>
+      <ul className={manageDaysStyles.cardGrid}>
         {days.slice(0, 4).map((d) => (
           <li key={d.day}>
             <Card>
