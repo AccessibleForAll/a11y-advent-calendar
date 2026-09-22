@@ -1,5 +1,7 @@
 @use 'sass:map';
 @use '../abstracts/_colors.scss' as *;
+@use '../abstracts/_variables.scss' as *;
+@use '../abstracts/_functions.scss' as *;
 
 :root {
   --ff-heading: var(--font-fraunces);
@@ -14,6 +16,13 @@ body {
   }
 }
 
+h1 {
+  color: map.get($text-colors, primary);
+  font-size: type-size(xxxl);
+  @media (max-width: 25rem) {
+    font-size: type-size(xxl);
+  }
+}
 h1,
 h2,
 h3,
