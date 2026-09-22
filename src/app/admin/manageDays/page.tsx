@@ -38,12 +38,20 @@ export default function ManageDaysPage() {
         <InputField name="text" label="Text:" type="textarea"></InputField>
         <InputField name="linkText" label="Link Text:" type="text"></InputField>
         <InputField name="linkUrl" label="Link URL:" type="text"></InputField>
-        <Button variant="primary" onClick={() => console.log('Cancel pressed')}>
-          Cancel
-        </Button>
-        <Button variant="secondary" onClick={() => console.log('Save pressed')}>
-          Save
-        </Button>
+        <div className={manageDaysStyles.manageDaysButton}>
+          <Button
+            variant="primary"
+            onClick={() => console.log('Cancel pressed')}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() => console.log('Save pressed')}
+          >
+            Save
+          </Button>
+        </div>
       </Modal>
       <ul className={manageDaysStyles.cardGrid}>
         {days.slice(0, 4).map((d) => (
