@@ -4,12 +4,11 @@
 @use '../styles/abstracts/_functions.scss' as *;
 
 $grid-gap: space(xxl);
-$grid-max-width: calc(
-  6 * 9.375rem + 5 * #{$grid-gap}
-); //6 columns with 9,375rem width and 5 gaps
 
 .main {
   padding: space(xl);
+  max-width: $content-max-width;
+  margin-inline: auto;
 
   @media (max-width: 25rem) {
     padding: space(md);
@@ -20,8 +19,6 @@ $grid-max-width: calc(
   color: map.get($text-colors, primary);
   font-size: type-size(xxxl);
   margin-bottom: space(xl);
-  max-width: $grid-max-width;
-  margin-inline: auto;
 
   @media (max-width: 25rem) {
     font-size: type-size(xxl);
@@ -31,9 +28,7 @@ $grid-max-width: calc(
 .intro {
   color: map.get($text-colors, black);
   font-size: type-size(lg);
-  margin-block-end: space(xxl);
-  max-width: $grid-max-width;
-  margin-inline: auto;
+  margin-bottom: space(xxl);
 
   p {
     margin-block-end: space(sm);
