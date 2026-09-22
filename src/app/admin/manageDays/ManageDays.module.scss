@@ -6,21 +6,32 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: none;
   margin-bottom: space(xl);
   margin-inline: auto;
+
+  @media (max-width: 33rem) {
+    gap: map.get($spacing-scale, md);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.cardGrid {
+  justify-content: center;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 34rem), 35rem));
+  gap: map.get($spacing-scale, xl);
 }
 
 .manageDaysContainer {
   display: flex;
   flex-direction: column;
   gap: map.get($spacing-scale, md);
-  max-width: calc(51rem * 2 + #{map.get($spacing-scale, xl)});
+  max-width: calc(47rem * 2 + #{map.get($spacing-scale, xl)});
   margin-inline: auto;
 }
 
 .manageDaysTitle {
-  max-width: none;
   margin-inline: 0;
   margin-bottom: 0;
 }
