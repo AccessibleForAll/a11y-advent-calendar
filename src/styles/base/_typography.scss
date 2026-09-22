@@ -5,9 +5,13 @@
   --ff-heading: var(--font-fraunces);
   --ff-body: var(--font-nunito);
 }
+
 body {
   font-family: var(--ff-body);
   background-color: map.get($bg-colors, primary);
+  &:has(dialog:popover-open) {
+    overflow: hidden;
+  }
 }
 
 h1,

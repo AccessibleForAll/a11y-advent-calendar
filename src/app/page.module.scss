@@ -31,12 +31,12 @@ $grid-max-width: calc(
 .intro {
   color: map.get($text-colors, black);
   font-size: type-size(lg);
-  margin-bottom: space(xxl);
+  margin-block-end: space(xxl);
   max-width: $grid-max-width;
   margin-inline: auto;
 
   p {
-    margin: 0 0 space(sm) 0;
+    margin-block-end: space(sm);
   }
 }
 
@@ -49,5 +49,29 @@ $grid-max-width: calc(
   gap: $grid-gap;
   max-width: $grid-max-width;
   margin-inline: auto;
-  margin-bottom: space(xxl);
+  margin-block-end: space(xxl);
+}
+
+.modalHeading {
+  color: map.get($text-colors, primary);
+  font-size: type-size(xl);
+  margin-block-end: space(sm);
+}
+
+.modalText {
+  margin-block-end: space(sm);
+}
+
+.modalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: space(xs);
+  color: map.get($text-colors, primary);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.modalLinkIcon {
+  width: space(md);
+  height: space(md);
 }
