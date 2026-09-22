@@ -4,6 +4,7 @@
 @use '../styles/abstracts/_functions.scss' as *;
 
 $grid-gap: space(xxl);
+$grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});
 
 .main {
   padding: space(xl);
