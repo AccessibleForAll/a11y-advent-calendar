@@ -15,7 +15,10 @@
   background-color: map.get($bg-colors, white);
   color: map.get($text-colors, primary);
   &::backdrop {
-    background: rgb(0 0 0 / 50%);
+    background: color.change(
+      map.get($bg-colors, secondary),
+      $alpha: 0.7
+    ); //changed to more green backdrop color like it is in figma
   }
 }
 
@@ -27,6 +30,12 @@
   h2 {
     margin: 0;
   }
+}
+
+.modalTitleSmall {
+  font-family: var(--f-body);
+  font-size: type-size(md);
+  font-weight: bold;
 }
 
 .closeButton {

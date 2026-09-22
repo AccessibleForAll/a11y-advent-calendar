@@ -31,7 +31,7 @@ $grid-gap: space(xxl);
   margin-bottom: space(xxl);
 
   p {
-    margin: 0 0 space(sm) 0;
+    margin-block-end: space(sm);
   }
 }
 
@@ -42,5 +42,31 @@ $grid-gap: space(xxl);
     minmax(min(9.375rem, calc(50% - #{$grid-gap} / 2)), 1fr)
   ); //fits as many buttons per row as space allows and have at least 2 buttons always. (so max 6 min 2)
   gap: $grid-gap;
-  margin-bottom: space(xxl);
+  max-width: $grid-max-width;
+  margin-inline: auto;
+  margin-block-end: space(xxl);
+}
+
+.modalHeading {
+  color: map.get($text-colors, primary);
+  font-size: type-size(xl);
+  margin-block-end: space(sm);
+}
+
+.modalText {
+  margin-block-end: space(sm);
+}
+
+.modalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: space(xs);
+  color: map.get($text-colors, primary);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.modalLinkIcon {
+  width: space(md);
+  height: space(md);
 }
