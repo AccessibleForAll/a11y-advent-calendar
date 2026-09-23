@@ -21,6 +21,11 @@ export type CreateUserInput = Pick<
   'firstName' | 'lastName' | 'email'
 >;
 
+// update user DTO
+export type UpdateUserInput = Partial<
+  Pick<UserDocument, 'firstName' | 'lastName' | 'email'>
+>;
+
 // change password
 export interface ChangePasswordInput {
   currentPassword: string;
