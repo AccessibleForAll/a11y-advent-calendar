@@ -10,11 +10,12 @@ import Modal from '@/components/Modal/Modal';
 import InputField from '@/components/Inputfield/Inputfield';
 
 import pageStyles from '@/app/page.module.scss';
-import modalStyles from '@/components/Modal/Modal.module.scss';
 import manageDaysStyles from './ManageDays.module.scss';
 
 export default function ManageDaysPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   return (
     <>
@@ -24,13 +25,13 @@ export default function ManageDaysPage() {
         >
           Manage Days
         </h1>
-        <Button variant="secondary" onClick={() => setIsModalOpen(true)}>
+        <Button variant="secondary" onClick={() => setIsCreateModalOpen(true)}>
           + New Day
         </Button>
       </div>
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => setIsCreateModalOpen(false)}
         title="Create Day"
       >
         <div className={manageDaysStyles.modalContentWrapper}>
@@ -46,13 +47,13 @@ export default function ManageDaysPage() {
           <div className={manageDaysStyles.manageDaysButton}>
             <Button
               variant="primary"
-              onClick={() => console.log('Cancel pressed')}
+              onClick={() => setIsCreateModalOpen(false)}
             >
               Cancel
             </Button>
             <Button
               variant="secondary"
-              onClick={() => console.log('Save pressed')}
+              onClick={() => setIsCreateModalOpen(false)}
             >
               Save
             </Button>
