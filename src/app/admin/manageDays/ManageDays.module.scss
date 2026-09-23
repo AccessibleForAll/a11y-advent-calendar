@@ -63,3 +63,16 @@
     padding: map.get($spacing-scale, xs) map.get($spacing-scale, sm);
   }
 }
+
+.modalContentWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: space(xl);
+  gap: map.get($spacing-scale, sm);
+  align-items: center;
+
+  .manageDaysButton {
+    margin-top: space(xl);
+    align-self: flex-end;
+  }
+}
