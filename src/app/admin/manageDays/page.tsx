@@ -33,24 +33,30 @@ export default function ManageDaysPage() {
         onClose={() => setIsModalOpen(false)}
         title="Create Day"
       >
-        <InputField name="date" label="Date:" type="text"></InputField>
-        <InputField name="heading" label="Heading:" type="text"></InputField>
-        <InputField name="text" label="Text:" type="textarea"></InputField>
-        <InputField name="linkText" label="Link Text:" type="text"></InputField>
-        <InputField name="linkUrl" label="Link URL:" type="text"></InputField>
-        <div className={manageDaysStyles.manageDaysButton}>
-          <Button
-            variant="primary"
-            onClick={() => console.log('Cancel pressed')}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => console.log('Save pressed')}
-          >
-            Save
-          </Button>
+        <div className={manageDaysStyles.modalContentWrapper}>
+          <InputField name="date" label="Date:" type="text"></InputField>
+          <InputField name="heading" label="Heading:" type="text"></InputField>
+          <InputField name="text" label="Text:" type="textarea"></InputField>
+          <InputField
+            name="linkText"
+            label="Link Text:"
+            type="text"
+          ></InputField>
+          <InputField name="linkUrl" label="Link URL:" type="text"></InputField>
+          <div className={manageDaysStyles.manageDaysButton}>
+            <Button
+              variant="primary"
+              onClick={() => console.log('Cancel pressed')}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => console.log('Save pressed')}
+            >
+              Save
+            </Button>
+          </div>
         </div>
       </Modal>
       <ul className={manageDaysStyles.cardGrid}>
