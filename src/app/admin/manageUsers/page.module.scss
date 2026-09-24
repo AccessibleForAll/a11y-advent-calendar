@@ -164,6 +164,11 @@
   color: map.get($text-colors, white);
 }
 
+.buttonIcon {
+  width: space(md);
+  height: space(md);
+}
+
 //made a vertical solution with the table on smaller screens.
 @media (max-width: 37.5rem) {
   .headerRow {
