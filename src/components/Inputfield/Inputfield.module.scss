@@ -20,7 +20,7 @@ $field-text-color: map.get($text-colors, 'black');
 }
 
 .full-width {
-  width: 100%;
+  max-width: none;
 }
 
 .label {
