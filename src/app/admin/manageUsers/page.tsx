@@ -1,55 +1,174 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, PencilLine, Trash2 } from 'lucide-react';
 import styles from './page.module.scss';
-import { users, type User } from '../../../../data/users';
 import Modal from '@/components/Modal/Modal';
 import InputField from '@/components/Inputfield/Inputfield';
+
+type User = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
 
 //what modal is picked if any..
 type ModalMode = 'create' | 'edit' | 'delete' | null;
 
 export default function ManageUsersPage() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [modalMode, setModalMode] = useState<ModalMode>(null);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-
-  //just ui for now
-  const [fullNameInput, setFullNameInput] = useState('');
+  const [firstNameInput, setFirstNameInput] = useState('');
+  const [lastNameInput, setLastNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+
+  const fetchUsers = async () => {
+    setIsLoadingUsers(true);
+    setLoadError(null);
+    try {
+      const res = await fetch('/api/users');
+      if (!res.ok) {
+        throw new Error('Failed to load  users.');
+      }
+      const data = (await res.json()) as User[];
+      setUsers(data);
+    } catch (error) {
+      setLoadError((error as Error).message);
+    } finally {
+      setIsLoadingUsers(false);
+    }
+  };
+
+  useEffect(() => {
+    let ignore = false;
+
+    (async () => {
+      try {
+        const res = await fetch('/api/users');
+        if (!res.ok) {
+          throw new Error('Failed to load users.');
+        }
+        const data = (await res.json()) as User[];
+        if (!ignore) {
+          setUsers(data);
+        }
+      } catch (error) {
+        if (!ignore) {
+          setLoadError((error as Error).message);
+        }
+      } finally {
+        if (!ignore) {
+          setIsLoadingUsers(false);
+        }
+      }
+    })();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const openCreateModal = () => {
     setSelectedUser(null);
-    setFullNameInput('');
+    setFirstNameInput('');
+    setLastNameInput('');
     setEmailInput('');
+    setFormError(null);
     setModalMode('create');
   };
 
   const openEditModal = (user: User) => {
     setSelectedUser(user);
-    setFullNameInput(`${user.firstName} ${user.lastName}`);
+    setFirstNameInput(user.firstName);
+    setLastNameInput(user.lastName);
     setEmailInput(user.email);
+    setFormError(null);
     setModalMode('edit');
   };
 
   const openDeleteModal = (user: User) => {
     setSelectedUser(user);
+    setFormError(null);
     setModalMode('delete');
   };
 
   const closeModal = () => {
+    if (isSaving || isDeleting) return;
     setModalMode(null);
     setSelectedUser(null);
+    setFormError(null);
   };
 
-  const handleSave = () => {
-    console.log('Save clicked', { mode: modalMode, fullNameInput, emailInput });
-    closeModal();
+  const handleSave = async () => {
+    setIsSaving(true);
+    setFormError(null);
+
+    const payload = {
+      firstName: firstNameInput,
+      lastName: lastNameInput,
+      email: emailInput,
+    };
+
+    try {
+      const res =
+        modalMode === 'edit' && selectedUser
+          ? await fetch(`/api/users/${selectedUser.id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+            })
+          : await fetch('/api/users', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+            });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.message ?? 'Failed to save user.');
+      }
+
+      await fetchUsers();
+      setModalMode(null);
+      setSelectedUser(null);
+    } catch (error) {
+      setFormError((error as Error).message);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
-  const handleConfirmDelete = () => {
-    console.log('Delete confirmed for', selectedUser);
-    closeModal();
+  const handleConfirmDelete = async () => {
+    if (!selectedUser) return;
+
+    setIsDeleting(true);
+    setFormError(null);
+
+    try {
+      const res = await fetch(`/api/users/${selectedUser.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok && res.status !== 204) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.message ?? 'Failed to delete user');
+      }
+
+      await fetchUsers();
+      setModalMode(null);
+      setSelectedUser(null);
+    } catch (error) {
+      setFormError((error as Error).message);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const isFormModalOpen = modalMode === 'create' || modalMode === 'edit';
@@ -64,63 +183,91 @@ export default function ManageUsersPage() {
           className={styles.addButton}
           onClick={openCreateModal}
         >
-          <Plus size={16} aria-label="add user" />
+          <Plus className={styles.buttonIcon} aria-label="add user" />
           New User
         </button>
       </div>
 
+      {loadError && <p role="alert">{loadError}</p>}
+
       <div className={styles.tableCard}>
-        <table className={styles.table}>
+        <table className={styles.table} role="table">
           <thead>
-            <tr>
-              <td>Name</td>
-              <td>Email</td>
-              <td className={styles.actionsHeader}>Actions</td>
+            <tr role="row">
+              <td role="columnheader">Name</td>
+              <td role="columnheader">Email</td>
+              <td role="columnheader" className={styles.actionsHeader}>
+                Actions
+              </td>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td data-label="Name">
-                  {user.firstName} {user.lastName}
-                </td>
-                <td data-label="Email">{user.email}</td>
-                <td data-label="Actions" className={styles.actionsCell}>
-                  <span className={styles.actionButtons}>
-                    <button
-                      type="button"
-                      className={styles.editButton}
-                      onClick={() => openEditModal(user)}
-                    >
-                      <PencilLine size={14} aria-label="edit user" />
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.deleteButton}
-                      onClick={() => openDeleteModal(user)}
-                    >
-                      <Trash2 size={14} aria-label="remove user" />
-                      Delete
-                    </button>
-                  </span>
-                </td>
+            {isLoadingUsers ? (
+              <tr role="row">
+                <td colSpan={3}>Loading users…</td>
               </tr>
-            ))}
+            ) : users.length === 0 ? (
+              <tr role="row">
+                <td colSpan={3}>No users yet.</td>
+              </tr>
+            ) : (
+              users.map((user) => (
+                <tr key={user.id} role="row">
+                  <td data-label="Name">
+                    {user.firstName} {user.lastName}
+                  </td>
+                  <td data-label="Email">{user.email}</td>
+                  <td data-label="Actions" className={styles.actionsCell}>
+                    <span className={styles.actionButtons}>
+                      <button
+                        type="button"
+                        className={styles.editButton}
+                        onClick={() => openEditModal(user)}
+                      >
+                        <PencilLine
+                          className={styles.buttonIcon}
+                          aria-label="edit user"
+                        />
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.deleteButton}
+                        onClick={() => openDeleteModal(user)}
+                      >
+                        <Trash2
+                          className={styles.buttonIcon}
+                          aria-label="remove user"
+                        />
+                        Delete
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
 
+      {/* Create and edit modal have identical layout, just different text.*/}
       <Modal
         isOpen={isFormModalOpen}
         onClose={closeModal}
         title={modalMode === 'edit' ? 'Edit User' : 'Create User'}
       >
         <InputField
-          label="Full name:"
-          name="fullName"
-          value={fullNameInput}
-          onChange={(e) => setFullNameInput(e.target.value)}
+          label="First name:"
+          name="firstName"
+          value={firstNameInput}
+          onChange={(e) => setFirstNameInput(e.target.value)}
+          fullWidth
+        />
+        <InputField
+          label="Last name:"
+          name="lastName"
+          value={lastNameInput}
+          onChange={(e) => setLastNameInput(e.target.value)}
           fullWidth
         />
         <InputField
@@ -130,11 +277,13 @@ export default function ManageUsersPage() {
           onChange={(e) => setEmailInput(e.target.value)}
           fullWidth
         />
+        {formError && <p role="alert">{formError}</p>}
         <div className={styles.modalActions}>
           <button
             type="button"
             className={styles.cancelButton}
             onClick={closeModal}
+            disabled={isSaving}
           >
             Cancel
           </button>
@@ -142,26 +291,32 @@ export default function ManageUsersPage() {
             type="button"
             className={styles.saveButton}
             onClick={handleSave}
+            disabled={isSaving}
           >
-            Save
+            {isSaving ? 'Saving...' : 'Save'}
           </button>
         </div>
       </Modal>
-
+      {/*modal for delete */}
       <Modal
         isOpen={isDeleteModalOpen}
         onClose={closeModal}
-        title={`Remove ${selectedUser?.firstName} ${selectedUser?.lastName}?`}
+        title={
+          selectedUser
+            ? `Remove ${selectedUser.firstName} ${selectedUser.lastName}?`
+            : ''
+        }
       >
         <p className={styles.deleteText}>
-          They will lose access to the calendar admin. Mock data resets on
-          reload.
+          This will permanently remove the user from the database.
         </p>
+        {formError && <p role="alert">{formError}</p>}
         <div className={styles.modalActions}>
           <button
             type="button"
             className={styles.cancelButtonDanger}
             onClick={closeModal}
+            disabled={isDeleting}
           >
             Cancel
           </button>
@@ -169,8 +324,9 @@ export default function ManageUsersPage() {
             type="button"
             className={styles.confirmDeleteButton}
             onClick={handleConfirmDelete}
+            disabled={isDeleting}
           >
-            Delete
+            {isDeleting ? 'Deleting…' : 'Delete'}
           </button>
         </div>
       </Modal>
