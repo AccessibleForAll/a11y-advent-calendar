@@ -28,4 +28,4 @@ export interface CreateDayInput {
   link?: string;
 }
 
-export type UpdateDayInput = CreateDayInput;
+export type UpdateDayInput = Partial<CreateDayInput>;
