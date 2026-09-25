@@ -20,6 +20,12 @@ export type Day = Omit<
   date: string;
 };
 
+type DayBaseInput = {
+  date: string;
+  heading: string;
+  text: string;
+};
+
 type DayLinkInput =
   | {
       link?: never;
@@ -30,11 +36,6 @@ type DayLinkInput =
       linkText: string;
     };
 
-type DayBaseInput = {
-  date: string;
-  heading: string;
-  text: string;
-};
 export type CreateDayInput = DayBaseInput & DayLinkInput;
 
 export type UpdateDayInput = Partial<DayBaseInput> &
