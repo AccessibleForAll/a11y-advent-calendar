@@ -7,7 +7,6 @@ export interface DayDocument {
   text: string;
   linkText?: string;
   link?: string;
-  published: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

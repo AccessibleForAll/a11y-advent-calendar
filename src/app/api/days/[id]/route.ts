@@ -14,7 +14,6 @@ function serializeDay(day: {
   text: string;
   linkText?: string;
   link?: string;
-  published: boolean;
 }) {
   return {
     id: day._id.toString(),
@@ -23,7 +22,6 @@ function serializeDay(day: {
     text: day.text,
     linkText: day.linkText,
     link: day.link,
-    published: day.published,
   };
 }
 

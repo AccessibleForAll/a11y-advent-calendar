@@ -3,28 +3,10 @@ import { connectToDatabase } from '@/lib/mongodb';
 import Day from '@/models/Day';
 import type { CreateDayInput } from '@/types/day';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     await connectToDatabase();
-
-    const { searchParams } = new URL(request.url);
-    const published = searchParams.get('published');
-    const sort = searchParams.get('sort');
-
-    const filter: { published?: boolean } = {};
-
-    if (published === 'true') {
-      filter.published = true;
-    }
-
-    let query = Day.find(filter);
-
-    if (sort === 'date') {
-      query = query.sort({ date: 1 });
-    }
-
-    const days = await query;
-
+    const days = await Day.find();
     const response = days.map((day) => ({
       id: day._id.toString(),
       date: day.date,
@@ -32,7 +14,6 @@ export async function GET(request: Request) {
       text: day.text,
       linkText: day.linkText,
       link: day.link,
-      published: day.published,
     }));
 
     return NextResponse.json(response);
@@ -68,7 +49,6 @@ export async function POST(request: Request) {
         text: day.text,
         linkText: day.linkText,
         link: day.link,
-        published: day.published,
       },
       { status: 201 },
     );

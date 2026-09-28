@@ -22,11 +22,6 @@ const daySchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    published: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
   },
   {
     timestamps: true,
