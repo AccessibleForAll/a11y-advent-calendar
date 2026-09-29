@@ -6,6 +6,8 @@ import styles from './page.module.scss';
 import DayButton from '@/components/DayButton/DayButton';
 import Modal from '@/components/Modal/Modal';
 import { days } from '../../data/days';
+import { isDayUnlocked } from '@/lib/dayUnlock';
+// import { isBefore, startOfDay } from 'date-fns';
 
 export default function Home() {
   const [selectedDayId, setSelectedDayId] = useState<string | null>(null);
@@ -21,6 +23,8 @@ export default function Home() {
     setSelectedDayId(null);
   };
 
+  // const today = startOfDay(new Date()); // just for test you can change the date to 2026, 11, 1
+
   return (
     <>
       <h1 className={styles.title}>Accessibility Advent Calendar</h1>
@@ -35,8 +39,8 @@ export default function Home() {
         {days.map((dayItem) => (
           <DayButton
             key={dayItem.day}
-            day={dayItem.day.toString()}
-            isLocked={false}
+            day={dayItem.day}
+            isLocked={!isDayUnlocked(dayItem.day)}
             onClick={() => handleDayClick(dayItem.day)}
           />
         ))}
