@@ -73,7 +73,7 @@ export default function ManageDaysPage() {
         )}
       </Modal>
       <ul className={manageDaysStyles.cardGrid}>
-        {days.slice(0, 1).map((inDay) => (
+        {days.slice(0, 4).map((inDay) => (
           <li key={inDay.day}>
             <Card>
               <div className={manageDaysStyles.manageDaysWrapper}>

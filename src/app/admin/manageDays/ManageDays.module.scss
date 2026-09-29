@@ -19,8 +19,12 @@
   justify-content: center;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 34rem), 35rem));
+  grid-template-columns: repeat(2, 1fr);
   gap: map.get($spacing-scale, xl);
+
+  @media (max-width: 48rem) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .manageDaysContainer {
