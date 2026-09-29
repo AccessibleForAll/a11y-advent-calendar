@@ -18,10 +18,6 @@ $field-text-color: map.get($text-colors, 'black');
   margin-bottom: space(md);
 }
 
-.full-width {
-  max-width: none;
-}
-
 .label {
   font-size: type-size(md);
   font-weight: bold;
