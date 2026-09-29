@@ -7,7 +7,6 @@ import DayButton from '@/components/DayButton/DayButton';
 import Modal from '@/components/Modal/Modal';
 import { days } from '../../data/days';
 import { isDayUnlocked } from '@/lib/dayUnlock';
-// import { isBefore, startOfDay } from 'date-fns';
 
 export default function Home() {
   const [selectedDayId, setSelectedDayId] = useState<string | null>(null);
@@ -22,8 +21,6 @@ export default function Home() {
   const handleCloseModal = () => {
     setSelectedDayId(null);
   };
-
-  // const today = startOfDay(new Date()); // just for test you can change the date to 2026, 11, 1
 
   return (
     <>
