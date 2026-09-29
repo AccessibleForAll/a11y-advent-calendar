@@ -9,9 +9,15 @@ import manageDaysStyles from '@/app/admin/manageDays/ManageDays.module.scss';
 
 type ManageDaysFormProps = {
   day: Day | null;
+  onCancel: () => void;
+  onSubmit: (data: Day) => void;
 };
 
-export default function ManageDaysForm({ day }: ManageDaysFormProps) {
+export default function ManageDaysForm({
+  day,
+  onCancel,
+  onSubmit,
+}: ManageDaysFormProps) {
   const [data, setData] = useState<Day>(
     day ?? { day: '', title: '', text: '', linkUrl: '', linkText: '' },
   );
@@ -61,10 +67,11 @@ export default function ManageDaysForm({ day }: ManageDaysFormProps) {
         type="text"
       ></InputField>
       <div className={manageDaysStyles.manageDaysButton}>
-        <Button variant="primary" onClick={() => setIsModalOpen(false)}>
+        <Button variant="primary" onClick={onCancel}>
           Cancel
         </Button>
-        <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+        {/*todo when backend exists: only submit when data hasChanged()*/}
+        <Button variant="secondary" onClick={() => onSubmit(data)}>
           Save
         </Button>
       </div>

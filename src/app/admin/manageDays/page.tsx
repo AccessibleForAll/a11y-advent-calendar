@@ -1,6 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { Trash2Icon, PencilLine } from 'lucide-react';
+import { useState } from 'react';
+import { Plus, Trash2Icon, PencilLine } from 'lucide-react';
 
 import { Day, days } from '../../../../data/days';
 
@@ -20,11 +20,14 @@ export default function ManageDaysPage() {
   const [currentDay, setCurrentDay] = useState<Day | null>();
 
   function openModal(inDay: Day | null, mode: ModalMode) {
+    setCurrentDay(inDay);
+    setModalMode(mode);
     setIsModalOpen(true);
-    console.log('modal mode: ', mode);
-    if (inDay) {
-      console.log('current day ', inDay.day);
-    }
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+    setCurrentDay(null);
   }
 
   return (
@@ -37,30 +40,40 @@ export default function ManageDaysPage() {
         </h1>
         <Button
           variant="secondary"
+          icon={Plus}
           onClick={() => {
-            setCurrentDay(null);
-            setModalMode('create');
             openModal(null, 'create');
           }}
         >
-          + New Day
+          New Day
         </Button>
       </div>
       <Modal
         isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-          setCurrentDay(null);
-        }}
-        title={modalMode === 'create' ? 'Create Day' : 'Edit Day'}
+        onClose={() => closeModal()}
+        title={
+          modalMode === 'create'
+            ? 'Create Day'
+            : modalMode === 'delete'
+              ? 'Delete Day'
+              : 'Edit Day'
+        }
       >
-        <ManageDaysForm
-          key={currentDay?.day ?? 'newDay'}
-          day={currentDay ?? null}
-        />
+        {/* This is a placeholder for the deleteForm component */}
+        {modalMode === 'delete' ? null : (
+          <ManageDaysForm
+            key={currentDay?.day ?? 'newDay'}
+            day={currentDay ?? null}
+            onCancel={closeModal}
+            onSubmit={(updatedDay) => {
+              console.log(updatedDay);
+              closeModal();
+            }}
+          />
+        )}
       </Modal>
       <ul className={manageDaysStyles.cardGrid}>
-        {days.slice(0, 4).map((inDay) => (
+        {days.slice(0, 1).map((inDay) => (
           <li key={inDay.day}>
             <Card>
               <div className={manageDaysStyles.manageDaysWrapper}>
@@ -72,9 +85,6 @@ export default function ManageDaysPage() {
                     variant="primary"
                     icon={PencilLine}
                     onClick={() => {
-                      console.log(inDay);
-                      setCurrentDay(inDay);
-                      setModalMode('edit');
                       openModal(inDay, 'edit');
                     }}
                   >
@@ -83,7 +93,9 @@ export default function ManageDaysPage() {
                   <Button
                     variant="primary"
                     icon={Trash2Icon}
-                    onClick={() => console.log('Delete pressed', inDay.day)}
+                    onClick={() => {
+                      openModal(inDay, 'delete');
+                    }}
                   >
                     Delete
                   </Button>
