@@ -25,29 +25,6 @@ function serializeDay(day: {
   };
 }
 
-export async function GET(_request: Request, { params }: RouteContext) {
-  try {
-    await connectToDatabase();
-
-    const { id } = await params;
-
-    const day = await Day.findById(id);
-
-    if (!day) {
-      return NextResponse.json({ message: 'Day not found' }, { status: 404 });
-    }
-
-    return NextResponse.json(serializeDay(day));
-  } catch (error) {
-    return NextResponse.json(
-      {
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
-  }
-}
-
 export async function PATCH(request: Request, { params }: RouteContext) {
   try {
     await connectToDatabase();
