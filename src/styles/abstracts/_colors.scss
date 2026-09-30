@@ -1,23 +1,24 @@
 $text-colors: (
-  primary: #294f30,
-  inactive: #417c4f,
-  white: #ffffff,
-  black: #000000,
+  primary: var(--color-text-primary),
+  inactive: var(--color-text-inactive),
+  white: var(--color-text-white),
+  black: var(--color-text-black),
+  off-white: var(--color-text-off-white),
 );
 
 $bg-colors: (
-  primary: #eef7f2,
-  secondary: #294f30,
-  off-white: #f8fffc,
-  white: #ffffff,
-  black: #000000,
-  dark: #012514,
+  primary: var(--color-bg-primary),
+  secondary: var(--color-bg-secondary),
+  off-white: var(--color-bg-off-white),
+  white: var(--color-bg-white),
+  black: var(--color-bg-black),
+  dark: var(--color-bg-dark),
 );
 
 $border-colors: (
-  primary: #294f30,
-  inactive: #417c4f,
-  active: #f2c451,
-  inactive-dark: #ae8111,
-  black: #000000,
+  primary: var(--color-border-primary),
+  inactive: var(--color-border-inactive),
+  active: var(--color-border-active),
+  inactive-dark: var(--color-border-inactive-dark),
+  black: var(--color-border-black),
 );
