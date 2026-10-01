@@ -1,0 +1,38 @@
+import mongoose from 'mongoose';
+
+const daySchema = new mongoose.Schema(
+  {
+    date: {
+      type: Date,
+      required: true,
+    },
+    heading: {
+      type: String,
+      required: true,
+    },
+    text: {
+      type: String,
+      required: true,
+    },
+    linkText: {
+      type: String,
+      required: [
+        function (this: { link?: string }) {
+          return Boolean(this.link);
+        },
+        'linkText is required when link is provided',
+      ],
+    },
+    link: {
+      type: String,
+      required: false,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+const Day = mongoose.models.Day || mongoose.model('Day', daySchema);
+
+export default Day;
