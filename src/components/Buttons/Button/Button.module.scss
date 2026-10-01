@@ -34,10 +34,9 @@
 .icon {
   display: flex;
   align-items: center;
-  width: type-size(md);
-  height: type-size(md);
+  width: 1em;
+  height: 1em;
 }
-
 
 .button {
   display: inline-flex;
@@ -46,23 +45,23 @@
   font-family: inherit;
   align-items: center;
   justify-content: center;
-  gap: map.get($spacing-scale, sm);
-  padding: map.get($spacing-scale, sm) map.get($spacing-scale, md);
+  gap: map.get($spacing-scale, xs);
+  padding: map.get($spacing-scale, xs) map.get($spacing-scale, md);
   border-width: 1px;
   border-style: solid;
   border-radius: 8px;
   cursor: pointer;
 
   &.variant-primary {
-@extend .bg-primary;
-@extend .border-primary;
-@extend .text-primary;
-}
+    @extend .bg-primary;
+    @extend .border-primary;
+    @extend .text-primary;
+  }
 
-&.variant-secondary {
-@extend .bg-secondary;
-@extend .border-match-secondary;
-@extend .text-white;
-@extend .font-bold;
-}
+  &.variant-secondary {
+    @extend .bg-secondary;
+    @extend .border-match-secondary;
+    @extend .text-white;
+    @extend .font-bold;
+  }
 }
