@@ -79,11 +79,7 @@ export default function ManageDaysForm({
           Cancel
         </Button>
         {/*todo when backend exists: only submit when data hasChanged()*/}
-        <Button
-          variant="secondary"
-          type="submit"
-          onClick={() => onSubmit(data)}
-        >
+        <Button variant="secondary" type="submit" onClick={() => void 0}>
           Save
         </Button>
       </div>
