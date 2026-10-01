@@ -31,12 +31,12 @@ export default function UsersTable({
         </thead>
         <tbody>
           {users.length === 0 ? (
-            <tr role="row">
+            <tr>
               <td colSpan={3}>No users yet.</td>
             </tr>
           ) : (
             users.map((user) => (
-              <tr key={user.id} role="row">
+              <tr key={user.id}>
                 <td data-label="Name">
                   {user.firstName} {user.lastName}
                 </td>
