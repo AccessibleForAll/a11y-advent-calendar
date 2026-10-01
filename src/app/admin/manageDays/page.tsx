@@ -1,20 +1,34 @@
 'use client';
 import { useState } from 'react';
-import { Trash2Icon, PencilLine } from 'lucide-react';
+import { Plus, Trash2Icon, PencilLine } from 'lucide-react';
 
-import { days } from '../../../../data/days';
-import pageStyles from '@/app/page.module.scss';
+import { Day, days } from '../../../../data/days';
 
 import Card from '@/components/Card/Card';
-import cardStyles from '@/components/Card/Card.module.scss';
 import Button from '@/components/Buttons/Button/Button';
 import Modal from '@/components/Modal/Modal';
-import modalStyles from '@/components/Modal/Modal.module.scss';
+import manageDaysStyles from '@/app/admin/manageDays/ManageDays.module.scss';
 
-import manageDaysStyles from './manageDays.module.scss';
+import pageStyles from '@/app/page.module.scss';
+import ManageDaysForm from '@/components/Forms/ManageDaysForm';
+
+export type ModalMode = 'create' | 'edit' | 'delete' | 'null';
 
 export default function ManageDaysPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalMode, setModalMode] = useState<ModalMode>();
+  const [currentDay, setCurrentDay] = useState<Day | null>();
+
+  function openModal(inDay: Day | null, mode: ModalMode) {
+    setCurrentDay(inDay);
+    setModalMode(mode);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+    setCurrentDay(null);
+  }
 
   return (
     <>
@@ -24,40 +38,64 @@ export default function ManageDaysPage() {
         >
           Manage Days
         </h1>
-        <Button variant="secondary" onClick={() => setIsModalOpen(true)}>
-          + New Day
+        <Button
+          variant="secondary"
+          icon={Plus}
+          onClick={() => {
+            openModal(null, 'create');
+          }}
+        >
+          New Day
         </Button>
       </div>
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Create Day"
+        onClose={() => closeModal()}
+        title={
+          modalMode === 'create'
+            ? 'Create Day'
+            : modalMode === 'delete'
+              ? 'Delete Day'
+              : 'Edit Day'
+        }
       >
-        <p className={modalStyles.modalText}>
-          This is a modal for creating a new day. You can add the form or
-          content here.
-        </p>
+        {/* This is a placeholder for the deleteForm component */}
+        {modalMode === 'delete' ? null : (
+          <ManageDaysForm
+            key={currentDay?.day ?? 'newDay'}
+            day={currentDay ?? null}
+            onCancel={closeModal}
+            onSubmit={(updatedDay) => {
+              console.log(updatedDay);
+              closeModal();
+            }}
+          />
+        )}
       </Modal>
-      <ul className={cardStyles.cardGrid}>
-        {days.slice(0, 4).map((d) => (
-          <li key={d.day}>
+      <ul className={manageDaysStyles.cardGrid}>
+        {days.slice(0, 4).map((inDay) => (
+          <li key={inDay.day}>
             <Card>
               <div className={manageDaysStyles.manageDaysWrapper}>
-                <p className={manageDaysStyles.dayLabel}>Day {d.day}</p>
-                <h2>{d.title}</h2>
-                <p className={manageDaysStyles.clampedText}>{d.text}</p>
+                <p className={manageDaysStyles.dayLabel}>Day {inDay.day}</p>
+                <h2>{inDay.title}</h2>
+                <p className={manageDaysStyles.clampedText}>{inDay.text}</p>
                 <div className={manageDaysStyles.manageDaysButton}>
                   <Button
                     variant="primary"
                     icon={PencilLine}
-                    onClick={() => console.log('Edit pressed', d.day)}
+                    onClick={() => {
+                      openModal(inDay, 'edit');
+                    }}
                   >
                     Edit
                   </Button>
                   <Button
                     variant="primary"
                     icon={Trash2Icon}
-                    onClick={() => console.log('Delete pressed', d.day)}
+                    onClick={() => {
+                      openModal(inDay, 'delete');
+                    }}
                   >
                     Delete
                   </Button>

@@ -4,12 +4,13 @@
 @use '../styles/abstracts/_functions.scss' as *;
 
 $grid-gap: space(xxl);
-$grid-max-width: calc(
-  6 * 9.375rem + 5 * #{$grid-gap}
-); //6 columns with 9,375rem width and 5 gaps
+$grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});
 
 .main {
+  flex: 1; // This allows the main content to take up the remaining space in the flex container, pushing the footer to the bottom of the page.
   padding: space(xl);
+  max-width: $content-max-width;
+  margin-inline: auto;
 
   @media (max-width: 25rem) {
     padding: space(md);
@@ -17,11 +18,7 @@ $grid-max-width: calc(
 }
 
 .title {
-  color: map.get($text-colors, primary);
-  font-size: type-size(xxxl);
   margin-bottom: space(xl);
-  max-width: $grid-max-width;
-  margin-inline: auto;
 
   @media (max-width: 25rem) {
     font-size: type-size(xxl);
@@ -32,11 +29,9 @@ $grid-max-width: calc(
   color: map.get($text-colors, black);
   font-size: type-size(lg);
   margin-bottom: space(xxl);
-  max-width: $grid-max-width;
-  margin-inline: auto;
 
   p {
-    margin: 0 0 space(sm) 0;
+    margin-block-end: space(sm);
   }
 }
 
@@ -49,5 +44,29 @@ $grid-max-width: calc(
   gap: $grid-gap;
   max-width: $grid-max-width;
   margin-inline: auto;
-  margin-bottom: space(xxl);
+  margin-block-end: space(xxl);
+}
+
+.modalHeading {
+  color: map.get($text-colors, primary);
+  font-size: type-size(xl);
+  margin-block-end: space(sm);
+}
+
+.modalText {
+  margin-block-end: space(sm);
+}
+
+.modalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: space(xs);
+  color: map.get($text-colors, primary);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.modalLinkIcon {
+  width: space(md);
+  height: space(md);
 }

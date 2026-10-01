@@ -6,21 +6,36 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: none;
   margin-bottom: space(xl);
   margin-inline: auto;
+
+  @media (max-width: 33rem) {
+    gap: map.get($spacing-scale, md);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.cardGrid {
+  justify-content: center;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: map.get($spacing-scale, xl);
+
+  @media (max-width: 48rem) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .manageDaysContainer {
   display: flex;
   flex-direction: column;
   gap: map.get($spacing-scale, md);
-  align-items: center;
+  max-width: calc(47rem * 2 + #{map.get($spacing-scale, xl)});
+  margin-inline: auto;
 }
 
 .manageDaysTitle {
-  max-width: none;
   margin-inline: 0;
   margin-bottom: 0;
 }
@@ -30,7 +45,6 @@
   flex-direction: column;
   gap: map.get($spacing-scale, md);
   align-items: flex-start;
-  max-width: 37rem;
 }
 
 .dayLabel {
@@ -51,5 +65,18 @@
 
   button {
     padding: map.get($spacing-scale, xs) map.get($spacing-scale, sm);
+  }
+}
+
+.modalContentWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: space(xl);
+  gap: map.get($spacing-scale, sm);
+  align-items: center;
+
+  .manageDaysButton {
+    margin-top: space(xl);
+    align-self: flex-end;
   }
 }

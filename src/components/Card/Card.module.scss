@@ -8,18 +8,10 @@
   color: map.get($text-colors, primary);
   font-size: type-size(md);
   font-family: inherit;
-  padding-block: map.get($spacing-scale, md);
-  padding-inline: map.get($spacing-scale, md);
+  padding-block: map.get($spacing-scale, xl);
+  padding-inline: map.get($spacing-scale, xl);
   border-width: 2px;
   border-style: solid;
   border-radius: 16px;
   border-color: map.get($border-colors, primary);
-}
-
-.cardGrid {
-  justify-content: center;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 35rem), 37rem));
-  gap: map.get($spacing-scale, md);
 }

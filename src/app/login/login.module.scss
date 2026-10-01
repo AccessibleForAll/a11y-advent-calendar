@@ -1,0 +1,52 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/variables' as *;
+@use '../../styles/abstracts/mixins' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.loginContainer {
+  @include flex-center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.loginHeader {
+  @include flex-center;
+  flex-direction: column;
+  margin: space(md);
+  gap: space(md);
+}
+
+.loginCard {
+  width: min(100%, 635px);
+}
+
+.loginContent {
+  @include flex-center;
+  flex-direction: column;
+  gap: space(sm);
+  width: 100%;
+}
+
+.subtitle {
+  font-size: type-size(md);
+  font-weight: bold;
+  color: map.get($text-colors, 'primary');
+}
+
+.buttonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.backToCalendar {
+  @include flex-center;
+  margin: space(md);
+  a {
+    display: flex;
+    align-items: center;
+    gap: space(xs);
+    color: map.get($text-colors, black);
+  }
+}

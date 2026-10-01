@@ -15,6 +15,7 @@ type ModalProps = {
   onClose: () => void;
   title: string;
   children: ReactNode;
+  smallTitle?: boolean;
 };
 
 export default function Modal({
@@ -22,6 +23,7 @@ export default function Modal({
   onClose,
   title,
   children,
+  smallTitle = false,
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -62,7 +64,13 @@ export default function Modal({
       onToggle={handleToggle}
     >
       <div className={styles.header}>
-        <h2 id={titleId}>{title}</h2>
+        {smallTitle ? (
+          <p id={titleId} className={styles.modalTitleSmall}>
+            {title}
+          </p>
+        ) : (
+          <h2 id={titleId}>{title}</h2>
+        )}
 
         <button
           ref={closeButtonRef}
