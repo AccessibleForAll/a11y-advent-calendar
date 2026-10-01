@@ -12,7 +12,7 @@ import ManageDaysForm from '@/components/Forms/ManageDaysForm';
 
 import { Plus, Trash2Icon, PencilLine } from 'lucide-react';
 
-export type ModalMode = 'create' | 'edit' | 'delete' | 'null';
+export type ModalMode = 'create' | 'edit' | 'delete';
 
 export default function ManageDaysPage() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

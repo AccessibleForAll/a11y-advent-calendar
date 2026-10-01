@@ -45,35 +45,35 @@ export default function ManageDaysForm({
         onChange={handleChange}
         label="Date:"
         type="text"
-      ></InputField>
+      />
       <InputField
         name="title"
         value={data.title}
         onChange={handleChange}
         label="Heading:"
         type="text"
-      ></InputField>
+      />
       <InputField
         name="text"
         value={data.text}
         onChange={handleChange}
         label="Text:"
         type="textarea"
-      ></InputField>
+      />
       <InputField
         name="linkText"
         value={data.linkText}
         onChange={handleChange}
         label="Link Text:"
         type="text"
-      ></InputField>
+      />
       <InputField
         name="linkUrl"
         value={data.linkUrl}
         onChange={handleChange}
         label="Link URL:"
         type="text"
-      ></InputField>
+      />
       <div className={manageDaysStyles.buttonGroup}>
         <Button variant="primary" type="button" onClick={onCancel}>
           Cancel
