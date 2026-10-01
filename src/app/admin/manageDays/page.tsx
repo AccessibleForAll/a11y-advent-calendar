@@ -1,15 +1,11 @@
 'use client';
 import { useState } from 'react';
-
 import manageDaysStyles from '@/app/admin/manageDays/ManageDays.module.scss';
-
 import { Day, days } from '../../../../data/days';
-
 import Card from '@/components/Card/Card';
 import Button from '@/components/Buttons/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import ManageDaysForm from '@/components/Forms/ManageDaysForm';
-
 import { Plus, Trash2Icon, PencilLine } from 'lucide-react';
 
 export type ModalMode = 'create' | 'edit' | 'delete';
