@@ -4,6 +4,7 @@
 
 .headerRow {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: space(md);
@@ -13,10 +14,4 @@
 .title {
   color: map.get($text-colors, primary);
   font-size: type-size(xxl);
-}
-
-@media (max-width: 37.5rem) {
-  .headerRow {
-    flex-wrap: wrap;
-  }
 }

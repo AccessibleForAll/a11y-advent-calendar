@@ -1,21 +1,22 @@
+import { use } from 'react';
 import { PencilLine, Trash2 } from 'lucide-react';
 import styles from './UsersTable.module.scss';
 import Button from '@/components/Buttons/Button/Button';
 import type { User } from '@/types/user';
 
 type UsersTableProps = {
-  users: User[];
-  isLoadingUsers: boolean;
+  usersPromise: Promise<User[]>;
   onEdit: (user: User) => void;
   onDelete: (user: User) => void;
 };
 
 export default function UsersTable({
-  users,
-  isLoadingUsers,
+  usersPromise,
   onEdit,
   onDelete,
 }: UsersTableProps) {
+  const users = use(usersPromise);
+
   return (
     <div className={styles.tableCard}>
       <table className={styles.table}>
@@ -29,11 +30,7 @@ export default function UsersTable({
           </tr>
         </thead>
         <tbody>
-          {isLoadingUsers ? (
-            <tr role="row">
-              <td colSpan={3}>Loading users…</td>
-            </tr>
-          ) : users.length === 0 ? (
+          {users.length === 0 ? (
             <tr role="row">
               <td colSpan={3}>No users yet.</td>
             </tr>
