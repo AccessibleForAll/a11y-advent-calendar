@@ -9,7 +9,7 @@
   overflow-y: auto;
   margin: auto;
   padding: space(lg);
-  border: 0;
+  border: 2px solid map.get($border-colors, active);
   border-radius: space(sm);
   background-color: map.get($bg-colors, white);
   color: map.get($text-colors, primary);
