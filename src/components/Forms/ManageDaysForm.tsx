@@ -29,8 +29,16 @@ export default function ManageDaysForm({
     setData((prev) => ({ ...prev, [name]: value }));
   }
 
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+    onSubmit(data);
+  }
+
   return (
-    <div className={manageDaysStyles.modalContentWrapper}>
+    <form
+      onSubmit={handleSubmit}
+      className={manageDaysStyles.modalContentWrapper}
+    >
       <InputField
         name="day"
         value={data.day}
@@ -66,15 +74,19 @@ export default function ManageDaysForm({
         label="Link URL:"
         type="text"
       ></InputField>
-      <div className={manageDaysStyles.manageDaysButton}>
-        <Button variant="primary" onClick={onCancel}>
+      <div className={manageDaysStyles.buttonGroup}>
+        <Button variant="primary" type="button" onClick={onCancel}>
           Cancel
         </Button>
         {/*todo when backend exists: only submit when data hasChanged()*/}
-        <Button variant="secondary" onClick={() => onSubmit(data)}>
+        <Button
+          variant="secondary"
+          type="submit"
+          onClick={() => onSubmit(data)}
+        >
           Save
         </Button>
       </div>
-    </div>
+    </form>
   );
 }
