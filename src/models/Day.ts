@@ -16,7 +16,12 @@ const daySchema = new mongoose.Schema(
     },
     linkText: {
       type: String,
-      required: false,
+      required: [
+        function (this: { link?: string }) {
+          return Boolean(this.link);
+        },
+        'linkText is required when link is provided',
+      ],
     },
     link: {
       type: String,
