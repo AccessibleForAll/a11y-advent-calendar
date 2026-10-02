@@ -11,7 +11,7 @@
   padding: space(lg);
   border: 2px solid map.get($border-colors, active);
   border-radius: space(sm);
-  background-color: map.get($bg-colors, white);
+  background-color: map.get($bg-colors, surface);
   color: map.get($text-colors, primary);
   &::backdrop {
     background: var(--color-backdrop-secondary);
