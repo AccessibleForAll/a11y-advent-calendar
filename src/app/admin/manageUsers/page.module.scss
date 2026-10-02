@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use '../../../styles/abstracts/functions' as *;
+@use '../../../styles/abstracts/colors' as *;
+
+.headerRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: space(md);
+  margin-block-end: space(xl);
+}
+
+.title {
+  color: map.get($text-colors, primary);
+  font-size: type-size(xxl);
+}
