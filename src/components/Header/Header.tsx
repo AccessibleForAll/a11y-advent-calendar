@@ -4,14 +4,15 @@ import Link from 'next/link';
 import styles from './Header.module.scss';
 import Button from '@/components/Buttons/Button/Button';
 import { useTheme } from 'next-themes';
+import { Sun, Moon } from 'lucide-react';
 
 export default function Header() {
-  const { setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const currentTheme = theme ?? resolvedTheme;
+  const isDark = currentTheme === 'dark';
 
   const handleThemeToggle = () => {
-    const currentTheme = document.documentElement.dataset.theme;
-
-    setTheme(currentTheme === 'light' ? 'dark' : 'light');
+    setTheme(isDark ? 'light' : 'dark');
   };
 
   return (
@@ -25,8 +26,12 @@ export default function Header() {
         />
       </Link>
 
-      <Button variant="primary" onClick={handleThemeToggle}>
-        Theme
+      <Button
+        variant="primary"
+        onClick={handleThemeToggle}
+        icon={isDark ? Sun : Moon}
+      >
+        {isDark ? 'Light Mode' : 'Dark Mode'}
       </Button>
     </header>
   );
