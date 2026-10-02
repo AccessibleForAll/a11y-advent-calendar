@@ -1,0 +1,71 @@
+@use 'sass:map';
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/functions' as *;
+
+.manageDaysHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: space(xl);
+  margin-inline: auto;
+
+  @media (max-width: 33rem) {
+    gap: map.get($spacing-scale, md);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.cardGrid {
+  justify-content: center;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: map.get($spacing-scale, xl);
+
+  @media (max-width: 48rem) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.manageDaysTitle {
+  margin-inline: 0;
+  margin-bottom: 0;
+}
+
+.manageDaysWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: map.get($spacing-scale, md);
+  align-items: flex-start;
+}
+
+.dayLabel {
+  font-weight: bold;
+}
+
+.clampedText {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  gap: map.get($spacing-scale, sm);
+}
+
+.modalContentWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: space(xl);
+  gap: map.get($spacing-scale, sm);
+  align-items: center;
+
+  .buttonGroup {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
