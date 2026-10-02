@@ -37,11 +37,11 @@ describe('isDayUnlocked', () => {
     }
   });
 
-  it('locks all Days on January 13', () => {
+  it('keeps all days unlocked in January', () => {
     const today = new Date(2027, 0, 13);
 
     for (let day = 1; day <= 24; day++) {
-      expect(isDayUnlocked(day.toString(), today)).toBe(false);
+      expect(isDayUnlocked(day.toString(), today)).toBe(true);
     }
   });
 });
