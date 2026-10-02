@@ -35,38 +35,42 @@ export default function UserForm({
   );
 
   return (
-    <>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSave(values);
+      }}
+    >
       <InputField
         label="First name:"
         name="firstName"
         value={values.firstName}
         onChange={(e) => setValues({ ...values, firstName: e.target.value })}
+        required
       />
       <InputField
         label="Last name:"
         name="lastName"
         value={values.lastName}
         onChange={(e) => setValues({ ...values, lastName: e.target.value })}
+        required
       />
       <InputField
         label="Email:"
         name="email"
         value={values.email}
         onChange={(e) => setValues({ ...values, email: e.target.value })}
+        required
       />
       {error && <p role="alert">{error}</p>}
       <div className={styles.actions}>
         <Button variant="primary" onClick={onCancel} disabled={isSaving}>
           Cancel
         </Button>
-        <Button
-          variant="secondary"
-          onClick={() => onSave(values)}
-          disabled={isSaving}
-        >
+        <Button variant="secondary" type="submit" disabled={isSaving}>
           {isSaving ? 'Saving...' : 'Save'}
         </Button>
       </div>
-    </>
+    </form>
   );
 }

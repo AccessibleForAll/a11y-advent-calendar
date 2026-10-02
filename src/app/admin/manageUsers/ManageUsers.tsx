@@ -63,7 +63,6 @@ export default function ManageUsers({ usersPromise }: ManageUsersProps) {
         throw new Error(data?.message ?? 'Failed to save user.');
       }
 
-      // Reruns the server page, passes down a fresh userspromise.
       router.refresh();
       setModal(null);
     } catch (error) {
