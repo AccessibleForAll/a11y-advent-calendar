@@ -3,6 +3,8 @@
 @use '../../../styles/abstracts/variables' as *;
 @use '../../../styles/abstracts/functions' as *;
 
+$button-content-size: type-size(md);
+
 .bg-primary {
   background-color: map.get($bg-colors, primary);
 }
@@ -34,14 +36,14 @@
 .icon {
   display: flex;
   align-items: center;
-  width: 1em;
-  height: 1em;
+  width: $button-content-size;
+  height: $button-content-size;
 }
 
 .button {
   display: inline-flex;
   vertical-align: middle;
-  font-size: type-size(md);
+  font-size: $button-content-size;
   font-family: inherit;
   align-items: center;
   justify-content: center;
