@@ -11,5 +11,5 @@
   padding: space(md);
   font-size: font-size(md);
   background: map.get($bg-colors, secondary);
-  color: map.get($bg-colors, off-white);
+  color: map.get($text-colors, off-white);
 }

@@ -1,5 +1,4 @@
 @use 'sass:map';
-@use 'sass:color';
 
 @use '../../styles/abstracts/colors' as *;
 @use '../../styles/abstracts/functions' as *;
@@ -10,15 +9,12 @@
   overflow-y: auto;
   margin: auto;
   padding: space(lg);
-  border: 0;
+  border: 2px solid map.get($border-colors, active);
   border-radius: space(sm);
-  background-color: map.get($bg-colors, white);
+  background-color: map.get($bg-colors, surface);
   color: map.get($text-colors, primary);
   &::backdrop {
-    background: color.change(
-      map.get($bg-colors, secondary),
-      $alpha: 0.7
-    ); //changed to more green backdrop color like it is in figma
+    background: var(--color-backdrop-secondary);
   }
 }
 
@@ -48,7 +44,7 @@
   padding: space(xs);
   cursor: pointer;
   &:focus-visible {
-    outline: 2px solid currentColor;
+    outline: 2px solid var(--color-focus);
     outline-offset: 2px;
   }
 }

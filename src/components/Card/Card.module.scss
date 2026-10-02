@@ -4,7 +4,7 @@
 @use '../../styles/abstracts/functions' as *;
 
 .card {
-  background-color: map.get($bg-colors, white);
+  background-color: map.get($bg-colors, surface);
   color: map.get($text-colors, primary);
   font-size: type-size(md);
   font-family: inherit;

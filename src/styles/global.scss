@@ -6,6 +6,52 @@
 @use './abstracts/functions';
 @use './abstracts/mixins';
 
+:root {
+  --color-text-primary: #294f30;
+  --color-text-inactive: #417c4f;
+  --color-text-white: #ffffff;
+  --color-text-black: #000000;
+  --color-text-off-white: #f8fffc;
+
+  --color-bg-primary: #eef7f2;
+  --color-bg-secondary: #294f30;
+  --color-bg-off-white: #f8fffc;
+  --color-bg-surface: #ffffff;
+  --color-bg-white: #ffffff;
+  --color-bg-black: #000000;
+  --color-bg-dark: #012514;
+
+  --color-border-primary: #294f30;
+  --color-border-black: #000000;
+
+  --color-focus: #294f30;
+
+  --color-backdrop-secondary: rgb(41 79 48 / 70%);
+}
+
+[data-theme='dark'] {
+  --color-text-primary: #ffffff;
+  --color-text-inactive: #eef7f2;
+  --color-text-white: #ffffff;
+  --color-text-black: #f5f7f5;
+
+  --color-bg-primary: #012514;
+  --color-bg-secondary: #294f30;
+  --color-bg-off-white: #1a261e;
+  --color-bg-surface: #294f30;
+  --color-bg-black: #000000;
+  --color-bg-dark: #0a170f;
+
+  --color-border-primary: #f2c451;
+  --color-border-inactive: #ae8111;
+  --color-border-active: #f2c451;
+  --color-border-black: #000000;
+
+  --color-focus: #f2c451;
+
+  --color-backdrop-secondary: rgb(8 22 13 / 75%);
+}
+
 html,
 body {
   min-height: 100%;
