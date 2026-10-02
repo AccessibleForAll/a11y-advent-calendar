@@ -8,7 +8,7 @@ export type ButtonProps = {
   variant: ButtonVariant;
   icon?: LucideIcon;
   children: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({

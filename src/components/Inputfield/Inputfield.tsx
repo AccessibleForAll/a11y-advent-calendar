@@ -12,6 +12,7 @@ type InputFieldProps = {
   type?: 'text' | 'textarea'; //Text is single line input and textarea is multi line
   name: string;
   rows?: number; //rows supports textarea height with number of rows.
+  required?: boolean;
 };
 
 export default function InputField({
@@ -21,6 +22,7 @@ export default function InputField({
   type = 'text',
   name,
   rows = 4,
+  required = false,
 }: InputFieldProps) {
   return (
     <div className={styles.wrapper}>
@@ -38,6 +40,7 @@ export default function InputField({
           value={value}
           onChange={onChange}
           rows={rows}
+          required={required}
         />
       ) : (
         <input
@@ -47,6 +50,7 @@ export default function InputField({
           value={value}
           onChange={onChange}
           type="text"
+          required={required}
         />
       )}
     </div>
