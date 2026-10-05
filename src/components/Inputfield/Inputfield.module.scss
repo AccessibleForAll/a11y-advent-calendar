@@ -15,7 +15,6 @@ $field-text-color: map.get($text-colors, 'black');
   flex-direction: column;
   gap: space(xs);
   width: 100%;
-  max-width: 100%;
   margin-bottom: space(md);
 }
 
