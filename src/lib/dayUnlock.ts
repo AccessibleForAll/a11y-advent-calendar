@@ -2,7 +2,7 @@ import { isBefore, startOfDay } from 'date-fns';
 
 export function isDayUnlocked(
   day: string,
-  currentDate: Date = new Date(),
+  currentDate: Date = new Date(2026, 11, 20),
   calendarYear = 2026,
 ): boolean {
   const today = startOfDay(currentDate);
