@@ -8,9 +8,11 @@ $grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});
 
 .main {
   flex: 1; // This allows the main content to take up the remaining space in the flex container, pushing the footer to the bottom of the page.
-  padding: space(xl);
+  width: 100%;
   max-width: $content-max-width;
+  padding: space(xl);
   margin-inline: auto;
+  min-width: 0;
 
   @media (max-width: 25rem) {
     padding: space(md);
@@ -35,16 +37,30 @@ $grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});
   }
 }
 
+// .grid {
+//   display: grid;
+//   grid-template-columns: repeat(
+//     auto-fit,
+//     minmax(min(9.375rem, calc(50% - #{$grid-gap} / 2)), 1fr)
+//   ); //fits as many buttons per row as space allows and have at least 2 buttons always. (so max 6 min 2)
+//   gap: $grid-gap;
+//   max-width: $grid-max-width;
+//   margin-inline: auto;
+//   margin-block-end: space(xxl);
+// }
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(9.375rem, calc(50% - #{$grid-gap} / 2)), 1fr)
-  ); //fits as many buttons per row as space allows and have at least 2 buttons always. (so max 6 min 2)
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: $grid-gap;
+  width: 100%;
   max-width: $grid-max-width;
   margin-inline: auto;
   margin-block-end: space(xxl);
+
+  @media (min-width: 48rem) {
+    grid-template-columns: repeat(auto-fit, minmax(9.375rem, 1fr));
+  }
 }
 
 .modalHeading {

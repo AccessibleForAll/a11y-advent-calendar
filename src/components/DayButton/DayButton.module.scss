@@ -4,8 +4,9 @@
 @use '../../styles/abstracts/functions' as *;
 
 .dayButton {
-  width: 9.375rem;
-  height: 9.375rem;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 9.375rem;
   border: 2px solid map.get($border-colors, primary);
   border-radius: 16px;
   background: map.get($bg-colors, surface);
