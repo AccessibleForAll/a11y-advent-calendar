@@ -1,10 +1,11 @@
-// GET user by id --> GET /api/users/123
-// PATCH --> PATCH /api/users/123
-// DELETE --> DELETE /api/users/123
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import User from '@/models/User';
-import type { UpdateUserInput } from '@/types/user';
+// import type { UpdateUserInput } from '@/types/user';
+import {
+  updateUserSchema,
+  formatValidationError,
+} from '@/lib/validations/user';
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -47,7 +48,15 @@ export async function PATCH(request: Request, { params }: RouteContext) {
   try {
     await connectToDatabase();
     const { id } = await params;
-    const body = (await request.json()) as UpdateUserInput;
+    const body: unknown = await request.json();
+
+    const validationResult = updateUserSchema.safeParse(body);
+
+    if (!validationResult.success) {
+      return NextResponse.json(formatValidationError(validationResult.error), {
+        status: 400,
+      });
+    }
 
     const user = await User.findById(id);
 
@@ -55,16 +64,16 @@ export async function PATCH(request: Request, { params }: RouteContext) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
 
-    if (body.firstName !== undefined) {
-      user.firstName = body.firstName;
+    if (validationResult.data.firstName !== undefined) {
+      user.firstName = validationResult.data.firstName;
     }
 
-    if (body.lastName !== undefined) {
-      user.lastName = body.lastName;
+    if (validationResult.data.lastName !== undefined) {
+      user.lastName = validationResult.data.lastName;
     }
 
-    if (body.email !== undefined) {
-      user.email = body.email;
+    if (validationResult.data.email !== undefined) {
+      user.email = validationResult.data.email;
     }
 
     await user.save();
