@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import User from '@/models/User';
-// import type { CreateUserInput } from '@/types/user';
 import {
   createUserSchema,
   formatValidationError,
