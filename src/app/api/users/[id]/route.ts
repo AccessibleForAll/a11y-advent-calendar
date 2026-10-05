@@ -5,6 +5,8 @@ import {
   updateUserSchema,
   formatValidationError,
 } from '@/lib/validations/user';
+import { ApiError } from '@/lib/api-error';
+import { handleApiError } from '@/lib/handle-api-error';
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -31,15 +33,12 @@ export async function GET(_request: Request, { params }: RouteContext) {
     const user = await User.findById(id);
 
     if (!user) {
-      return NextResponse.json({ message: 'User not found' }, { status: 404 });
+      throw new ApiError(404, 'User not found');
     }
 
     return NextResponse.json(serializeUser(user));
   } catch (error) {
-    return NextResponse.json(
-      { message: (error as Error).message },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }
 
@@ -60,7 +59,7 @@ export async function PATCH(request: Request, { params }: RouteContext) {
     const user = await User.findById(id);
 
     if (!user) {
-      return NextResponse.json({ message: 'User not found' }, { status: 404 });
+      throw new ApiError(404, 'User not found');
     }
 
     user.set(validationResult.data);
@@ -68,10 +67,7 @@ export async function PATCH(request: Request, { params }: RouteContext) {
 
     return NextResponse.json(serializeUser(user));
   } catch (error) {
-    return NextResponse.json(
-      { message: (error as Error).message },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }
 
@@ -82,14 +78,11 @@ export async function DELETE(_request: Request, { params }: RouteContext) {
     const user = await User.findByIdAndDelete(id);
 
     if (!user) {
-      return NextResponse.json({ message: 'User not found' }, { status: 404 });
+      throw new ApiError(404, 'User not found');
     }
 
     return new Response(null, { status: 204 });
   } catch (error) {
-    return NextResponse.json(
-      { message: (error as Error).message },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }
