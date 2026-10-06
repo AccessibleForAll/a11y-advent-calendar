@@ -63,18 +63,7 @@ export async function PATCH(request: Request, { params }: RouteContext) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
 
-    if (validationResult.data.firstName !== undefined) {
-      user.firstName = validationResult.data.firstName;
-    }
-
-    if (validationResult.data.lastName !== undefined) {
-      user.lastName = validationResult.data.lastName;
-    }
-
-    if (validationResult.data.email !== undefined) {
-      user.email = validationResult.data.email;
-    }
-
+    user.set(validationResult.data);
     await user.save();
 
     return NextResponse.json(serializeUser(user));

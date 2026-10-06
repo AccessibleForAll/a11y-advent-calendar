@@ -29,8 +29,6 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    await connectToDatabase();
-
     const body: unknown = await request.json();
 
     const validationResult = createUserSchema.safeParse(body);
@@ -42,11 +40,7 @@ export async function POST(request: Request) {
     }
 
     await connectToDatabase();
-    const user = await User.create({
-      firstName: validationResult.data.firstName,
-      lastName: validationResult.data.lastName,
-      email: validationResult.data.email,
-    });
+    const user = await User.create(validationResult.data);
 
     return NextResponse.json(
       {

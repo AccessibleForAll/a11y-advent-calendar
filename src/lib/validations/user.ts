@@ -3,7 +3,7 @@ import { z, ZodError } from 'zod';
 const userFieldsSchema = {
   firstName: z.string().trim().min(1, 'First name is required'),
   lastName: z.string().trim().min(1, 'Last name is required'),
-  email: z.string().trim().email('Invalid email address'),
+  email: z.string().trim().toLowerCase().email('Invalid email address'),
 };
 
 export const createUserSchema = z.object(userFieldsSchema).strict();
