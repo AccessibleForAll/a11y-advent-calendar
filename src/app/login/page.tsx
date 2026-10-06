@@ -63,9 +63,14 @@ export default function LoginPage() {
                 void handleClick();
               }}
             >
-              <InputField name="email" label="Email" />
+              <InputField name="email" label="Email" type="email" required />
 
-              <InputField name="password" label="Password" />
+              <InputField
+                name="password"
+                label="Password"
+                type="password"
+                required
+              />
 
               {errorMessage && (
                 <p role="alert" className={loginStyles.errorIcon}>
