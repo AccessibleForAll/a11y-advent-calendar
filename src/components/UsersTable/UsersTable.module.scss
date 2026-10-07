@@ -39,28 +39,3 @@
   align-items: center;
   gap: space(sm);
 }
-
-.cards {
-  display: none;
-}
-
-.cardList {
-  display: flex;
-  flex-direction: column;
-  gap: space(md);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-//swap the table for user cards on smaller screens
-
-@media (max-width: 37.5rem) {
-  .tableCard {
-    display: none;
-  }
-
-  .cards {
-    display: block;
-  }
-}

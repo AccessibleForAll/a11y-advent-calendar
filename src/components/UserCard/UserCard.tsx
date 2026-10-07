@@ -11,14 +11,14 @@ type UserCardProps = {
 };
 
 export default function UserCard({ user, onEdit, onDelete }: UserCardProps) {
+  const fullName = `${user.firstName} ${user.lastName}`;
+
   return (
     <Card className={styles.userCard}>
       <dl className={styles.details}>
         <div className={styles.row}>
           <dt>Name</dt>
-          <dd>
-            {user.firstName} {user.lastName}
-          </dd>
+          <dd>{fullName}</dd>
         </div>
         <div className={styles.row}>
           <dt>Email</dt>
@@ -30,6 +30,7 @@ export default function UserCard({ user, onEdit, onDelete }: UserCardProps) {
             <Button
               variant="primary"
               icon={PencilLine}
+              aria-label={`Edit ${fullName}`}
               onClick={() => onEdit(user)}
             >
               Edit
@@ -37,6 +38,7 @@ export default function UserCard({ user, onEdit, onDelete }: UserCardProps) {
             <Button
               variant="primary"
               icon={Trash2}
+              aria-label={`Delete ${fullName}`}
               onClick={() => onDelete(user)}
             >
               Delete

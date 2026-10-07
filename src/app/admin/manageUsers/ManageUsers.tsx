@@ -8,7 +8,7 @@ import Button from '@/components/Buttons/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import UserForm from '@/components/ModalContent/UserForm';
 import ConfirmDelete from '@/components/ModalContent/ConfirmDelete';
-import UsersTable from '@/components/UsersTable/UsersTable';
+import UsersList from '@/components/UsersList/UsersList';
 import type { ModalState } from '@/types/modal';
 import type { User, CreateUserInput } from '@/types/user';
 
@@ -113,7 +113,7 @@ export default function ManageUsers({ usersPromise }: ManageUsersProps) {
       </div>
 
       <Suspense fallback={<p>Loading users…</p>}>
-        <UsersTable
+        <UsersList
           usersPromise={usersPromise}
           onEdit={(user) => setModal({ mode: 'edit', user })}
           onDelete={(user) => setModal({ mode: 'delete', user })}
