@@ -5,13 +5,19 @@ import { Day } from '../../../data/days';
 import InputField from '../Inputfield/Inputfield';
 import Button from '@/components/Buttons/Button/Button';
 
-import manageDaysStyles from '@/app/admin/manageDays/ManageDays.module.scss';
+import styles from '@/app/admin/manageDays/ManageDays.module.scss';
 
 type ManageDaysFormProps = {
   day: Day | null;
   onCancel: () => void;
   onSubmit: (data: Day) => void;
 };
+
+function getMinDate() {
+  const date = new Date();
+  date.setDate(date.getDate() + 1);
+  return date.toLocaleDateString('sv-SE');
+}
 
 export default function ManageDaysForm({
   day,
@@ -21,6 +27,8 @@ export default function ManageDaysForm({
   const [data, setData] = useState<Day>(
     day ?? { day: '', title: '', text: '', linkUrl: '', linkText: '' },
   );
+  const [errors, setErrors] = useState<Partial<Record<keyof Day, string>>>({});
+  const minDate = getMinDate();
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -31,20 +39,46 @@ export default function ManageDaysForm({
 
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const newErrors: typeof errors = {};
+
+    if (!data.day) newErrors.day = 'Choose a date';
+    else if (data.day < minDate) newErrors.day = 'Choose a date in the future';
+
+    if (!data.title) newErrors.title = 'Heading is required';
+
+    if (!data.text) newErrors.text = 'Text is required';
+
+    if (data.linkUrl && !data.linkText)
+      newErrors.linkText = 'Link text is required if URL is given';
+
+    if (data.linkUrl && !data.linkUrl.startsWith('https://'))
+      newErrors.linkUrl = 'URL must start with https://';
+
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
     onSubmit(data);
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className={manageDaysStyles.modalContentWrapper}
+      className={styles.modalContentWrapper}
+      noValidate
     >
+      <p className={styles.requiredNote}>
+        Fields marked with an asterisk (*) are required.
+      </p>
       <InputField
         name="day"
         value={data.day}
         onChange={handleChange}
         label="Date:"
-        type="text"
+        type="date"
+        required
+        min={minDate}
+        error={errors.day}
       />
       <InputField
         name="title"
@@ -52,6 +86,8 @@ export default function ManageDaysForm({
         onChange={handleChange}
         label="Heading:"
         type="text"
+        required
+        error={errors.title}
       />
       <InputField
         name="text"
@@ -59,6 +95,8 @@ export default function ManageDaysForm({
         onChange={handleChange}
         label="Text:"
         type="textarea"
+        required
+        error={errors.text}
       />
       <InputField
         name="linkText"
@@ -66,15 +104,17 @@ export default function ManageDaysForm({
         onChange={handleChange}
         label="Link Text:"
         type="text"
+        error={errors.linkText}
       />
       <InputField
         name="linkUrl"
         value={data.linkUrl}
         onChange={handleChange}
         label="Link URL:"
-        type="text"
+        type="url"
+        error={errors.linkUrl}
       />
-      <div className={manageDaysStyles.buttonGroup}>
+      <div className={styles.buttonGroup}>
         <Button variant="primary" type="button" onClick={onCancel}>
           Cancel
         </Button>
