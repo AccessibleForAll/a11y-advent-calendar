@@ -8,11 +8,7 @@ type ThemeProviderProps = {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   return (
-    <NextThemeProvider
-      attribute="data-theme"
-      defaultTheme="system"
-      scriptProps={{ type: 'application/json' }}
-    >
+    <NextThemeProvider attribute="data-theme" defaultTheme="system">
       {children}
     </NextThemeProvider>
   );
