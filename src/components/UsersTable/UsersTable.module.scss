@@ -7,6 +7,8 @@
   border-radius: space(sm);
   overflow: hidden;
   overflow-x: auto;
+  background-color: map.get($bg-colors, surface);
+  color: map.get($text-colors, black);
 }
 
 .table {
@@ -19,18 +21,8 @@
     padding: space(md);
   }
 
-  thead th {
-    background-color: map.get($bg-colors, white);
-    color: map.get($text-colors, black);
-  }
-
   tbody tr {
-    background-color: map.get($bg-colors, white);
     border-top: 1px solid map.get($border-colors, primary);
-  }
-
-  tbody td {
-    color: map.get($text-colors, black);
   }
 
   .actionsHeader {
