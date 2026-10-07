@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Accessibility Advent Calendar
 
-## Getting Started
+An advent calendar with 24 bite-sized web accessibility tips, one behind each door. Visitors open a door to read that day's tip, and each tip can link to a resource for further reading.
 
-First, run the development server:
+The project also has an admin area for managing the calendar days and the users who can administer it, backed by a REST API and a MongoDB database.
 
-```bash
+## Tech stack
+
+- [Next.js 16](https://nextjs.org) (App Router) with [React]
+- [TypeScript]
+- [Sass] (SCSS modules) for styling
+- [MongoDB](https://www.mongodb.com) with [Mongoose](https://mongoosejs.com)
+- [Lucide](https://lucide.dev) for icons and [date-fns](https://date-fns.org) for dates
+- [ESLint](https://eslint.org) (including `eslint-plugin-jsx-a11y`) and [Prettier], run on commit with Husky and lint-staged
+
+## Getting started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org) and npm
+- A database user for the project's MongoDB Atlas cluster.
+
+### 1. Clone the repository and install dependencies
+
+In your terminal:
+
+git clone https://github.com/AccessibleForAll/a11y-advent-calendar.git
+cd a11y-advent-calendar
+npm install
+
+### 2. Add environment variables
+
+Create a `.env.local` file in the project root with this structure, replacing `<username>` and `<password>` with your database credentials:
+
+MONGODB_URI=mongodb+srv://<username>:<password>@a11y-advent-calendar.n119xuf.mongodb.net/
+
+### 3. Start the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000] in your browser.
