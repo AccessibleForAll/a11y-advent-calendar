@@ -27,9 +27,9 @@ function serializeUser(user: {
   };
 }
 
-export async function GET(_request: Request, { params }: RouteContext) {
+export async function GET(request: Request, { params }: RouteContext) {
   try {
-    await requireAuth(_request);
+    await requireAuth(request);
     await connectToDatabase();
     const { id } = await params;
     const user = await User.findById(id);
@@ -74,9 +74,9 @@ export async function PATCH(request: Request, { params }: RouteContext) {
   }
 }
 
-export async function DELETE(_request: Request, { params }: RouteContext) {
+export async function DELETE(request: Request, { params }: RouteContext) {
   try {
-    await requireAuth(_request);
+    await requireAuth(request);
     await connectToDatabase();
     const { id } = await params;
     const user = await User.findByIdAndDelete(id);
