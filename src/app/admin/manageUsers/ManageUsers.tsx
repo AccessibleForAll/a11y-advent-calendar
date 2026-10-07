@@ -66,7 +66,9 @@ export default function ManageUsers({ usersPromise }: ManageUsersProps) {
       router.refresh();
       setModal(null);
     } catch (error) {
-      setFormError((error as Error).message);
+      setFormError(
+        error instanceof Error ? error.message : 'Failed to save user.',
+      );
     } finally {
       setIsSaving(false);
     }
@@ -89,7 +91,9 @@ export default function ManageUsers({ usersPromise }: ManageUsersProps) {
       router.refresh();
       setModal(null);
     } catch (error) {
-      setFormError((error as Error).message);
+      setFormError(
+        error instanceof Error ? error.message : 'Failed to delete user.',
+      );
     } finally {
       setIsDeleting(false);
     }

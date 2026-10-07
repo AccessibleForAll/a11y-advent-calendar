@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import InputField from '@/components/Inputfield/Inputfield';
+import { useState, type ChangeEvent } from 'react';
 import Button from '@/components/Buttons/Button/Button';
+import InputField from '@/components/Inputfield/Inputfield';
 import styles from './ModalContent.module.scss';
 import type { CreateUserInput, User } from '@/types/user';
 
@@ -34,6 +34,14 @@ export default function UserForm({
       : emptyForm,
   );
 
+  //resusable funtion to handle input change
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <form
       onSubmit={(e) => {
@@ -45,21 +53,21 @@ export default function UserForm({
         label="First name:"
         name="firstName"
         value={values.firstName}
-        onChange={(e) => setValues({ ...values, firstName: e.target.value })}
+        onChange={handleChange}
         required
       />
       <InputField
         label="Last name:"
         name="lastName"
         value={values.lastName}
-        onChange={(e) => setValues({ ...values, lastName: e.target.value })}
+        onChange={handleChange}
         required
       />
       <InputField
         label="Email:"
         name="email"
         value={values.email}
-        onChange={(e) => setValues({ ...values, email: e.target.value })}
+        onChange={handleChange}
         required
       />
       {error && <p role="alert">{error}</p>}
