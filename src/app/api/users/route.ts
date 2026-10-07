@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import User from '@/models/User';
-import type { CreateUserInput } from '@/types/user';
+import {
+  createUserSchema,
+  formatValidationError,
+} from '@/lib/validations/user';
 
 export async function GET() {
   try {
@@ -26,15 +29,18 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const body: unknown = await request.json();
+
+    const validationResult = createUserSchema.safeParse(body);
+
+    if (!validationResult.success) {
+      return NextResponse.json(formatValidationError(validationResult.error), {
+        status: 400,
+      });
+    }
+
     await connectToDatabase();
-
-    const body = (await request.json()) as CreateUserInput;
-
-    const user = await User.create({
-      firstName: body.firstName,
-      lastName: body.lastName,
-      email: body.email,
-    });
+    const user = await User.create(validationResult.data);
 
     return NextResponse.json(
       {
