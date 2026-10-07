@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { format, startOfTomorrow } from 'date-fns';
 import { Day } from '../../../data/days';
 
 import InputField from '../Inputfield/Inputfield';
@@ -13,10 +14,23 @@ type ManageDaysFormProps = {
   onSubmit: (data: Day) => void;
 };
 
-function getMinDate() {
-  const date = new Date();
-  date.setDate(date.getDate() + 1);
-  return date.toLocaleDateString('sv-SE');
+function validateDay(data: Day, minDate: string) {
+  const result: Partial<Record<keyof Day, string>> = {};
+
+  if (!data.day) result.day = 'Choose a date';
+  else if (data.day < minDate) result.day = 'Choose a date in the future';
+
+  if (!data.title) result.title = 'Heading is required';
+
+  if (!data.text) result.text = 'Text is required';
+
+  if (data.linkUrl && !data.linkText)
+    result.linkText = 'Link text is required if URL is given';
+
+  if (data.linkUrl && !data.linkUrl.startsWith('https://'))
+    result.linkUrl = 'URL must start with https://';
+
+  return result;
 }
 
 export default function ManageDaysForm({
@@ -28,7 +42,7 @@ export default function ManageDaysForm({
     day ?? { day: '', title: '', text: '', linkUrl: '', linkText: '' },
   );
   const [errors, setErrors] = useState<Partial<Record<keyof Day, string>>>({});
-  const minDate = getMinDate();
+  const minDate = format(startOfTomorrow(), 'yyyy-MM-dd');
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -40,21 +54,7 @@ export default function ManageDaysForm({
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const newErrors: typeof errors = {};
-
-    if (!data.day) newErrors.day = 'Choose a date';
-    else if (data.day < minDate) newErrors.day = 'Choose a date in the future';
-
-    if (!data.title) newErrors.title = 'Heading is required';
-
-    if (!data.text) newErrors.text = 'Text is required';
-
-    if (data.linkUrl && !data.linkText)
-      newErrors.linkText = 'Link text is required if URL is given';
-
-    if (data.linkUrl && !data.linkUrl.startsWith('https://'))
-      newErrors.linkUrl = 'URL must start with https://';
-
+    const newErrors = validateDay(data, minDate);
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
