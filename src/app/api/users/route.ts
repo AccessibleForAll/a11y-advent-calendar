@@ -15,7 +15,6 @@ export async function GET() {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      mustChangePassword: user.mustChangePassword,
     }));
     return NextResponse.json(response);
   } catch (error) {
