@@ -12,6 +12,7 @@ type InputFieldProps = {
   type?: 'text' | 'textarea'; //Text is single line input and textarea is multi line
   name: string;
   rows?: number; //rows supports textarea height with number of rows.
+  fullWidth?: boolean;
   required?: boolean;
 };
 
@@ -23,9 +24,10 @@ export default function InputField({
   name,
   rows = 4,
   required = false,
+  fullWidth = false,
 }: InputFieldProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${fullWidth ? styles.fullWidth : ''}`}>
       {/* label text shown above field */}
       <label className={styles.label} htmlFor={name}>
         {label}
