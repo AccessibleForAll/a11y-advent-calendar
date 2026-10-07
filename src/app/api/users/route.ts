@@ -5,6 +5,7 @@ import {
   createUserSchema,
   formatValidationError,
 } from '@/lib/validations/user';
+import { handleApiError } from '@/lib/handle-api-error';
 
 export async function GET() {
   try {
@@ -18,12 +19,7 @@ export async function GET() {
     }));
     return NextResponse.json(response);
   } catch (error) {
-    return NextResponse.json(
-      {
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }
 
@@ -52,11 +48,6 @@ export async function POST(request: Request) {
       { status: 201 },
     );
   } catch (error) {
-    return NextResponse.json(
-      {
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }
