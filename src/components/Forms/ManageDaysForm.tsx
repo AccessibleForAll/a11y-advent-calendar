@@ -20,16 +20,22 @@ function validateDay(data: Day, minDate: string) {
   if (!data.day) result.day = 'Choose a date';
   else if (data.day < minDate) result.day = 'Choose a date in the future';
 
-  if (!data.title) result.title = 'Heading is required';
+  if (!data.title.trim()) result.title = 'Heading is required';
 
-  if (!data.text) result.text = 'Text is required';
+  if (!data.text.trim()) result.text = 'Text is required';
 
   if (data.linkUrl && !data.linkText)
     result.linkText = 'Link text is required if URL is given';
 
-  if (data.linkUrl && !data.linkUrl.startsWith('https://'))
-    result.linkUrl = 'URL must start with https://';
-
+  if (data.linkUrl)
+    try {
+      const url = new URL(data.linkUrl);
+      if (url.protocol !== 'https:')
+        result.linkUrl = 'URL must start with https://';
+      result.linkUrl = 'URL must start with https://';
+    } catch {
+      result.linkUrl = 'Enter a validUrl starting with https.';
+    }
   return result;
 }
 
