@@ -6,7 +6,7 @@ import { Day } from '../../../data/days';
 import InputField from '../Inputfield/Inputfield';
 import Button from '@/components/Buttons/Button/Button';
 
-import styles from '@/app/admin/manageDays/ManageDays.module.scss';
+import styles from './ManageDaysForm.module.scss';
 
 type ManageDaysFormProps = {
   day: Day | null;
@@ -131,7 +131,7 @@ export default function ManageDaysForm({
         type="url"
         error={errors.linkUrl}
       />
-      <div className={styles.buttonGroup}>
+      <div className={styles.buttonGroupForm}>
         <Button variant="primary" type="button" onClick={onCancel}>
           Cancel
         </Button>
