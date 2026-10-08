@@ -24,18 +24,23 @@ function validateDay(data: Day, minDate: string) {
 
   if (!data.text.trim()) result.text = 'Text is required';
 
-  if (data.linkUrl && !data.linkText)
-    result.linkText = 'Link text is required if URL is given';
+  const linkUrl = data.linkUrl.trim();
+  const linkText = data.linkText.trim();
 
-  if (data.linkUrl)
+  if (linkUrl && !linkText) {
+    result.linkText = 'Link text is required if URL is given';
+  }
+
+  if (linkUrl) {
     try {
-      const url = new URL(data.linkUrl);
-      if (url.protocol !== 'https:')
+      const url = new URL(linkUrl);
+      if (url.protocol !== 'https:') {
         result.linkUrl = 'URL must start with https://';
-      result.linkUrl = 'URL must start with https://';
+      }
     } catch {
-      result.linkUrl = 'Enter a validUrl starting with https.';
+      result.linkUrl = 'Enter a valid URL starting with https.';
     }
+  }
   return result;
 }
 
@@ -64,7 +69,13 @@ export default function ManageDaysForm({
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
-    onSubmit(data);
+    onSubmit({
+      ...data,
+      title: data.title.trim(),
+      text: data.text.trim(),
+      linkUrl: data.linkUrl.trim(),
+      linkText: data.linkText.trim(),
+    });
   }
 
   return (
