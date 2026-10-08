@@ -11,9 +11,17 @@ type UserFormProps = {
   user: User | null;
   onCancel: () => void;
   onSubmit: (data: CreateUserInput) => void;
+  isSubmitting?: boolean;
+  error?: string | null;
 };
 
-export default function UserForm({ user, onCancel, onSubmit }: UserFormProps) {
+export default function UserForm({
+  user,
+  onCancel,
+  onSubmit,
+  isSubmitting = false,
+  error,
+}: UserFormProps) {
   const [data, setData] = useState<CreateUserInput>(
     user
       ? {
@@ -59,12 +67,18 @@ export default function UserForm({ user, onCancel, onSubmit }: UserFormProps) {
         label="Email:"
         type="text"
       />
+      {error && <p role="alert">{error}</p>}
       <div className={styles.buttonGroup}>
         <Button variant="primary" type="button" onClick={onCancel}>
           Cancel
         </Button>
-        <Button variant="secondary" type="submit" onClick={() => void 0}>
-          Save
+        <Button
+          variant="secondary"
+          type="submit"
+          onClick={() => void 0}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Saving…' : 'Save'}
         </Button>
       </div>
     </form>
