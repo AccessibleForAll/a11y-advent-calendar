@@ -9,6 +9,7 @@ $border-color: map.get($border-colors, 'primary');
 $field-bg-color: map.get($bg-colors, 'white');
 $focus-color: map.get($border-colors, 'primary');
 $field-text-color: map.get($text-colors, 'black');
+$error-color: map.get($text-colors, 'error');
 
 .wrapper {
   display: flex;
@@ -43,4 +44,19 @@ $field-text-color: map.get($text-colors, 'black');
     outline-offset: 2px;
     border-color: $border-color;
   }
+}
+
+.error {
+  font-size: type-size(sm);
+  color: $error-color;
+  font-weight: bold;
+}
+
+.errorIcon {
+  width: type-size(sm);
+  height: type-size(sm);
+}
+
+.required {
+  color: $error-color;
 }
