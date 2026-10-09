@@ -1,0 +1,41 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.tableCard {
+  border: 2px solid map.get($border-colors, primary);
+  border-radius: space(sm);
+  overflow: hidden;
+  overflow-x: auto;
+  background-color: map.get($bg-colors, surface);
+  color: map.get($text-colors, black);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    text-align: left;
+    padding: space(md);
+  }
+
+  tbody tr {
+    border-top: 1px solid map.get($border-colors, primary);
+  }
+
+  .actionsHeader {
+    text-align: right;
+  }
+}
+
+.actionsCell {
+  text-align: right;
+}
+
+.actionButtons {
+  display: inline-flex;
+  align-items: center;
+  gap: space(sm);
+}

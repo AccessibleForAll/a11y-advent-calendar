@@ -1,0 +1,51 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.userCard {
+  padding: 0;
+  border-radius: space(sm);
+  overflow: hidden;
+  color: map.get($text-colors, black);
+}
+
+.details {
+  display: grid;
+  grid-template-columns: minmax(max-content, 2fr) 3fr;
+  column-gap: space(md);
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  align-items: center;
+  padding: space(sm) space(md);
+}
+
+.row + .row {
+  border-top: 1px solid map.get($border-colors, primary);
+}
+
+.row dt {
+  font-weight: bold;
+  color: map.get($text-colors, primary);
+}
+
+.row dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.row .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: space(sm);
+
+  button {
+    padding: space(xs) space(sm);
+  }
+}
