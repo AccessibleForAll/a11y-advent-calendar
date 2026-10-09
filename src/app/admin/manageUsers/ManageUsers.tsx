@@ -11,7 +11,6 @@ import UserForm from '@/components/Forms/UserForm';
 import UsersList from '@/components/UsersList/UsersList';
 import { Plus } from 'lucide-react';
 
-// Reads the error message the API sends back, or uses the fallback.
 async function getErrorMessage(res: Response, fallback: string) {
   const data = await res.json().catch(() => null);
   return data?.message ?? fallback;
