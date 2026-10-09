@@ -4,8 +4,8 @@
 @use '../../styles/abstracts/functions' as *;
 
 .dayButton {
-  width: 9.375rem;
-  height: 9.375rem;
+  width: 100%;
+  aspect-ratio: 1;
   border: 2px solid map.get($border-colors, primary);
   border-radius: 16px;
   background: map.get($bg-colors, surface);
@@ -16,11 +16,6 @@
   color: map.get($text-colors, primary);
   font-size: type-size(lg);
   gap: space(sm);
-
-  @media (max-width: 25rem) {
-    width: 8rem;
-    height: 8rem;
-  }
 
   &:focus-visible {
     outline: 3px solid map.get($border-colors, primary);
