@@ -40,12 +40,15 @@
   justify-content: flex-end;
 }
 
-.errorIcon {
+.errorMessage {
   display: flex;
   gap: space(xs);
   color: map.get($text-colors, 'error');
   margin: space(xs);
   align-items: center;
+  &:empty {
+    margin: 0;
+  }
 }
 
 .backToCalendar {

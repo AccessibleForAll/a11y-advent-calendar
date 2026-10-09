@@ -11,8 +11,8 @@ import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-  const formRef = useRef<HTMLFormElement>(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
   async function handleClick() {
@@ -63,21 +63,30 @@ export default function LoginPage() {
                 void handleClick();
               }}
             >
-              <InputField name="email" label="Email" type="email" required />
+              <InputField
+                name="email"
+                label="Email"
+                type="email"
+                required
+                aria-invalid={Boolean(errorMessage)}
+              />
 
               <InputField
                 name="password"
                 label="Password"
                 type="password"
                 required
+                aria-invalid={Boolean(errorMessage)}
               />
 
-              {errorMessage && (
-                <p role="alert" className={loginStyles.errorIcon}>
-                  <TriangleAlert />
-                  {errorMessage}
-                </p>
-              )}
+              <p role="alert" className={loginStyles.errorMessage}>
+                {errorMessage && (
+                  <>
+                    <TriangleAlert aria-hidden="true" />
+                    {errorMessage}
+                  </>
+                )}
+              </p>
 
               <div className={loginStyles.buttonWrapper}>
                 <Button variant="primary" onClick={handleClick}>
