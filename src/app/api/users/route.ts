@@ -6,9 +6,11 @@ import {
   formatValidationError,
 } from '@/lib/validations/user';
 import { handleApiError } from '@/lib/handle-api-error';
+import { requireAuth } from '@/lib/require-auth';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    await requireAuth(request);
     await connectToDatabase();
     const users = await User.find();
     const response = users.map((user) => ({
@@ -25,6 +27,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    await requireAuth(request);
     const body: unknown = await request.json();
 
     const validationResult = createUserSchema.safeParse(body);

@@ -7,6 +7,7 @@ import {
 } from '@/lib/validations/user';
 import { ApiError } from '@/lib/api-error';
 import { handleApiError } from '@/lib/handle-api-error';
+import { requireAuth } from '@/lib/require-auth';
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -26,8 +27,9 @@ function serializeUser(user: {
   };
 }
 
-export async function GET(_request: Request, { params }: RouteContext) {
+export async function GET(request: Request, { params }: RouteContext) {
   try {
+    await requireAuth(request);
     await connectToDatabase();
     const { id } = await params;
     const user = await User.findById(id);
@@ -44,6 +46,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
 
 export async function PATCH(request: Request, { params }: RouteContext) {
   try {
+    await requireAuth(request);
     await connectToDatabase();
     const { id } = await params;
     const body: unknown = await request.json();
@@ -71,8 +74,9 @@ export async function PATCH(request: Request, { params }: RouteContext) {
   }
 }
 
-export async function DELETE(_request: Request, { params }: RouteContext) {
+export async function DELETE(request: Request, { params }: RouteContext) {
   try {
+    await requireAuth(request);
     await connectToDatabase();
     const { id } = await params;
     const user = await User.findByIdAndDelete(id);
