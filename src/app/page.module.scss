@@ -3,11 +3,12 @@
 @use '../styles/abstracts/_colors.scss' as *;
 @use '../styles/abstracts/_functions.scss' as *;
 
-$grid-gap: space(xxl);
-$grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});
+$grid-gap-min: space(md);
+$grid-gap-max: space(xxl);
+$grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap-max});
 
 .main {
-  flex: 1; // This allows the main content to take up the remaining space in the flex container, pushing the footer to the bottom of the page.
+  flex: 1;
   padding: space(xl);
   max-width: $content-max-width;
   margin-inline: auto;
@@ -23,6 +24,10 @@ $grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});
   @media (max-width: 25rem) {
     font-size: type-size(xxl);
   }
+
+  @media (max-width: 22.0625rem) {
+    padding-inline: space(sm);
+  }
 }
 
 .intro {
@@ -37,13 +42,16 @@ $grid-max-width: calc(6 * 9.375rem + 5 * #{$grid-gap});
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: $grid-gap;
+  grid-template-columns: repeat(auto-fill, minmax(0, 9.375rem));
+  justify-content: center;
+  gap: clamp(#{$grid-gap-min}, 6vw, #{$grid-gap-max});
   max-width: $grid-max-width;
   margin-inline: auto;
   margin-block-end: space(xxl);
-  @media (min-width: 48rem) {
-    grid-template-columns: repeat(auto-fit, minmax(9.375rem, 1fr));
+
+  @media (max-width: 22.0625rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: space(sm);
   }
 }
 

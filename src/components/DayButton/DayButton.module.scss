@@ -4,9 +4,8 @@
 @use '../../styles/abstracts/functions' as *;
 
 .dayButton {
-  width: 100%; // This makes the button take up the full width of its container, which is useful for responsive layouts.
+  width: 100%;
   aspect-ratio: 1;
-  max-width: 9.375rem;
   border: 2px solid map.get($border-colors, primary);
   border-radius: 16px;
   background: map.get($bg-colors, surface);
@@ -17,11 +16,6 @@
   color: map.get($text-colors, primary);
   font-size: type-size(lg);
   gap: space(sm);
-
-  @media (max-width: 25rem) {
-    width: 8rem;
-    height: 8rem;
-  }
 
   &:focus-visible {
     outline: 3px solid map.get($border-colors, primary);
