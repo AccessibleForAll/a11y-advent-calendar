@@ -19,6 +19,7 @@ export default function ManageDaysPage() {
   const [days, setDays] = useState<Day[]>([]);
 
   function openModal(inDay: Day | null, mode: ModalMode) {
+    setError(null);
     setCurrentDay(inDay);
     setModalMode(mode);
     setIsModalOpen(true);
@@ -44,6 +45,8 @@ export default function ManageDaysPage() {
   }, []);
 
   async function handleSubmit(formData: CreateDayInput) {
+    if (isSubmitting) return;
+
     try {
       setIsSubmitting(true);
       const res = await fetch('/api/days', {
@@ -57,6 +60,27 @@ export default function ManageDaysPage() {
       }
       const created: Day = await res.json();
       setDays((prev) => [...prev, created]);
+      closeModal();
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (!currentDay || isSubmitting) return;
+
+    try {
+      setIsSubmitting(true);
+      const res = await fetch(`/api/days/${currentDay.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        throw new Error('Could not delete day');
+      }
+      setDays((prev) => prev.filter((day) => day.id !== currentDay.id));
       closeModal();
     } catch (err) {
       setError((err as Error).message);
@@ -79,6 +103,7 @@ export default function ManageDaysPage() {
           New Day
         </Button>
       </div>
+      {error && <p>{error}</p>}
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
@@ -90,8 +115,22 @@ export default function ManageDaysPage() {
               : 'Edit Day'
         }
       >
-        {/* This is a placeholder for the deleteForm component */}
-        {modalMode === 'delete' ? null : (
+        {modalMode === 'delete' ? (
+          <>
+            <p>
+              Are you sure you want to delete{' '}
+              <strong>{currentDay?.heading}</strong>?
+            </p>
+            <div className={styles.buttonGroup}>
+              <Button variant="secondary" onClick={closeModal}>
+                Cancel
+              </Button>
+              <Button variant="primary" onClick={handleDelete}>
+                Delete
+              </Button>
+            </div>
+          </>
+        ) : (
           <ManageDaysForm
             key={currentDay?.id ?? 'newDay'}
             day={currentDay ?? null}
