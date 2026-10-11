@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { format, startOfTomorrow } from 'date-fns';
-import { Day } from '../../../data/days';
+import type { Day, CreateDayInput } from '@/types/day';
 
 import InputField from '../Inputfield/Inputfield';
 import Button from '@/components/Buttons/Button/Button';
@@ -11,44 +11,52 @@ import styles from './ManageDaysForm.module.scss';
 type ManageDaysFormProps = {
   day: Day | null;
   onCancel: () => void;
-  onSubmit: (data: Day) => void;
+  onSubmit: (data: CreateDayInput) => void;
 };
 
-function validateData(data: Day, minDate: string) {
-  const result: Partial<Record<keyof Day, string>> = {};
+type FormState = {
+  date: string;
+  heading: string;
+  text: string;
+  linkText: string;
+  link: string;
+};
 
-  if (!data.day) result.day = 'Choose a date';
-  else if (data.day < minDate) result.day = 'Choose a date in the future';
+function validateData(data: FormState, minDate: string) {
+  const result: Partial<Record<keyof FormState, string>> = {};
+
+  if (!data.date) result.date = 'Choose a date';
+  else if (data.date < minDate) result.date = 'Choose a date in the future';
   else {
-    const monthAndDay = data.day.slice(5);
+    const monthAndDay = data.date.slice(5);
     if (monthAndDay < '12-01' || monthAndDay > '12-24') {
-      result.day = 'Choose a date between December 1 and 24';
+      result.date = 'Choose a date between December 1 and 24';
     }
   }
 
-  if (!data.title.trim()) result.title = 'Heading is required';
+  if (!data.heading.trim()) result.heading = 'Heading is required';
 
   if (!data.text.trim()) result.text = 'Text is required';
 
-  const linkUrl = data.linkUrl.trim();
   const linkText = data.linkText.trim();
+  const link = data.link.trim();
 
-  if (linkUrl && !linkText) {
+  if (link && !linkText) {
     result.linkText = 'Link text is required if URL is given';
   }
 
-  if (linkText && !linkUrl) {
-    result.linkUrl = 'Link URL is required if text is given';
+  if (linkText && !link) {
+    result.link = 'Link URL is required if text is given';
   }
 
-  if (linkUrl) {
+  if (link) {
     try {
-      const url = new URL(linkUrl);
+      const url = new URL(link);
       if (url.protocol !== 'https:') {
-        result.linkUrl = 'URL must start with https://';
+        result.link = 'URL must start with https://';
       }
     } catch {
-      result.linkUrl = 'Enter a valid URL starting with https.';
+      result.link = 'Enter a valid URL starting with https.';
     }
   }
   return result;
@@ -59,11 +67,18 @@ export default function ManageDaysForm({
   onCancel,
   onSubmit,
 }: ManageDaysFormProps) {
-  const [data, setData] = useState<Day>(
-    day ?? { day: '', title: '', text: '', linkUrl: '', linkText: '' },
-  );
-  const [errors, setErrors] = useState<Partial<Record<keyof Day, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof FormState, string>>
+  >({});
   const minDate = format(startOfTomorrow(), 'yyyy-MM-dd');
+
+  const [data, setData] = useState<FormState>({
+    date: day?.date ?? '',
+    heading: day?.heading ?? '',
+    text: day?.text ?? '',
+    linkText: day?.linkText ?? '',
+    link: day?.link ?? '',
+  });
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -72,18 +87,24 @@ export default function ManageDaysForm({
     setData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleSubmit() {
     const newErrors = validateData(data, minDate);
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
-    onSubmit({
-      ...data,
-      title: data.title.trim(),
+    const base = {
+      date: data.date,
+      heading: data.heading.trim(),
       text: data.text.trim(),
-      linkUrl: data.linkUrl.trim(),
-      linkText: data.linkText.trim(),
-    });
+    };
+    const link = data.link.trim();
+    const linkText = data.linkText.trim();
+
+    if (link && linkText) {
+      onSubmit({ ...base, link, linkText });
+    } else {
+      onSubmit(base);
+    }
   }
 
   return (
@@ -92,23 +113,23 @@ export default function ManageDaysForm({
         Fields marked with an asterisk (*) are required.
       </p>
       <InputField
-        name="day"
-        value={data.day}
+        name="date"
+        value={data.date}
         onChange={handleChange}
         label="Date:"
         type="date"
         required
         min={minDate}
-        error={errors.day}
+        error={errors.date}
       />
       <InputField
-        name="title"
-        value={data.title}
+        name="heading"
+        value={data.heading}
         onChange={handleChange}
         label="Heading:"
         type="text"
         required
-        error={errors.title}
+        error={errors.heading}
       />
       <InputField
         name="text"
@@ -128,18 +149,17 @@ export default function ManageDaysForm({
         error={errors.linkText}
       />
       <InputField
-        name="linkUrl"
-        value={data.linkUrl}
+        name="link"
+        value={data.link}
         onChange={handleChange}
         label="Link URL:"
         type="url"
-        error={errors.linkUrl}
+        error={errors.link}
       />
       <div className={styles.buttonGroupForm}>
         <Button variant="primary" type="button" onClick={onCancel}>
           Cancel
         </Button>
-        {/*todo when backend exists: only submit when data hasChanged()*/}
         <Button variant="secondary" onClick={handleSubmit}>
           Save
         </Button>

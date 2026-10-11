@@ -1,7 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '@/app/admin/manageDays/ManageDays.module.scss';
-import { Day, days } from '../../../../data/days';
+import type { Day, CreateDayInput } from '@/types/day';
 import Card from '@/components/Card/Card';
 import Button from '@/components/Buttons/Button/Button';
 import Modal from '@/components/Modal/Modal';
@@ -14,6 +14,9 @@ export default function ManageDaysPage() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<ModalMode>('create');
   const [currentDay, setCurrentDay] = useState<Day | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [days, setDays] = useState<Day[]>([]);
 
   function openModal(inDay: Day | null, mode: ModalMode) {
     setCurrentDay(inDay);
@@ -24,6 +27,42 @@ export default function ManageDaysPage() {
   function closeModal() {
     setIsModalOpen(false);
     setCurrentDay(null);
+  }
+
+  useEffect(() => {
+    async function loadDays() {
+      try {
+        const res = await fetch('/api/days');
+        if (!res.ok) throw new Error('Could not load days');
+        const data: Day[] = await res.json();
+        setDays(data);
+      } catch (err) {
+        setError((err as Error).message);
+      }
+    }
+    loadDays();
+  }, []);
+
+  async function handleSubmit(formData: CreateDayInput) {
+    try {
+      setIsSubmitting(true);
+      const res = await fetch('/api/days', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error('Could not create day');
+      }
+      const created: Day = await res.json();
+      setDays((prev) => [...prev, created]);
+      closeModal();
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -54,23 +93,20 @@ export default function ManageDaysPage() {
         {/* This is a placeholder for the deleteForm component */}
         {modalMode === 'delete' ? null : (
           <ManageDaysForm
-            key={currentDay?.day ?? 'newDay'}
+            key={currentDay?.id ?? 'newDay'}
             day={currentDay ?? null}
             onCancel={closeModal}
-            onSubmit={(updatedDay) => {
-              console.log(updatedDay);
-              closeModal();
-            }}
+            onSubmit={handleSubmit}
           />
         )}
       </Modal>
       <ul className={styles.cardGrid}>
         {days.map((inDay) => (
-          <li key={inDay.day}>
+          <li key={inDay.id}>
             <Card>
               <div className={styles.manageDaysWrapper}>
-                <p className={styles.dayLabel}>Day {inDay.day}</p>
-                <h2>{inDay.title}</h2>
+                <p className={styles.dayLabel}>Day {inDay.date}</p>
+                <h2>{inDay.heading}</h2>
                 <p className={styles.clampedText}>{inDay.text}</p>
                 <div className={styles.buttonGroup}>
                   <Button
