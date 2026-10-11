@@ -47,19 +47,30 @@ export default function ManageDaysPage() {
   async function handleSubmit(formData: CreateDayInput) {
     if (isSubmitting) return;
 
+    const isEdit = modalMode === 'edit' && currentDay;
+
     try {
       setIsSubmitting(true);
-      const res = await fetch('/api/days', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        isEdit ? `/api/days/${currentDay.id}` : '/api/days',
+        {
+          method: isEdit ? 'PATCH' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        },
+      );
 
       if (!res.ok) {
-        throw new Error('Could not create day');
+        throw new Error(
+          isEdit ? 'Could not update day' : 'Could not create day',
+        );
       }
-      const created: Day = await res.json();
-      setDays((prev) => [...prev, created]);
+      const saved: Day = await res.json();
+      setDays((prev) =>
+        isEdit
+          ? prev.map((day) => (day.id === saved.id ? saved : day))
+          : [...prev, saved],
+      );
       closeModal();
     } catch (err) {
       setError((err as Error).message);
