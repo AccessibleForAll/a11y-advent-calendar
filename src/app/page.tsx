@@ -1,18 +1,77 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import styles from './page.module.scss';
 import DayButton from '@/components/DayButton/DayButton';
 import Modal from '@/components/Modal/Modal';
-import { days } from '../../data/days';
 import { isDayUnlocked } from '@/lib/dayUnlock';
+import { readCachedDays, saveCachedDays } from '@/lib/daysCache';
+import type { Day } from '@/types/day';
+
+type Status = 'loading' | 'ready' | 'error';
+
+const calendarDays = Array.from({ length: 24 }, (_, i) => String(i + 1));
+
+// Shown in modal when there is no tip for the selected day
+const statusMessages: Record<Status, string> = {
+  loading: 'Loading accessibility tip…',
+  error: 'Could not load this accessibility tip. Please try again later.',
+  ready: 'No tip has been added for this day yet.',
+};
+
+//Dates are stored at UTC midnight.
+const getDayNumber = (day: Day) => String(new Date(day.date).getUTCDate());
+
+// Uses the data saved in localStorage today, otherwise fetches and saves it.
+async function loadDays(): Promise<Day[]> {
+  const cachedDays = readCachedDays(window.localStorage);
+
+  if (cachedDays) {
+    return cachedDays;
+  }
+
+  const response = await fetch('/api/days');
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch days');
+  }
+
+  const days = (await response.json()) as Day[];
+  saveCachedDays(window.localStorage, days);
+
+  return days;
+}
 
 export default function Home() {
+  const [days, setDays] = useState<Day[]>([]);
+  const [status, setStatus] = useState<Status>('loading');
   const [selectedDayId, setSelectedDayId] = useState<string | null>(null);
 
-  const selectedDay = days.find((d) => d.day === selectedDayId) ?? null;
-  const isModalOpen = selectedDay !== null;
+  useEffect(() => {
+    let stateUpdateCancelled = false;
+
+    loadDays()
+      .then((data) => {
+        if (!stateUpdateCancelled) {
+          setDays(data);
+          setStatus('ready');
+        }
+      })
+      .catch(() => {
+        if (!stateUpdateCancelled) {
+          setStatus('error');
+        }
+      });
+
+    return () => {
+      stateUpdateCancelled = true;
+    };
+  }, []);
+
+  const selectedDay =
+    days.find((d) => getDayNumber(d) === selectedDayId) ?? null;
+  const isModalOpen = selectedDayId !== null;
 
   const handleDayClick = (dayId: string) => {
     setSelectedDayId(dayId);
@@ -33,12 +92,12 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        {days.map((dayItem) => (
+        {calendarDays.map((day) => (
           <DayButton
-            key={dayItem.day}
-            day={dayItem.day}
-            isLocked={!isDayUnlocked(dayItem.day)}
-            onClick={() => handleDayClick(dayItem.day)}
+            key={day}
+            day={day}
+            isLocked={!isDayUnlocked(day)}
+            onClick={() => handleDayClick(day)}
           />
         ))}
       </div>
@@ -46,16 +105,16 @@ export default function Home() {
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        title={`Day ${selectedDay?.day}`}
+        title={`Day ${selectedDayId}`}
         smallTitle={true}
       >
         {selectedDay && (
           <>
-            <h2 className={styles.modalHeading}>{selectedDay.title}</h2>
+            <h2 className={styles.modalHeading}>{selectedDay.heading}</h2>
             <p className={styles.modalText}>{selectedDay.text}</p>
-            {selectedDay.linkText && selectedDay.linkUrl && (
+            {selectedDay.linkText && selectedDay.link && (
               <a
-                href={selectedDay.linkUrl}
+                href={selectedDay.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.modalLink}
@@ -69,6 +128,11 @@ export default function Home() {
               </a>
             )}
           </>
+        )}
+        {isModalOpen && !selectedDay && (
+          <p className={styles.modalText} role="status">
+            {statusMessages[status]}
+          </p>
         )}
       </Modal>
     </>

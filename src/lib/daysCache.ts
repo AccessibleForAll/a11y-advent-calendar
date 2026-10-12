@@ -1,0 +1,48 @@
+import { format } from 'date-fns';
+import type { Day } from '@/types/day';
+
+const STORAGE_KEY = 'advent-calendar-days';
+
+type CachedDays = {
+  savedOn: string;
+  days: Day[];
+};
+
+const toDateKey = (date: Date) => format(date, 'yyyy-MM-dd');
+
+//Returns the saved days if they were saved today otherwise null so the caller fetches fresh data
+export function readCachedDays(
+  storage: Pick<Storage, 'getItem'>,
+  currentDate: Date = new Date(),
+): Day[] | null {
+  try {
+    const storedJson = storage.getItem(STORAGE_KEY);
+
+    if (!storedJson) {
+      return null;
+    }
+
+    const cached = JSON.parse(storedJson) as CachedDays;
+
+    if (cached.savedOn !== toDateKey(currentDate)) {
+      return null;
+    }
+
+    return Array.isArray(cached.days) ? cached.days : null;
+  } catch {
+    return null;
+  }
+}
+
+export function saveCachedDays(
+  storage: Pick<Storage, 'setItem'>,
+  days: Day[],
+  currentDate: Date = new Date(),
+): void {
+  try {
+    const cached: CachedDays = { savedOn: toDateKey(currentDate), days };
+    storage.setItem(STORAGE_KEY, JSON.stringify(cached));
+  } catch {
+    //Storage can be full or blocked but the page still works without cache
+  }
+}
