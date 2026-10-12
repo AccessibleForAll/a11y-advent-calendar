@@ -45,7 +45,7 @@ export default function Header() {
   }
 
   return (
-    <>
+    <div className={styles.headerShell}>
       <header
         className={[styles.header, isAdminRoute ? styles.adminHeader : '']
           .filter(Boolean)
@@ -99,6 +99,6 @@ export default function Header() {
           onSignOut={handleSignOut}
         />
       )}
-    </>
+    </div>
   );
 }

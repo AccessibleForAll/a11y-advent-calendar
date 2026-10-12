@@ -2,6 +2,12 @@
 @use '../../styles/abstracts/colors' as *;
 @use '../../styles/abstracts/functions' as *;
 
+.headerShell {
+  position: relative;
+  width: 100%;
+  z-index: 10;
+}
+
 .header {
   display: flex;
   align-items: center;

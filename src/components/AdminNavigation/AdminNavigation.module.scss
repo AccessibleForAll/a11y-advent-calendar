@@ -6,15 +6,17 @@
 
 .desktopNavigation {
   display: none;
-  background: map.get($bg-colors, off-white);
+  background: map.get($bg-colors, primary);
   color: map.get($text-colors, primary);
+  box-shadow: 0 space(xs) space(xs) rgb(41 79 48 / 25%);
+  height: 55px;
 }
 
 .desktopNavigationInner {
-  width: 100%;
+  height: 100%;
   max-width: $content-max-width;
   margin-inline: auto;
-  padding: space(xl);
+  padding: 0 space(xl);
 
   display: flex;
   align-items: center;
@@ -43,9 +45,15 @@
 
 .mobileNavigation {
   display: none;
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  width: 100%;
+  z-index: 1;
   background: map.get($bg-colors, surface);
   color: map.get($text-colors, primary);
   padding: space(md);
+  box-shadow: 0 4px 4px rgb(41 79 48 / 25%);
 }
 
 .mobileNavigation:not([hidden]) {
