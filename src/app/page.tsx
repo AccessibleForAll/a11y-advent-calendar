@@ -9,12 +9,21 @@ import { isDayUnlocked } from '@/lib/dayUnlock';
 import { readCachedDays, saveCachedDays } from '@/lib/daysCache';
 import type { Day } from '@/types/day';
 
+type Status = 'loading' | 'ready' | 'error';
+
 const calendarDays = Array.from({ length: 24 }, (_, i) => String(i + 1));
 
-// Dates are stored at UTC midnight, so read the day number in UTC.
+// Shown in modal when there is no tip for the selected day
+const statusMessages: Record<Status, string> = {
+  loading: 'Loading accessibility tip…',
+  error: 'Could not load this accessibility tip. Please try again later.',
+  ready: 'No tip has been added for this day yet.',
+};
+
+//Dates are stored at UTC midnight.
 const getDayNumber = (day: Day) => String(new Date(day.date).getUTCDate());
 
-// Uses the copy saved in localStorage today, otherwise fetches and saves it.
+// Uses the data saved in localStorage today, otherwise fetches and saves it.
 async function loadDays(): Promise<Day[]> {
   const cachedDays = readCachedDays(window.localStorage);
 
@@ -36,9 +45,7 @@ async function loadDays(): Promise<Day[]> {
 
 export default function Home() {
   const [days, setDays] = useState<Day[]>([]);
-  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>(
-    'loading',
-  );
+  const [status, setStatus] = useState<Status>('loading');
   const [selectedDayId, setSelectedDayId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -124,10 +131,7 @@ export default function Home() {
         )}
         {isModalOpen && !selectedDay && (
           <p className={styles.modalText} role="status">
-            {status === 'loading' && 'Loading tip…'}
-            {status === 'error' &&
-              'Something went wrong while loading this tip. Please try again later.'}
-            {status === 'ready' && 'No tip has been added for this day yet.'}
+            {statusMessages[status]}
           </p>
         )}
       </Modal>

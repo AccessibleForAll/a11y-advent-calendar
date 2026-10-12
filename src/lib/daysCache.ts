@@ -10,7 +10,7 @@ type CachedDays = {
 
 const toDateKey = (date: Date) => format(date, 'yyyy-MM-dd');
 
-// returns the saved days if they were saved the same day, otherwise null so the caller fetches fresh data
+//Returns the saved days if they were saved today otherwise null so the caller fetches fresh data
 export function readCachedDays(
   storage: Pick<Storage, 'getItem'>,
   currentDate: Date = new Date(),
@@ -43,6 +43,6 @@ export function saveCachedDays(
     const cached: CachedDays = { savedOn: toDateKey(currentDate), days };
     storage.setItem(STORAGE_KEY, JSON.stringify(cached));
   } catch {
-    //Storage can have issues but the page still works.
+    //Storage can be full or blocked but the page still works without cache
   }
 }
