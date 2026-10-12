@@ -57,7 +57,7 @@ export default function UserForm({ user, onCancel, onSubmit }: UserFormProps) {
         value={data.email}
         onChange={handleChange}
         label="Email:"
-        type="text"
+        type="email"
       />
       <div className={styles.buttonGroup}>
         <Button variant="primary" type="button" onClick={onCancel}>
