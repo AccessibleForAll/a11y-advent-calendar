@@ -49,23 +49,23 @@ export default function Home() {
   const [selectedDayId, setSelectedDayId] = useState<string | null>(null);
 
   useEffect(() => {
-    let ignore = false;
+    let stateUpdateCancelled = false;
 
     loadDays()
       .then((data) => {
-        if (!ignore) {
+        if (!stateUpdateCancelled) {
           setDays(data);
           setStatus('ready');
         }
       })
       .catch(() => {
-        if (!ignore) {
+        if (!stateUpdateCancelled) {
           setStatus('error');
         }
       });
 
     return () => {
-      ignore = true;
+      stateUpdateCancelled = true;
     };
   }, []);
 

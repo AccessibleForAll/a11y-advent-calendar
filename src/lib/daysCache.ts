@@ -16,13 +16,13 @@ export function readCachedDays(
   currentDate: Date = new Date(),
 ): Day[] | null {
   try {
-    const raw = storage.getItem(STORAGE_KEY);
+    const storedJson = storage.getItem(STORAGE_KEY);
 
-    if (!raw) {
+    if (!storedJson) {
       return null;
     }
 
-    const cached = JSON.parse(raw) as CachedDays;
+    const cached = JSON.parse(storedJson) as CachedDays;
 
     if (cached.savedOn !== toDateKey(currentDate)) {
       return null;
