@@ -14,11 +14,17 @@ type ManageDaysFormProps = {
   onSubmit: (data: Day) => void;
 };
 
-function validateDay(data: Day, minDate: string) {
+function validateData(data: Day, minDate: string) {
   const result: Partial<Record<keyof Day, string>> = {};
 
   if (!data.day) result.day = 'Choose a date';
   else if (data.day < minDate) result.day = 'Choose a date in the future';
+  else {
+    const monthAndDay = data.day.slice(5);
+    if (monthAndDay < '12-01' || monthAndDay > '12-24') {
+      result.day = 'Choose a date between December 1 and 24';
+    }
+  }
 
   if (!data.title.trim()) result.title = 'Heading is required';
 
@@ -29,6 +35,10 @@ function validateDay(data: Day, minDate: string) {
 
   if (linkUrl && !linkText) {
     result.linkText = 'Link text is required if URL is given';
+  }
+
+  if (linkText && !linkUrl) {
+    result.linkUrl = 'Link URL is required if text is given';
   }
 
   if (linkUrl) {
@@ -62,10 +72,8 @@ export default function ManageDaysForm({
     setData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const newErrors = validateDay(data, minDate);
+  function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+    const newErrors = validateData(data, minDate);
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
@@ -79,11 +87,7 @@ export default function ManageDaysForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={styles.modalContentWrapper}
-      noValidate
-    >
+    <form className={styles.modalContentWrapper} noValidate>
       <p className={styles.requiredNote}>
         Fields marked with an asterisk (*) are required.
       </p>
@@ -136,7 +140,7 @@ export default function ManageDaysForm({
           Cancel
         </Button>
         {/*todo when backend exists: only submit when data hasChanged()*/}
-        <Button variant="secondary" type="submit" onClick={() => void 0}>
+        <Button variant="secondary" onClick={handleSubmit}>
           Save
         </Button>
       </div>
