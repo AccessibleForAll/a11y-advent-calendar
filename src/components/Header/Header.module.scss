@@ -16,3 +16,21 @@
   text-decoration: none;
   margin-top: space(xs);
 }
+
+.header .desktopThemeButton {
+  display: inline-flex;
+}
+
+.header .mobileMenuButton {
+  display: none;
+}
+
+@media (max-width: 48rem) {
+  .adminHeader .desktopThemeButton {
+    display: none;
+  }
+
+  .adminHeader .mobileMenuButton {
+    display: inline-flex;
+  }
+}

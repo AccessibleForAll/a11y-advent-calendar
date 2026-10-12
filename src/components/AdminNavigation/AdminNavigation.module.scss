@@ -1,0 +1,107 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+@use '../../styles/abstracts/variables' as *;
+@use '../../styles/abstracts/mixins' as *;
+
+.desktopNavigation {
+  display: none;
+  background: map.get($bg-colors, off-white);
+  color: map.get($text-colors, primary);
+}
+
+.desktopNavigationInner {
+  width: 100%;
+  max-width: $content-max-width;
+  margin-inline: auto;
+  padding: space(xl);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: space(md);
+}
+
+.desktopLinks {
+  display: flex;
+  align-items: center;
+  gap: space(xl);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  color: map.get($text-colors, primary);
+  text-decoration: underline;
+  text-underline-offset: space(xs);
+}
+
+.activeLink {
+  font-weight: bold;
+}
+
+.mobileNavigation {
+  display: none;
+  background: map.get($bg-colors, surface);
+  color: map.get($text-colors, primary);
+  padding: space(md);
+}
+
+.mobileNavigation:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  gap: space(md);
+}
+
+.mobileLinks {
+  display: flex;
+  flex-direction: column;
+  gap: space(md);
+  list-style: none;
+  margin: 0;
+  padding: 0 0 space(md);
+}
+
+.mobileActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: space(sm);
+  padding-top: space(md);
+}
+
+.mobileActions .mobileActionButton {
+  width: fit-content;
+  flex: 0 0 auto;
+}
+
+.signOutError {
+  display: flex;
+  align-items: center;
+  gap: space(xs);
+  width: 100%;
+  max-width: $content-max-width;
+  margin-inline: auto;
+  padding: space(sm) space(xl) 0;
+
+  &:empty {
+    padding: 0;
+  }
+}
+
+@include responsive-breakpoints(md) {
+  .desktopNavigation {
+    display: block;
+  }
+
+  .mobileNavigation,
+  .mobileNavigation:not([hidden]) {
+    display: none;
+  }
+
+  .signOutError {
+    padding-inline: space(xl);
+  }
+}
