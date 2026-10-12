@@ -8,9 +8,10 @@ async function getUsers(): Promise<User[]> {
   // http or https falls back to http in local
   const protocol = headersList.get('x-forwarded-proto') ?? 'http';
 
-  // Fetches the users from the API
+  // Fetches the users from the API, passing on the login cookie so the API sees the session
   const res = await fetch(`${protocol}://${host}/api/users`, {
     cache: 'no-store',
+    headers: { cookie: headersList.get('cookie') ?? '' },
   });
 
   if (!res.ok) {
