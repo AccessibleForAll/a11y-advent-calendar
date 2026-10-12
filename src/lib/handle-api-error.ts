@@ -24,10 +24,19 @@ export function handleApiError(error: unknown) {
     'code' in error &&
     error.code === 11000
   ) {
-    return NextResponse.json(
-      { message: 'Email address already exists' },
-      { status: 409 },
-    );
+    const keyPattern =
+      'keyPattern' in error &&
+      typeof error.keyPattern === 'object' &&
+      error.keyPattern !== null
+        ? error.keyPattern
+        : undefined;
+
+    const message =
+      keyPattern && 'date' in keyPattern
+        ? 'A day already exists for this date'
+        : 'Email address already exists';
+
+    return NextResponse.json({ message: message }, { status: 409 });
   }
 
   return NextResponse.json(
