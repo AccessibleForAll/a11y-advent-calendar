@@ -42,7 +42,6 @@ export default function Header() {
         return;
       }
 
-      setIsMobileMenuOpen(false);
       router.replace('/login');
       router.refresh();
     } catch {
