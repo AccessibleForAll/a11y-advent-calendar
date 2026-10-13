@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Header.module.scss';
@@ -11,7 +11,18 @@ import { Menu, Sun, Moon } from 'lucide-react';
 import AdminNavigation from '@/components/AdminNavigation/AdminNavigation';
 import { authClient } from '@/lib/auth-client';
 
+const subscribe = () => () => {};
+function useIsMounted() {
+  return useSyncExternalStore(
+    subscribe,
+    () => true, // client
+    () => false, // server
+  );
+}
+
 export default function Header() {
+  const mounted = useIsMounted();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [signOutError, setSignOutError] = useState<string | null>(null);
 
@@ -24,13 +35,12 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   }
 
-  const { theme, resolvedTheme, setTheme } = useTheme();
-  const currentTheme = theme ?? resolvedTheme;
-  const isDark = currentTheme === 'dark';
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = mounted && resolvedTheme === 'dark';
   const isAdminRoute = pathname.startsWith('/admin');
 
   const handleThemeToggle = () => {
-    setTheme(isDark ? 'light' : 'dark');
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
 
   async function handleSignOut() {
@@ -67,13 +77,20 @@ export default function Header() {
 
         <div className={styles.headerActions}>
           <Button
-            className={styles.desktopThemeButton}
+            className={[
+              styles.desktopThemeButton,
+              !mounted ? styles.themeButtonHidden : '',
+            ]
+              .filter(Boolean)
+              .join(' ')
+          }
             variant="primary"
             onClick={handleThemeToggle}
             icon={isDark ? Sun : Moon}
           >
             {isDark ? 'Light Mode' : 'Dark Mode'}
           </Button>
+
           {isAdminRoute && (
             <Button
               className={styles.mobileMenuButton}

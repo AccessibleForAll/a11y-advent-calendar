@@ -31,6 +31,10 @@
   display: none;
 }
 
+.themeButtonHidden {
+  visibility: hidden;
+}
+
 @media (max-width: 48rem) {
   .adminHeader .desktopThemeButton {
     display: none;

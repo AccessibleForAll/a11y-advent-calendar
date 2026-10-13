@@ -8,7 +8,11 @@ type ThemeProviderProps = {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   return (
-    <NextThemeProvider attribute="data-theme" defaultTheme="system">
+    <NextThemeProvider
+      attribute="data-theme"
+      defaultTheme="system"
+      enableSystem
+    >
       {children}
     </NextThemeProvider>
   );
