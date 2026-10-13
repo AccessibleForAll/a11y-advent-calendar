@@ -73,7 +73,7 @@ export default function ManageDaysForm({
   const minDate = format(startOfTomorrow(), 'yyyy-MM-dd');
 
   const [data, setData] = useState<FormState>({
-    date: day?.date ?? '',
+    date: day?.date.slice(0, 10) ?? '',
     heading: day?.heading ?? '',
     text: day?.text ?? '',
     linkText: day?.linkText ?? '',
