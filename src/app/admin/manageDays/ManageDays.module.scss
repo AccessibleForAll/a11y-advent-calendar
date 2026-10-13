@@ -51,21 +51,9 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 .buttonGroup {
   display: flex;
   flex-direction: row;
   gap: map.get($spacing-scale, sm);
-}
-
-.modalContentWrapper {
-  display: flex;
-  flex-direction: column;
-  margin-top: space(xl);
-  gap: map.get($spacing-scale, sm);
-  align-items: center;
-
-  .buttonGroup {
-    width: 100%;
-    justify-content: flex-end;
-  }
 }

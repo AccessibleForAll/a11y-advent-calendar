@@ -1,0 +1,23 @@
+@use 'sass:map';
+@use '../../styles/abstracts/variables' as *;
+@use '../../styles/abstracts/functions' as *;
+
+.modalContentWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: space(xs);
+  gap: map.get($spacing-scale, sm);
+  align-items: center;
+}
+
+.buttonGroupForm {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.requiredNote {
+  align-self: flex-start;
+  font-size: type-size(sm);
+  font-weight: bold;
+}
