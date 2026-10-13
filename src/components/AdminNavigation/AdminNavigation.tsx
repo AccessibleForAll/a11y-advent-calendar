@@ -16,7 +16,7 @@ function isActivePath(pathname: string, href: string) {
 type AdminLinksProps = {
   pathname: string;
   className: string;
-  onNavigate: () => void;
+  onNavigate?: () => void;
 };
 
 function AdminLinks({ pathname, className, onNavigate }: AdminLinksProps) {
@@ -73,11 +73,7 @@ export default function AdminNavigation({
     <>
       <nav className={styles.desktopNavigation} aria-label="Admin">
         <div className={styles.desktopNavigationInner}>
-          <AdminLinks
-            pathname={pathname}
-            className={styles.desktopLinks}
-            onNavigate={onNavigate}
-          />
+          <AdminLinks pathname={pathname} className={styles.desktopLinks} />
 
           <Button variant="secondary" onClick={handleSignOut}>
             Sign out
@@ -87,9 +83,8 @@ export default function AdminNavigation({
 
       <nav
         id="admin-mobile-navigation"
-        className={styles.mobileNavigation}
+        className={`${styles.mobileNavigation} ${isMobileMenuOpen ? styles.isOpen : ''}`}
         aria-label="Admin"
-        hidden={!isMobileMenuOpen}
       >
         <AdminLinks
           pathname={pathname}
@@ -107,11 +102,7 @@ export default function AdminNavigation({
             {isDark ? 'Light Mode' : 'Dark Mode'}
           </Button>
 
-          <Button
-            variant="secondary"
-            onClick={handleSignOut}
-            className={styles.mobileActionButton}
-          >
+          <Button variant="secondary" onClick={handleSignOut}>
             Sign out
           </Button>
         </div>

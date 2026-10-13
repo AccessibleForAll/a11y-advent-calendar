@@ -8,7 +8,7 @@
   display: none;
   background: map.get($bg-colors, primary);
   color: map.get($text-colors, primary);
-  box-shadow: 0 space(xs) space(xs) rgb(41 79 48 / 25%);
+  box-shadow: 0 space(xs) space(xs) map.get($shadow-colors, primary);
   height: 55px;
 }
 
@@ -17,11 +17,9 @@
   max-width: $content-max-width;
   margin-inline: auto;
   padding: 0 space(xl);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: space(md);
 }
 
 .desktopLinks {
@@ -53,14 +51,20 @@
   background: map.get($bg-colors, surface);
   color: map.get($text-colors, primary);
   padding: space(md);
-  box-shadow: 0 4px 4px rgb(41 79 48 / 25%);
+  box-shadow: 0 space(xs) space(xs) map.get($shadow-colors, primary);
 }
 
-.mobileNavigation:not([hidden]) {
+.mobileNavigation.isOpen {
   display: flex;
   flex-direction: column;
   gap: space(md);
 }
+
+// .mobileNavigation:not([hidden]) {
+//   display: flex;
+//   flex-direction: column;
+//   gap: space(md);
+// }
 
 .mobileLinks {
   display: flex;
@@ -78,11 +82,6 @@
   flex-wrap: wrap;
   gap: space(sm);
   padding-top: space(md);
-}
-
-.mobileActions .mobileActionButton {
-  width: fit-content;
-  flex: 0 0 auto;
 }
 
 .signOutError {
@@ -105,7 +104,7 @@
   }
 
   .mobileNavigation,
-  .mobileNavigation:not([hidden]) {
+  .mobileNavigation.isOpen {
     display: none;
   }
 

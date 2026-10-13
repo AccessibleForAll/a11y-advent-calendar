@@ -81,7 +81,6 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
               aria-expanded={isMobileMenuOpen}
               aria-controls="admin-mobile-navigation"
-              aria-label="Toggle admin menu"
             >
               Menu
             </Button>
