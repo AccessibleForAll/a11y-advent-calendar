@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styles from '@/app/admin/manageDays/ManageDays.module.scss';
 import type { Day, CreateDayInput } from '@/types/day';
 import Card from '@/components/Card/Card';
@@ -10,6 +10,10 @@ import { Plus, Trash2Icon, PencilLine } from 'lucide-react';
 
 export type ModalMode = 'create' | 'edit' | 'delete';
 
+function sortByDate(a: Day, b: Day) {
+  return a.date.localeCompare(b.date);
+}
+
 export default function ManageDaysPage() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<ModalMode>('create');
@@ -17,6 +21,7 @@ export default function ManageDaysPage() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [days, setDays] = useState<Day[]>([]);
+  const sortedDays = useMemo(() => [...days].sort(sortByDate), [days]);
 
   function openModal(inDay: Day | null, mode: ModalMode) {
     setError(null);
@@ -151,11 +156,11 @@ export default function ManageDaysPage() {
         )}
       </Modal>
       <ul className={styles.cardGrid}>
-        {days.map((inDay) => (
+        {sortedDays.map((inDay) => (
           <li key={inDay.id}>
             <Card>
               <div className={styles.manageDaysWrapper}>
-                <p className={styles.dayLabel}>Day {inDay.date}</p>
+                <p className={styles.dayLabel}>Day {inDay.date.slice(0, 10)}</p>
                 <h2>{inDay.heading}</h2>
                 <p className={styles.clampedText}>{inDay.text}</p>
                 <div className={styles.buttonGroup}>
