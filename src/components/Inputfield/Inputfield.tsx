@@ -17,6 +17,7 @@ type InputFieldProps = {
   fullWidth?: boolean;
   min?: number | string;
   error?: string;
+  readOnly?: boolean;
 };
 
 export default function InputField({
@@ -31,6 +32,7 @@ export default function InputField({
   fullWidth = false,
   min,
   error,
+  readOnly,
 }: InputFieldProps) {
   return (
     <div className={`${styles.wrapper} ${fullWidth ? styles.fullWidth : ''}`}>
@@ -55,6 +57,7 @@ export default function InputField({
           onChange={onChange}
           rows={rows}
           required={required}
+          readOnly={readOnly}
           aria-invalid={!!error}
           aria-describedby={error ? `${name}-error` : undefined}
         />
@@ -69,6 +72,7 @@ export default function InputField({
           required={required}
           autoComplete={autoComplete}
           min={min}
+          readOnly={readOnly}
           aria-invalid={!!error}
           aria-describedby={error ? `${name}-error` : undefined}
         />
