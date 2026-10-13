@@ -16,10 +16,9 @@ function isActivePath(pathname: string, href: string) {
 type AdminLinksProps = {
   pathname: string;
   className: string;
-  onNavigate?: () => void;
 };
 
-function AdminLinks({ pathname, className, onNavigate }: AdminLinksProps) {
+function AdminLinks({ pathname, className }: AdminLinksProps) {
   return (
     <ul className={className}>
       {adminLinks.map(({ href, label }) => {
@@ -35,7 +34,6 @@ function AdminLinks({ pathname, className, onNavigate }: AdminLinksProps) {
                   : styles.navLink
               }
               aria-current={isActive ? 'page' : undefined}
-              onClick={onNavigate}
             >
               {label}
             </Link>
@@ -51,7 +49,6 @@ type AdminNavigationProps = {
   isMobileMenuOpen: boolean;
   isDark: boolean;
   signOutError: string | null;
-  onNavigate: () => void;
   onThemeToggle: () => void;
   onSignOut: () => Promise<void>;
 };
@@ -61,7 +58,6 @@ export default function AdminNavigation({
   isMobileMenuOpen,
   isDark,
   signOutError,
-  onNavigate,
   onThemeToggle,
   onSignOut,
 }: AdminNavigationProps) {
@@ -86,11 +82,7 @@ export default function AdminNavigation({
         className={`${styles.mobileNavigation} ${isMobileMenuOpen ? styles.isOpen : ''}`}
         aria-label="Admin"
       >
-        <AdminLinks
-          pathname={pathname}
-          className={styles.mobileLinks}
-          onNavigate={onNavigate}
-        />
+        <AdminLinks pathname={pathname} className={styles.mobileLinks} />
 
         <div className={styles.mobileActions}>
           <Button

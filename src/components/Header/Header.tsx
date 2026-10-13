@@ -18,6 +18,12 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const [previousPathname, setPreviousPathname] = useState(pathname);
+  if (pathname !== previousPathname) {
+    setPreviousPathname(pathname);
+    setIsMobileMenuOpen(false);
+  }
+
   const { theme, resolvedTheme, setTheme } = useTheme();
   const currentTheme = theme ?? resolvedTheme;
   const isDark = currentTheme === 'dark';
@@ -51,11 +57,7 @@ export default function Header() {
           .filter(Boolean)
           .join(' ')}
       >
-        <Link
-          href="/"
-          className={styles.logo}
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
+        <Link href="/" className={styles.logo}>
           <Image
             src="/images/axesslab-logo.png"
             alt="Axesslab Logo"
@@ -93,7 +95,6 @@ export default function Header() {
           isMobileMenuOpen={isMobileMenuOpen}
           isDark={isDark}
           signOutError={signOutError}
-          onNavigate={() => setIsMobileMenuOpen(false)}
           onThemeToggle={handleThemeToggle}
           onSignOut={handleSignOut}
         />
