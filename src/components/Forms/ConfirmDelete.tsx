@@ -1,6 +1,6 @@
 import Button from '@/components/Buttons/Button/Button';
 
-import styles from '@/app/admin/manageUsers/page.module.scss';
+import styles from './ConfirmDelete.module.scss';
 
 type ConfirmDeleteProps = {
   name: string;
