@@ -2,6 +2,12 @@
 @use '../../styles/abstracts/colors' as *;
 @use '../../styles/abstracts/functions' as *;
 
+.headerShell {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -15,4 +21,22 @@
 .logo {
   text-decoration: none;
   margin-top: space(xs);
+}
+
+.header .desktopThemeButton {
+  display: inline-flex;
+}
+
+.header .mobileMenuButton {
+  display: none;
+}
+
+@media (max-width: 48rem) {
+  .adminHeader .desktopThemeButton {
+    display: none;
+  }
+
+  .adminHeader .mobileMenuButton {
+    display: inline-flex;
+  }
 }
