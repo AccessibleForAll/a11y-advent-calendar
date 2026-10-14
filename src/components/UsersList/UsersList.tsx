@@ -1,3 +1,5 @@
+import { use } from 'react';
+
 import styles from './UsersList.module.scss';
 
 import UserCard from '@/components/UserCard/UserCard';
@@ -6,12 +8,18 @@ import UsersTable from '@/components/UsersTable/UsersTable';
 import type { User } from '@/types/user';
 
 type UsersListProps = {
-  users: User[];
+  usersPromise: Promise<User[]>;
   onEdit: (user: User) => void;
   onDelete: (user: User) => void;
 };
 
-export default function UsersList({ users, onEdit, onDelete }: UsersListProps) {
+export default function UsersList({
+  usersPromise,
+  onEdit,
+  onDelete,
+}: UsersListProps) {
+  const users = use(usersPromise);
+
   return (
     <>
       <div className={styles.table}>
