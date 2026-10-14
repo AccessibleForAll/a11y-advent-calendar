@@ -21,6 +21,12 @@
     padding: space(md);
   }
 
+  // Space between the columns that shrinks with the screen width
+  th:not(:last-child),
+  td:not(:last-child) {
+    padding-inline-end: clamp(#{space(md)}, 6vw, #{space(xxl) * 2});
+  }
+
   tbody tr {
     border-top: 1px solid map.get($border-colors, primary);
   }
