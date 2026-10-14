@@ -4,6 +4,7 @@ import styles from '@/app/admin/manageDays/ManageDays.module.scss';
 import type { Day, CreateDayInput } from '@/types/day';
 import Card from '@/components/Card/Card';
 import Button from '@/components/Buttons/Button/Button';
+import ConfirmDelete from '@/components/Forms/ConfirmDelete';
 import Modal from '@/components/Modal/Modal';
 import ManageDaysForm from '@/components/Forms/ManageDaysForm';
 import { Plus, Trash2Icon, PencilLine } from 'lucide-react';
@@ -132,20 +133,13 @@ export default function ManageDaysPage() {
         }
       >
         {modalMode === 'delete' ? (
-          <>
-            <p>
-              Are you sure you want to delete{' '}
-              <strong>{currentDay?.heading}</strong>?
-            </p>
-            <div className={styles.buttonGroup}>
-              <Button variant="secondary" onClick={closeModal}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={handleDelete}>
-                Delete
-              </Button>
-            </div>
-          </>
+          <ConfirmDelete
+            name={currentDay?.heading ?? ''}
+            onCancel={closeModal}
+            onSubmit={handleDelete}
+            isSubmitting={isSubmitting}
+            error={error}
+          />
         ) : (
           <ManageDaysForm
             key={currentDay?.id ?? 'newDay'}
