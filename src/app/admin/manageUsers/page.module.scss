@@ -1,17 +1,39 @@
-@use 'sass:map';
 @use '../../../styles/abstracts/functions' as *;
-@use '../../../styles/abstracts/colors' as *;
 
 .headerRow {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: space(md);
-  margin-block-end: space(xl);
+  margin-bottom: space(xl);
+  margin-inline: auto;
+
+  @media (max-width: 33rem) {
+    gap: space(md);
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .title {
-  color: map.get($text-colors, primary);
-  font-size: type-size(xxl);
+  margin-inline: 0;
+  margin-bottom: 0;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  gap: space(sm);
+}
+
+.modalContentWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: space(xl);
+  gap: space(sm);
+  align-items: center;
+
+  .buttonGroup {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }

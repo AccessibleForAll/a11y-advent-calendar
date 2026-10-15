@@ -1,0 +1,114 @@
+@use 'sass:map';
+@use '../../styles/abstracts/colors' as *;
+@use '../../styles/abstracts/functions' as *;
+@use '../../styles/abstracts/variables' as *;
+@use '../../styles/abstracts/mixins' as *;
+
+.desktopNavigation {
+  display: none;
+  background: map.get($bg-colors, primary);
+  color: map.get($text-colors, primary);
+  box-shadow: 0 space(xs) space(xs) map.get($shadow-colors, primary);
+  height: 55px;
+}
+
+.desktopNavigationInner {
+  height: 100%;
+  max-width: $content-max-width;
+  margin-inline: auto;
+  padding: 0 space(xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.desktopLinks {
+  display: flex;
+  align-items: center;
+  gap: space(xl);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  color: map.get($text-colors, primary);
+  text-decoration: underline;
+  text-underline-offset: space(xs);
+}
+
+.activeLink {
+  font-weight: bold;
+}
+
+.mobileNavigation {
+  display: none;
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  width: 100%;
+  z-index: 1;
+  background: map.get($bg-colors, surface);
+  color: map.get($text-colors, primary);
+  padding: space(md);
+  box-shadow: 0 space(xs) space(xs) map.get($shadow-colors, primary);
+}
+
+.mobileNavigation.isOpen {
+  display: flex;
+  flex-direction: column;
+  gap: space(md);
+}
+
+// .mobileNavigation:not([hidden]) {
+//   display: flex;
+//   flex-direction: column;
+//   gap: space(md);
+// }
+
+.mobileLinks {
+  display: flex;
+  flex-direction: column;
+  gap: space(md);
+  list-style: none;
+  margin: 0;
+  padding: 0 0 space(md);
+}
+
+.mobileActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: space(sm);
+  padding-top: space(md);
+}
+
+.signOutError {
+  display: flex;
+  align-items: center;
+  gap: space(xs);
+  width: 100%;
+  max-width: $content-max-width;
+  margin-inline: auto;
+  padding: space(sm) space(xl) 0;
+
+  &:empty {
+    padding: 0;
+  }
+}
+
+@include responsive-breakpoints(md) {
+  .desktopNavigation {
+    display: block;
+  }
+
+  .mobileNavigation,
+  .mobileNavigation.isOpen {
+    display: none;
+  }
+
+  .signOutError {
+    padding-inline: space(xl);
+  }
+}

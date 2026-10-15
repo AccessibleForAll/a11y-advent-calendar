@@ -2,7 +2,8 @@
 @use '../../styles/abstracts/colors' as *;
 @use '../../styles/abstracts/functions' as *;
 
-.userCard {
+// Doubled class so these overrides beat Card's .card regardless of CSS load order
+.userCard.userCard {
   padding: 0;
   border-radius: space(sm);
   overflow: hidden;

@@ -18,7 +18,7 @@ $button-content-size: type-size(md);
 }
 
 .border-match-secondary {
-  border-color: map.get($bg-colors, secondary);
+  border-color: map.get($border-colors, secondary);
 }
 
 .text-primary {

@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import Day from '@/models/Day';
 import type { CreateDayInput } from '@/types/day';
+import { handleApiError } from '@/lib/handle-api-error';
+import { parseCalendarDate } from '@/lib/validations/day';
 
 export async function GET() {
   try {
@@ -18,12 +20,7 @@ export async function GET() {
 
     return NextResponse.json(response);
   } catch (error) {
-    return NextResponse.json(
-      {
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }
 
@@ -32,9 +29,17 @@ export async function POST(request: Request) {
     await connectToDatabase();
 
     const body = (await request.json()) as CreateDayInput;
+    const date = parseCalendarDate(body.date);
+
+    if (!date) {
+      return NextResponse.json(
+        { message: 'Date must be a valid date in YYYY-MM-DD format' },
+        { status: 400 },
+      );
+    }
 
     const day = await Day.create({
-      date: body.date,
+      date,
       heading: body.heading,
       text: body.text,
       linkText: body.linkText,
@@ -53,11 +58,6 @@ export async function POST(request: Request) {
       { status: 201 },
     );
   } catch (error) {
-    return NextResponse.json(
-      {
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }

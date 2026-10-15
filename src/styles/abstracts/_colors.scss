@@ -19,8 +19,13 @@ $bg-colors: (
 
 $border-colors: (
   primary: var(--color-border-primary),
+  secondary: var(--color-border-active),
   inactive: var(--color-border-inactive),
   active: var(--color-border-active),
   inactive-dark: var(--color-border-inactive-dark),
   black: var(--color-border-black),
+);
+
+$shadow-colors: (
+  primary: var(--color-shadow-primary),
 );

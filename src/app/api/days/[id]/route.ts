@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import Day from '@/models/Day';
+import { handleApiError } from '@/lib/handle-api-error';
+import { parseCalendarDate } from '@/lib/validations/day';
 import type { UpdateDayInput } from '@/types/day';
 
 type RouteContext = {
@@ -39,7 +41,16 @@ export async function PATCH(request: Request, { params }: RouteContext) {
     }
 
     if (body.date !== undefined) {
-      day.date = body.date;
+      const date = parseCalendarDate(body.date);
+
+      if (!date) {
+        return NextResponse.json(
+          { message: 'Date must be a valid date in YYYY-MM-DD format' },
+          { status: 400 },
+        );
+      }
+
+      day.date = date;
     }
 
     if (body.heading !== undefined) {
@@ -62,12 +73,7 @@ export async function PATCH(request: Request, { params }: RouteContext) {
 
     return NextResponse.json(serializeDay(day));
   } catch (error) {
-    return NextResponse.json(
-      {
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }
 
@@ -85,11 +91,6 @@ export async function DELETE(_request: Request, { params }: RouteContext) {
 
     return new Response(null, { status: 204 });
   } catch (error) {
-    return NextResponse.json(
-      {
-        message: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }

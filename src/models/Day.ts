@@ -5,6 +5,7 @@ const daySchema = new mongoose.Schema(
     date: {
       type: Date,
       required: true,
+      unique: true,
     },
     heading: {
       type: String,
